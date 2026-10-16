@@ -64,6 +64,8 @@ button:hover{background:var(--accent-soft)}
 .social a:hover{border-color:var(--accent);color:var(--accent)}
 .social svg{width:18px;height:18px;flex:none}
 .social.contact{margin:.25rem 0 1rem}
+.bgvid{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-1;opacity:.32;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.bgvid{display:none}}
 footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(--mono);color:var(--muted)}
 @media (max-width:760px){
   header.hero{grid-template-columns:minmax(0,1fr);padding-block:2rem 1.5rem}
@@ -73,6 +75,7 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
 }
 </style>
 
+<video class="bgvid" src="media/research-bg.mp4" poster="media/research-bg-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
 <div class="wrap">
 <nav aria-label="Sections"><a href="#about">About</a><a href="#teaching">Teaching</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#background">Background</a><a href="#contact">Contact</a></nav>
 
