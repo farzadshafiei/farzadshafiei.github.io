@@ -64,10 +64,13 @@ ul.plain li{margin-bottom:.4rem}
 .pubs .t{font-weight:600}
 .pubs .v{color:var(--muted);font-size:.92rem}
 .contact-row{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;margin-bottom:.75rem}
-.addr{font:500 1.05rem var(--mono);word-break:break-all}
+.addr{font:500 1.05rem var(--mono);word-break:break-all;color:var(--ink);text-decoration:none}
+a.addr:hover{color:var(--accent);text-decoration:underline}
 button{font:500 .8rem var(--mono);background:var(--surface);color:var(--accent);border:1px solid var(--accent);padding:.35rem .8rem;border-radius:3px;cursor:pointer}
 button:hover{background:var(--accent-soft)}
 .demo video{display:block;width:100%;height:auto;border:1px solid var(--rule);background:#0b1f3a}
+.damper video{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;background:#05080d}
+.damper figcaption{font:400 .88rem/1.55 var(--sans);color:var(--muted);margin-top:.6rem;max-width:44rem}
 .demo figcaption{font:400 .85rem/1.5 var(--sans);color:var(--muted);margin-top:.6rem;max-width:42rem}
 .social{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:0}
 .social a{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border:1px solid var(--rule);border-radius:999px;color:var(--ink);text-decoration:none;font:500 .82rem var(--sans);background:var(--surface);transition:border-color .15s,color .15s}
@@ -229,6 +232,10 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
   <p>With colleagues at UVA I published three studies at the ASEE Annual Conference. The first examined how remote instruction during COVID-19 affected students in applied mathematics courses for engineers. The second used a grading option to measure engineering students' confidence in mathematics. The third explored how mastery grading affects student performance. These findings shape how I structure my own courses.</p>
   <h3>Shape memory alloy dampers</h3>
   <p>My M.Sc. thesis at UVA, advised by Prof. O. E. Ozbulut, developed self-centering control devices that use shape memory alloys to reduce seismic response at several hazard levels. A related paper in <em>Smart Materials and Structures</em> (2022) studies steel frames upgraded with NiTiHfPd re-centering dampers.</p>
+  <figure class="damper" style="margin:1rem 0 1.5rem">
+    <video src="media/smard-damper.mp4" poster="media/smard-damper-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of the SMA re-centering damper: a 9-story frame sways, the damper's piston moves, its SMA bars and spring compress, and the flag-shaped force-displacement loop is traced"></video>
+    <figcaption>The SMARD in motion. As the building sways, the piston pushes one plate while the baffle holds the other, so the NiTiHfPd bars and spring are compressed in either direction and the device traces a flag-shaped loop: it dissipates energy and re-centers the structure. Based on Figures 4, 5 and 15 of the paper.</figcaption>
+  </figure>
   <h3>Optimization with graph theory</h3>
   <p>My first M.Sc. thesis, advised by Prof. Ali Kaveh, proposed seven graph-theoretical algorithms for improving the conditioning of structural flexibility matrices. This work appeared in <em>Engineering Computations</em> (2022).</p>
   <h3>Interests</h3>
@@ -274,8 +281,13 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
 
 <section id="contact"><h2>Contact</h2><div class="body">
   <div class="contact-row">
-    <span class="addr" id="addr">farzadshafieidizaji@gmail.com</span>
-    <button type="button" id="copy">Copy address</button>
+    <a class="addr" href="mailto:farzadshafieidizaji@gmail.com">farzadshafieidizaji@gmail.com</a>
+    <button type="button" class="copy" data-copy="farzadshafieidizaji@gmail.com">Copy</button>
+  </div>
+  <div class="contact-row">
+    <a class="addr" href="mailto:ffs5da@virginia.edu">ffs5da@virginia.edu</a>
+    <button type="button" class="copy" data-copy="ffs5da@virginia.edu">Copy</button>
+    <span class="meta" style="margin:0">University of Virginia</span>
   </div>
   <p>Charlottesville, Virginia</p>
   <ul class="social contact"><li><a href="https://scholar.google.com/citations?user=aKvi7Q0AAAAJ&amp;hl=en" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 9.5l11 7.5 7.5-5.1V18h2V9.5L12 2z"/><circle cx="12" cy="17.2" r="4.6" fill="currentColor"/></svg><span>Google Scholar</span></a></li><li><a href="https://www.researchgate.net/profile/Farzad-Shafiei-Dizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="currentColor"/><text x="12" y="16.4" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" font-weight="700" fill="var(--surface)" letter-spacing="-.3">R<tspan font-size="9" dy="-2.4">G</tspan></text></svg><span>ResearchGate</span></a></li><li><a href="https://independent.academia.edu/farzadshafieidizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 2 7v2h20V7L12 2zM4 10.5h2.6v7.5H4zm4.7 0h2.6v7.5H8.7zm4.7 0h2.6v7.5h-2.6zm4.7 0H20.7v7.5h-2.6zM2 19.5h20V22H2z"/></svg><span>Academia.edu</span></a></li><li><a href="https://www.linkedin.com/in/farzad-shafiei-dizaji-143945a6/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 1.5h16A2.5 2.5 0 0 1 22.5 4v16a2.5 2.5 0 0 1-2.5 2.5H4A2.5 2.5 0 0 1 1.5 20V4A2.5 2.5 0 0 1 4 1.5zM5.3 9.4v9.3h3V9.4h-3zm1.5-4.6a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM10.4 9.4v9.3h3v-4.9c0-1.4.6-2.2 1.7-2.2 1 0 1.5.7 1.5 2.1v5h3v-5.7c0-2.7-1.5-3.8-3.4-3.8-1.4 0-2.3.6-2.8 1.3V9.4h-3z"/></svg><span>LinkedIn</span></a></li><li><a href="https://github.com/farzadshafiei" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></li><li><a href="https://www.instagram.com/shafieidizaji/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor"/></svg><span>Instagram</span></a></li></ul>
@@ -286,11 +298,13 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
 
 <script>
 (function(){
-  var b=document.getElementById('copy'),a=document.getElementById('addr');
-  b.addEventListener('click',function(){
-    var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy address'},1500)};
-    var sel=function(){var r=document.createRange();r.selectNodeContents(a);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'};
-    try{navigator.clipboard.writeText(a.textContent).then(done,sel)}catch(e){sel()}
+  document.querySelectorAll('button.copy').forEach(function(b){
+    var label=b.textContent, txt=b.getAttribute('data-copy');
+    b.addEventListener('click',function(){
+      var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent=label},1500)};
+      var sel=function(){var a=b.previousElementSibling,r=document.createRange();r.selectNodeContents(a);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(function(){b.textContent=label},1500)};
+      try{navigator.clipboard.writeText(txt).then(done,sel)}catch(e){sel()}
+    });
   });
 })();
 </script>
