@@ -59,6 +59,11 @@ button{font:500 .8rem var(--mono);background:var(--surface);color:var(--accent);
 button:hover{background:var(--accent-soft)}
 .demo video{display:block;width:100%;height:auto;border:1px solid var(--rule);background:#0b1f3a}
 .demo figcaption{font:400 .85rem/1.5 var(--sans);color:var(--muted);margin-top:.6rem;max-width:42rem}
+.social{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:0}
+.social a{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border:1px solid var(--rule);border-radius:999px;color:var(--ink);text-decoration:none;font:500 .82rem var(--sans);background:var(--surface);transition:border-color .15s,color .15s}
+.social a:hover{border-color:var(--accent);color:var(--accent)}
+.social svg{width:18px;height:18px;flex:none}
+.social.contact{margin:.25rem 0 1rem}
 footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(--mono);color:var(--muted)}
 @media (max-width:760px){
   header.hero{grid-template-columns:minmax(0,1fr);padding-block:2rem 1.5rem}
@@ -189,7 +194,7 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
     <button type="button" id="copy">Copy address</button>
   </div>
   <p>Charlottesville, Virginia</p>
-  <p><a href="https://scholar.google.com/citations?user=aKvi7Q0AAAAJ&amp;hl=en" rel="noopener">Google Scholar profile</a> · <a href="https://www.linkedin.com/in/farzad-shafiei-dizaji-143945a6/" rel="noopener">LinkedIn profile</a></p>
+  <ul class="social contact"><li><a href="https://scholar.google.com/citations?user=aKvi7Q0AAAAJ&amp;hl=en" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 9.5l11 7.5 7.5-5.1V18h2V9.5L12 2z"/><circle cx="12" cy="17.2" r="4.6" fill="currentColor"/></svg><span>Google Scholar</span></a></li><li><a href="https://www.linkedin.com/in/farzad-shafiei-dizaji-143945a6/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 1.5h16A2.5 2.5 0 0 1 22.5 4v16a2.5 2.5 0 0 1-2.5 2.5H4A2.5 2.5 0 0 1 1.5 20V4A2.5 2.5 0 0 1 4 1.5zM5.3 9.4v9.3h3V9.4h-3zm1.5-4.6a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM10.4 9.4v9.3h3v-4.9c0-1.4.6-2.2 1.7-2.2 1 0 1.5.7 1.5 2.1v5h3v-5.7c0-2.7-1.5-3.8-3.4-3.8-1.4 0-2.3.6-2.8 1.3V9.4h-3z"/></svg><span>LinkedIn</span></a></li><li><a href="https://github.com/farzadshafiei" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></li><li><a href="https://www.instagram.com/shafieidizaji/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor"/></svg><span>Instagram</span></a></li></ul>
 </div></section>
 
 <footer>© Farzad Shafiei Dizaji · Draft for review</footer>
