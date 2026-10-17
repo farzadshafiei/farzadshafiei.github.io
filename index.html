@@ -138,6 +138,30 @@ nav .cv:hover{background:var(--accent-soft)}
 .method strong{color:var(--ink)}
 .badge{display:inline-block;margin-left:.5rem;font:600 .66rem var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:.12rem .4rem;border-radius:3px;vertical-align:middle}
 .badge.inq{background:var(--accent);color:#000}.badge.mas{background:var(--mark);color:#000}
+.materials{margin:1.5rem 0 1.75rem}
+.materials h3{margin:0 0 .35rem}
+.materials>p{margin:0 0 1rem;max-width:44rem}
+.syl{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:0 0 1.5rem}
+.syl div{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1rem 1.1rem}
+.syl h4{font:600 1.05rem/1.3 'Fraunces',var(--serif);margin:0 0 .2rem;color:var(--ink)}
+.syl .meta{margin:0 0 .5rem}
+.syl p{margin:0 0 .8rem;font-size:.93rem}
+.syl .act{display:flex;flex-wrap:wrap;gap:.5rem}
+.syl .act a{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .75rem;border:1px solid var(--accent);border-radius:5px;color:var(--accent);text-decoration:none;font:600 .84rem var(--sans)}
+.syl .act a:hover{background:var(--accent-soft)}
+.syl .act svg{width:15px;height:15px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:0 0 1rem;font:500 .8rem var(--mono);color:var(--muted)}
+.flow span{border:1px solid var(--rule);border-radius:999px;padding:.25rem .7rem;background:var(--surface);color:var(--ink)}
+.sheets{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:1rem}
+.sheets figure{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.sheets a.pv{display:block;height:15rem;overflow:hidden;background:#fff}
+.sheets img{width:100%;height:auto;display:block;transition:transform .3s}
+.sheets a.pv:hover img{transform:scale(1.03)}
+.sheets figcaption{padding:.8rem .95rem .95rem;font-size:.9rem;color:var(--muted)}
+.sheets figcaption b{display:block;color:var(--ink);font-weight:600;margin-bottom:.2rem}
+.sheets .tag{display:inline-block;font:600 .64rem var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:.1rem .4rem;border-radius:3px;margin-bottom:.4rem;color:#000;background:var(--accent)}
+.sheets .tag.p{background:var(--mark)}
+.materials .note{font-size:.85rem;color:var(--muted);margin:.8rem 0 0}
 footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(--mono);color:var(--muted)}
 @media (max-width:760px){
   header.hero{grid-template-columns:minmax(0,1fr);padding-block:2rem 1.5rem}
@@ -232,6 +256,28 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
       <tr><td>Applied Statistics and Probability</td><td>APMA 3110</td><td>Upper level</td></tr>
     </tbody>
   </table></div>
+  <div class="materials" id="materials">
+  <h3>Course materials</h3>
+  <p>Sample syllabi and worksheets from courses I taught at UVA.</p>
+  <div class="syl">
+    <div><h4>Ordinary Differential Equations</h4><p class="meta">APMA 2130 · Spring 2025 · 8 pages</p><p>Inquiry-based course built around pre-class and in-class worksheets, with four midterms, written homework and a final.</p>
+      <p class="act"><a href="teaching/APMA2130_ODE_Syllabus_Spring2025.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>View</a><a href="teaching/APMA2130_ODE_Syllabus_Spring2025.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Download</a></p></div>
+    <div><h4>Single Variable Calculus II</h4><p class="meta">APMA 1110 · Spring 2026 · 8 pages</p><p>Active class sessions with collaborative in-class worksheets, weekly WebAssign homework, three tests and a final.</p>
+      <p class="act"><a href="teaching/APMA1110_Calculus_II_Syllabus_Spring2026.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>View</a><a href="teaching/APMA1110_Calculus_II_Syllabus_Spring2026.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Download</a></p></div>
+  </div>
+  <h3>How an inquiry-based ODE lesson runs</h3>
+  <p>Each lesson is a pair of worksheets. Students meet the idea on their own before class, then build it with classmates during class, so class time goes to discovery and discussion rather than lecture.</p>
+  <div class="flow"><span>Pre-class worksheet: think on your own</span>→<span>Check-in on the PCW</span>→<span>In-class worksheet in assigned groups</span>→<span>Class-wide discussion</span></div>
+  <div class="sheets">
+    <figure><a class="pv" href="teaching/pcw-spring-mass.jpg" target="_blank" rel="noopener"><img src="teaching/pcw-spring-mass.jpg" alt="First page of the APMA 2130 pre-class worksheet on spring-mass equations" loading="lazy" width="1020" height="1320"></a>
+      <figcaption><span class="tag">ODE · Pre-class</span><b>Spring-mass equations</b>Students label natural length and equilibrium on a hanging spring, then derive each force on their own before the class builds the equation of motion.</figcaption></figure>
+    <figure><a class="pv" href="teaching/icw-unit-step.jpg" target="_blank" rel="noopener"><img src="teaching/icw-unit-step.jpg" alt="First page of the APMA 2130 in-class worksheet on unit step and impulse functions" loading="lazy" width="1020" height="1320"></a>
+      <figcaption><span class="tag">ODE · In-class</span><b>Unit step and impulse functions</b>Groups sketch step functions, then use them to write piecewise forcing terms for initial value problems.</figcaption></figure>
+    <figure><a class="pv" href="teaching/prob-classwork.jpg" target="_blank" rel="noopener"><img src="teaching/prob-classwork.jpg" alt="First page of the APMA 3100 class work on continuous random variables" loading="lazy" width="1020" height="1320"></a>
+      <figcaption><span class="tag p">Probability · Class work</span><b>Discrete vs. continuous random variables</b>APMA 3100, sections 4.1–4.4: classifying random variables, PMF vs. PDF, CDFs, expected value and variance.</figcaption></figure>
+  </div>
+  <p class="note">The first page of each worksheet is shown. Full worksheets and solutions are available to search committees on request.</p>
+  </div>
   <p>I taught fully online sections from Spring 2020 to Spring 2021, including a compressed Summer 2020 ODE section of 26 students.</p>
   <div class="award">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>
