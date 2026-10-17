@@ -186,6 +186,12 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
   section{grid-template-columns:minmax(0,1fr);gap:.75rem}
   section>h2{margin:0}
 }
+/* sticky top menu */
+nav[aria-label="Sections"]{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);margin-inline:-16px;padding-inline:16px;transition:box-shadow .2s,border-color .2s}
+nav[aria-label="Sections"].stuck{box-shadow:0 6px 18px rgba(0,0,0,.6);border-bottom-color:var(--accent-soft)}
+nav[aria-label="Sections"] a.here{color:var(--accent)}
+section,figure[id],div[id]{scroll-margin-top:4.5rem!important}
+@media (max-width:760px){nav[aria-label="Sections"]{flex-wrap:nowrap;overflow-x:auto;gap:1rem;padding-block:.75rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}nav[aria-label="Sections"]::-webkit-scrollbar{display:none}nav[aria-label="Sections"] a{white-space:nowrap;flex:none}section,figure[id],div[id]{scroll-margin-top:3.6rem!important}}
 /* wide layout: use the full screen, big videos */
 .wrap{max-width:min(90rem,100%)}
 @media (min-width:761px){
@@ -515,6 +521,19 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
     else if(e.boundingClientRect.top>0){e.target.classList.remove('on');}
   });},{threshold:.35});
   paras.forEach(function(p){io.observe(p);});
+})();
+</script>
+<script>
+(function(){
+  var nav=document.querySelector('nav[aria-label="Sections"]'); if(!nav)return;
+  var onScroll=function(){nav.classList.toggle('stuck',window.scrollY>nav.offsetTop+4);};
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  if(!('IntersectionObserver' in window))return;
+  var links={}; nav.querySelectorAll('a[href^="#"]').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&links[e.target.id]){Object.values(links).forEach(function(a){a.classList.remove('here');});links[e.target.id].classList.add('here'); if(nav.scrollWidth>nav.clientWidth){var a=links[e.target.id]; nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});}}
+  });},{rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(links).forEach(function(id){var el=document.getElementById(id); if(el)io.observe(el);});
 })();
 </script>
 </body></html>
