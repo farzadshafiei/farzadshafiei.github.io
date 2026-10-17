@@ -186,6 +186,21 @@ footer{border-top:1px solid var(--rule);padding-top:1.25rem;font:400 .78rem var(
   section{grid-template-columns:minmax(0,1fr);gap:.75rem}
   section>h2{margin:0}
 }
+/* wide layout: use the full screen, big videos */
+.wrap{max-width:min(90rem,100%)}
+@media (min-width:761px){
+  section{grid-template-columns:9.5rem minmax(0,1fr);gap:2.5rem}
+  .body figure.damper{margin-left:-12rem!important;width:calc(100% + 12rem);max-width:calc(100% + 12rem)}
+  .body figure.damper figcaption{max-width:56rem}
+  #demo figure.body{grid-column:1/-1}
+  #demo figcaption{max-width:56rem}
+  .body p,.pull,ul.plain,.materials>p{max-width:56rem}
+  .pubs{max-width:60rem}
+  header.hero{grid-template-columns:minmax(0,1fr) clamp(21rem,30vw,30rem);gap:clamp(2.5rem,4vw,4.5rem)}
+  .lede{max-width:46rem}
+  .methods{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1400px){h1{font-size:clamp(4.8rem,5.2vw,6rem)}}
 </style>
 
 <video class="bgvid" src="media/research-bg.mp4" poster="media/research-bg-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
