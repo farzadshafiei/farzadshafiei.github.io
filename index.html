@@ -1681,4 +1681,13 @@ G.DamNN={DT,whiteNoise,shaped,simulate,Net,pairs};
   new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;startTrain();}}).observe(root);
 })();
 </script>
+<!-- GoatCounter visitor statistics: only on the live site, not on local copies or previews -->
+<script>
+(function(){if(location.hostname!=='farzadshafiei.github.io')return;
+  var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter','https://farzadshafiei.goatcounter.com/count');document.head.appendChild(s);
+  // also count opens of CVs, resumes, statements, papers and teaching PDFs, and clicks to outside profiles
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||!window.goatcounter||!window.goatcounter.count)return;var h=a.getAttribute('href');
+    if(/\.pdf($|\?)/i.test(h))window.goatcounter.count({path:'pdf: '+h.replace(/^.*\//,''),title:a.textContent.trim().slice(0,80),event:true});
+    else if(/^https?:/i.test(h)&&a.host!==location.host)window.goatcounter.count({path:'link: '+a.host,title:a.textContent.trim().slice(0,80),event:true});},true);})();
+</script>
 </body></html>
