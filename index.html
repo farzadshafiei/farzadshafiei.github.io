@@ -318,6 +318,9 @@ header.hero{padding-top:2.5rem}
 .lab .sm-pane[hidden]{display:none}
 .sm-scroll{overflow-x:auto;max-width:100%}
 .lab .seg{flex-wrap:wrap}
+/* dam lab */
+.dm-tabs{margin-bottom:1rem}
+.lab .dm-pane[hidden]{display:none}
 /* CV & resumes */
 .docs-intro{margin:0 0 1.25rem;max-width:56rem}
 .docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
@@ -776,6 +779,57 @@ header.hero{padding-top:2.5rem}
   <p class="read" id="hRead"></p>
   <p class="hx-cap"></p>
   <p class="fine">The NDS neuron tab follows the paper's equations exactly. The other tabs reproduce the <em>kind</em> of loop in each example (symmetric or not, saturated, degrading, rate-dependent), built from the same neurons; they are illustrations, not the measured data or the trained networks from the paper.</p>
+</div>
+  <h3>Neural networks for dam–reservoir–foundation interaction</h3>
+  <p>With A. Joghataie and M. Shafiei Dizaji, I built a "neuro-modeller" for Pine Flat concrete gravity dam (International Conference on Intelligent Computational Systems, ICICS'2012, Dubai). Nonlinear finite element analysis of a cracking dam that includes the reservoir and the foundation is slow. We trained a feed-forward network with 15 input nodes, 8 sigmoid hidden neurons and 2 output nodes on 20 seconds of the dam's response to a white-noise earthquake (1000 input–output pairs at 0.02 s). Its outputs, the crest displacement and velocity at the next time step, are fed back as inputs, which gives the network the memory it needs to follow hysteretic behaviour. Once trained, it reproduced the finite element response to El Centro, Taft and Corralitos records that it had never seen, in far less time.</p>
+<div class="lab damper" id="lab-dam">
+  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Train a neuro-modeller for Pine Flat Dam</p>
+  <p class="sub">Train the network yourself on a white-noise record, then let it predict the dam's crest displacement under earthquakes it has never seen, step by step, feeding its own output back as input.</p>
+  <div class="hx-tabs dm-tabs" role="tablist" aria-label="Neuro-modeller views">
+    <button type="button" class="hx-tab" role="tab" aria-selected="true" data-t="train">1 · Train on white noise</button>
+    <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="pred">2 · Predict new earthquakes</button>
+    <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="net">3 · How it remembers</button>
+  </div>
+
+  <div class="dm-pane" data-p="train">
+    <div class="grid">
+      <canvas id="dmNet" width="640" height="420" aria-label="Network diagram with weights"></canvas>
+      <canvas id="dmMse" width="560" height="420" aria-label="Training error"></canvas>
+    </div>
+    <div class="ctrl">
+      <button type="button" class="b primary" id="dmTrain">Train</button>
+      <button type="button" class="b" id="dmRe">Start over</button>
+      <label>Training record peak <input id="dmPk" type="range" min="0.2" max="0.8" step="0.05" value="0.6"><span id="dmPkV">0.60 g</span></label>
+    </div>
+    <p class="read" id="dmTRead"></p>
+    <p class="fine">Full-batch backpropagation (Adam) on the mean square error of 999 input–output pairs. Stop early and try the Predict tab to see what an under-trained network does. The network predicts the change over one time step, which it adds to the current displacement and velocity.</p>
+  </div>
+
+  <div class="dm-pane" data-p="pred" hidden>
+    <div class="grid">
+      <canvas id="dmDam" width="640" height="440" aria-label="Pine Flat dam cross-section shaking"></canvas>
+      <canvas id="dmTh" width="560" height="440" aria-label="Crest displacement: finite element versus neuro-modeller"></canvas>
+    </div>
+    <div class="ctrl">
+      <span class="seg" role="group" aria-label="Earthquake">
+        <button type="button" aria-pressed="true" data-q="A">Record A · near-field</button><button type="button" aria-pressed="false" data-q="B">Record B · far-field</button><button type="button" aria-pressed="false" data-q="C">Record C · high-frequency</button><button type="button" aria-pressed="false" data-q="W">Training record</button>
+      </span>
+      <button type="button" class="b primary" id="dmPlay">Play</button>
+    </div>
+    <p class="read" id="dmPRead"></p>
+    <p class="fine">Illustrative stand-in for the NSAG-DRI finite element analysis: the dam's first mode (period 0.32 s, 5% damping) with a heel crack that opens past 0.7 cm and lowers the stiffness, then closes again. Records A–C are synthetic motions with different frequency content; the paper tested El Centro, Taft and Corralitos. Deformations are exaggerated.</p>
+  </div>
+
+  <div class="dm-pane" data-p="net" hidden>
+    <canvas id="dmLoop" width="1100" height="430" aria-label="Recurrent use of the network, one step at a time"></canvas>
+    <div class="ctrl">
+      <button type="button" class="b primary" id="dmStep">Next time step</button>
+      <button type="button" class="b" id="dmAuto">Run</button>
+      <button type="button" class="b" id="dmRst">Back to t = 0</button>
+    </div>
+    <p class="read" id="dmLRead"></p>
+    <p class="fine">Figure 9 of the paper: at each step only the new ground accelerations come from outside; the displacement and velocity the network predicted a moment ago are fed back as inputs. This "side memory" is what lets a static feed-forward network follow the dam's history.</p>
+  </div>
 </div>
   <h3>Interests</h3>
   <ul class="chips" style="margin-top:.5rem"><li>Smart structures</li><li>Energy dissipation</li><li>Structural optimization</li><li>Machine learning</li><li>Finite element methods</li><li>Earthquake engineering</li><li>Structural health monitoring</li><li>System identification</li></ul>
@@ -1431,6 +1485,198 @@ bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});qs.forEach(functio
   function redraw(){if(tab==='dev'){drawDev();drawLoop();drawHist();readout();}else if(tab==='tmp'){drawTemp();}else design();}
   new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));if(vis.has(root)&&(mode!=='idle'))kick();}).observe(root);
   reset();tempTable();redraw();
+})();
+</script>
+<script>
+// Shared core: dam target model, ground motions, 15-8-2 neuro-modeller (used by the web page and node tests)
+(function(G){
+const DT=0.02, NH=13;
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+function gauss(r){let u=0,v=0;while(!u)u=r();v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+// ground motions (g), 0.02 s steps
+function whiteNoise(T=20,seed=7,pk=0.5){const r=rng(seed),n=Math.round(T/DT),a=[];let lp=0;for(let i=0;i<n;i++){lp=0.25*lp+0.75*gauss(r);a.push(lp);}const m=Math.max(...a.map(Math.abs));return a.map(v=>v*pk/m);}
+function shaped(kind,T=10){const n=Math.round(T/DT),a=[];const r=rng(kind==='A'?11:kind==='B'?23:37);
+  const comp={A:[[1,1.3,.2],[.7,2.1,1.1],[.5,3.4,2.2],[.35,5.2,.4],[.25,0.8,3.0]],B:[[.8,1.8,.9],[.7,2.7,2.4],[.55,4.1,.3],[.4,6.3,1.7],[.3,1.1,5.2]],C:[[.9,3.2,.5],[.7,4.6,2.8],[.6,6.8,1.3],[.4,9.5,.1],[.3,2.2,4.4]]}[kind];
+  const pk={A:.40,B:.30,C:.27}[kind], env=t=>kind==='A'?Math.min(1,t/1)*Math.exp(-Math.max(0,t-2.5)/2.8):kind==='B'?Math.min(1,t/2.5)*Math.exp(-Math.max(0,t-4.5)/3.5):Math.min(1,t/.6)*Math.exp(-Math.max(0,t-1.8)/2.2);
+  for(let i=0;i<n;i++){const t=i*DT;let s=0;for(const [m,f,p] of comp)s+=m*Math.sin(2*Math.PI*f*t+p);s+=0.35*gauss(r);a.push(env(t)*s);}
+  const m=Math.max(...a.map(Math.abs));return a.map(v=>v*pk/m);}
+// "finite element" stand-in: crest SDOF with tension cracking (stiffness drops with peak drift; cracks close on return)
+function simulate(ag,opt={}){const T1=opt.T1||0.32,z=opt.z||0.05,w=2*Math.PI/T1,uc=opt.uc||0.7,dmax=(opt.dmax!=null?opt.dmax:(globalThis.DMAX!=null?globalThis.DMAX:0.55)),G_=opt.G||1.0;
+  let u=0,v=0,up=0;const Y=[],V=[],D=[],sub=20,h=DT/sub;
+  const f=(u,up)=>w*w*(u>uc?uc+(1-dmax)*(u-uc):u);
+  for(let i=0;i<ag.length;i++){Y.push(u);V.push(v);D.push(Math.max(0,u-uc));const a0=ag[i],a1=i+1<ag.length?ag[i+1]:0;
+    for(let k=0;k<sub;k++){const ae=(a0+(a1-a0)*k/sub)*981*G_; // cm/s2
+      const acc=(uu,vv)=>-ae-2*z*w*vv-f(uu,up);
+      const k1v=acc(u,v),k1u=v,k2v=acc(u+h/2*k1u,v+h/2*k1v),k2u=v+h/2*k1v,k3v=acc(u+h/2*k2u,v+h/2*k2v),k3u=v+h/2*k2v,k4v=acc(u+h*k3u,v+h*k3v),k4u=v+h*k3v;
+      u+=h/6*(k1u+2*k2u+2*k3u+k4u);v+=h/6*(k1v+2*k2v+2*k3v+k4v);up=Math.max(up,Math.abs(u));}
+    }
+  return {y:Y,v:V,d:D};}
+// network
+function Net(seed=3){const r=rng(seed),ni=15,nh=8,no=2;this.ni=ni;this.nh=nh;this.no=no;
+  this.W1=Array.from({length:nh},()=>Array.from({length:ni},()=>gauss(r)*0.3));this.b1=new Array(nh).fill(0);
+  this.W2=Array.from({length:no},()=>Array.from({length:nh},()=>gauss(r)*0.3));this.b2=new Array(no).fill(0);
+  this.sc={y:4,v:60,a:0.4,dy:1.2,dv:25};this.m=null;this.vv=null;this.t=0;}
+Net.prototype.input=function(y,v,ag,i){const x=[y/this.sc.y,v/this.sc.v];for(let k=0;k<NH;k++){const j=i+1-k;x.push((j>=0&&j<ag.length?ag[j]:0)/this.sc.a);}return x;};
+Net.prototype.fwd=function(x){const h=this.W1.map((w,j)=>{let s=this.b1[j];for(let k=0;k<x.length;k++)s+=w[k]*x[k];return 1/(1+Math.exp(-s));});
+  const o=this.W2.map((w,j)=>{let s=this.b2[j];for(let k=0;k<h.length;k++)s+=w[k]*h[k];return s;});return {h,o};};
+Net.prototype.params=function(){return [this.W1,this.b1,this.W2,this.b2];};
+// training pairs from a simulated record
+function pairs(net,ag,sim){const P=[];for(let i=0;i+1<ag.length;i++)P.push([net.input(sim.y[i],sim.v[i],ag,i),[(sim.y[i+1]-sim.y[i])/net.sc.dy,(sim.v[i+1]-sim.v[i])/net.sc.dv]]);return P;}
+// one epoch of full-batch Adam; returns MSE (normalised units)
+Net.prototype.epoch=function(P,lr=0.01){const g1=this.W1.map(r=>r.map(()=>0)),gb1=this.b1.map(()=>0),g2=this.W2.map(r=>r.map(()=>0)),gb2=this.b2.map(()=>0);let mse=0;
+  for(const [x,t] of P){const {h,o}=this.fwd(x);const e=o.map((v,j)=>v-t[j]);mse+=e.reduce((s,v)=>s+v*v,0)/e.length;
+    for(let j=0;j<this.no;j++){gb2[j]+=e[j];for(let k=0;k<this.nh;k++)g2[j][k]+=e[j]*h[k];}
+    for(let k=0;k<this.nh;k++){let d=0;for(let j=0;j<this.no;j++)d+=e[j]*this.W2[j][k];d*=h[k]*(1-h[k]);gb1[k]+=d;for(let q=0;q<x.length;q++)g1[k][q]+=d*x[q];}}
+  const N=P.length,grads=[g1,gb1,g2,gb2],ps=this.params();if(!this.m){this.m=grads.map(zero);this.vv=grads.map(zero);}
+  this.t++;const b1=.9,b2=.999,T=this.t;
+  ps.forEach((p,pi)=>walk(p,grads[pi],this.m[pi],this.vv[pi]));
+  function walk(p,g,m,v){for(let i=0;i<p.length;i++){if(Array.isArray(p[i]))walk(p[i],g[i],m[i],v[i]);else{const gi=g[i]/N;m[i]=b1*m[i]+(1-b1)*gi;v[i]=b2*v[i]+(1-b2)*gi*gi;p[i]-=lr*(m[i]/(1-Math.pow(b1,T)))/(Math.sqrt(v[i]/(1-Math.pow(b2,T)))+1e-8);}}}
+  return mse/N;};
+function zero(a){return Array.isArray(a)?a.map(zero):0;}
+// recurrent rollout: output fed back as next input
+Net.prototype.rollout=function(ag){let y=0,v=0;const Y=[0];for(let i=0;i+1<ag.length;i++){const {o}=this.fwd(this.input(y,v,ag,i));y+=o[0]*this.sc.dy;v+=o[1]*this.sc.dv;Y.push(y);}return Y;};
+G.DamNN={DT,whiteNoise,shaped,simulate,Net,pairs};
+})(typeof window!=='undefined'?window:globalThis);
+
+/* ======================= Pine Flat dam neuro-modeller lab ======================= */
+(function(){
+  const root=document.getElementById('lab-dam'); if(!root||!window.DamNN)return;
+  const {DT,whiteNoise,shaped,simulate,Net,pairs}=window.DamNN;
+  const $=s=>root.querySelector(s),$$=s=>[...root.querySelectorAll(s)];
+  const C={ink:'#e6ecf2',muted:'#9aa8b6',rule:'#27436b',blue:'#6bb7e3',orange:'#f09a6e',yel:'#e8c547',vio:'#9b8cff',green:'#7bd389',red:'#e0605a',bg:'#05080d'};
+  function prep(cv){cv._w0=cv.width;cv._h0=cv.height;const g=cv.getContext('2d');const res=()=>{const r=window.devicePixelRatio||1,w=cv.clientWidth||cv._w0;cv.style.height=(w*cv._h0/cv._w0)+'px';cv.width=Math.round(w*r);cv.height=Math.round(w*r*cv._h0/cv._w0);g.setTransform(cv.width/cv._w0,0,0,cv.height/cv._h0,0,0);};res();window.addEventListener('resize',()=>{res();redraw();});return g;}
+  const bg=(g,W,H,t)=>{g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);if(t){g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.textAlign='left';g.fillText(t,18,26);}};
+  const EP=1200,LR=0.03;
+  let tab='train',net,P,wn,mse=[],training=false,started=false,trainRaf=0;
+
+  /* ---------- training ---------- */
+  function newRun(){const pk=+$('#dmPk').value;wn=whiteNoise(20,7,pk);const s=simulate(wn);net=new Net(3);P=pairs(net,wn,s);mse=[];cache={};}
+  function trainFrame(){trainRaf=0;if(!training)return;const t0=performance.now();
+    while(performance.now()-t0<14&&mse.length<EP)mse.push(net.epoch(P,LR));
+    if(mse.length>=EP){training=false;$('#dmTrain').textContent='Trained';cache={};}
+    if(tab==='train')drawTrain();tRead();if(training)trainRaf=requestAnimationFrame(trainFrame);}
+  function startTrain(){if(mse.length>=EP)return;training=true;$('#dmTrain').textContent='Pause';cache={};if(!trainRaf)trainRaf=requestAnimationFrame(trainFrame);}
+  $('#dmTrain').onclick=()=>{if(training){training=false;$('#dmTrain').textContent='Continue training';cache={};drawTrain();tRead();}else startTrain();};
+  $('#dmRe').onclick=()=>{training=false;newRun();$('#dmTrain').textContent='Train';drawTrain();tRead();};
+  $('#dmPk').oninput=e=>{$('#dmPkV').textContent=(+e.target.value).toFixed(2)+' g';training=false;newRun();$('#dmTrain').textContent='Train';drawTrain();tRead();};
+  function tRead(){const m=mse.length?mse[mse.length-1]:null;$('#dmTRead').innerHTML=`epoch <b>${mse.length}</b> / ${EP} · training MSE <b>${m?m.toExponential(2):'–'}</b>${mse.length>=EP?' · done: try the Predict tab':''}`;}
+
+  const gN=prep($('#dmNet')),gM=prep($('#dmMse'));
+  const INL=['y','ẏ','a','a','a','a','a','a','a','a','a','a','a','a','a'],INS=['i','i','i+1','i','i−1','i−2','i−3','i−4','i−5','i−6','i−7','i−8','i−9','i−10','i−11'];
+  function netGeom(W,H,x0,x1,x2,top,bot){const yi=k=>top+(bot-top)*k/14,yh=k=>top+20+(bot-top-40)*k/7,yo=k=>(top+bot)/2+(k-0.5)*90;return {yi,yh,yo,x0,x1,x2};}
+  function drawNet(g,G,act){const {yi,yh,yo,x0,x1,x2}=G;let mx=1e-9;net.W1.forEach(r=>r.forEach(w=>mx=Math.max(mx,Math.abs(w))));let mx2=1e-9;net.W2.forEach(r=>r.forEach(w=>mx2=Math.max(mx2,Math.abs(w))));
+    for(let j=0;j<8;j++)for(let k=0;k<15;k++){const w=net.W1[j][k],a=Math.abs(w)/mx;g.strokeStyle=w>0?`rgba(107,183,227,${.05+.6*a})`:`rgba(240,154,110,${.05+.6*a})`;g.lineWidth=.6+1.6*a;g.beginPath();g.moveTo(x0,yi(k));g.lineTo(x1,yh(j));g.stroke();}
+    for(let o=0;o<2;o++)for(let j=0;j<8;j++){const w=net.W2[o][j],a=Math.abs(w)/mx2;g.strokeStyle=w>0?`rgba(107,183,227,${.1+.7*a})`:`rgba(240,154,110,${.1+.7*a})`;g.lineWidth=.8+2*a;g.beginPath();g.moveTo(x1,yh(j));g.lineTo(x2,yo(o));g.stroke();}
+    for(let k=0;k<15;k++){g.fillStyle=k<2?C.green:C.blue;g.beginPath();g.arc(x0,yi(k),5.5,0,7);g.fill();}
+    for(let j=0;j<8;j++){const h=act?act.h[j]:.5;g.fillStyle=`rgba(232,197,71,${.35+.65*h})`;g.beginPath();g.arc(x1,yh(j),9,0,7);g.fill();g.strokeStyle=C.yel;g.lineWidth=1.2;g.stroke();
+      g.strokeStyle='#04121c';g.lineWidth=1.3;g.beginPath();for(let q=-6;q<=6;q++){const xx=x1+q,yy=yh(j)+4-8/(1+Math.exp(-q*0.9));q===-6?g.moveTo(xx,yy):g.lineTo(xx,yy);}g.stroke();}
+    for(let o=0;o<2;o++){g.fillStyle=C.orange;g.beginPath();g.arc(x2,yo(o),8,0,7);g.fill();}
+    g.textAlign='left';for(let k=0;k<15;k++){g.fillStyle=k<2?C.green:C.muted;g.font='italic 12px Georgia,serif';g.fillText(INL[k],x0-58,yi(k)+4);g.font='9px Georgia,serif';g.fillText(INS[k],x0-49,yi(k)+7);}
+    g.textAlign='left';g.fillStyle=C.orange;g.font='italic 13px Georgia,serif';g.fillText('Δy',x2+14,yo(0)+4);g.fillText('Δẏ',x2+14,yo(1)+4);g.textAlign='left';}
+  function drawTrain(){const W=640,H=420;bg(gN,W,H,'15–8–2 neuro-modeller · epoch '+mse.length);
+    drawNet(gN,netGeom(W,H,110,340,560,58,392),null);
+    gN.font='12px Inter,sans-serif';gN.fillStyle=C.muted;gN.fillText('inputs',90,48);gN.fillText('8 sigmoid neurons',290,48);gN.fillText('outputs',535,48);
+    gN.fillStyle=C.blue;gN.fillRect(18,H-16,10,10);gN.fillStyle=C.muted;gN.fillText('positive weight',33,H-7);gN.fillStyle=C.orange;gN.fillRect(150,H-16,10,10);gN.fillStyle=C.muted;gN.fillText('negative weight',165,H-7);
+    // MSE
+    const g=gM,X=e=>60+e/EP*(W-60-140),lo=-5,hi=0,Y=m=>60+(hi-Math.log10(Math.max(1e-5,m)))/(hi-lo)*(H-120);bg(g,560,420,'Training error (mean square, log scale)');
+    g.strokeStyle=C.rule;g.lineWidth=1;g.font='10px ui-monospace,Menlo,monospace';g.fillStyle='#6d7a88';g.textAlign='right';
+    for(let p=lo;p<=hi;p++){g.beginPath();g.moveTo(60,Y(10**p));g.lineTo(520,Y(10**p));g.stroke();g.fillText('1e'+p,54,Y(10**p)+3);}
+    g.textAlign='center';for(let e=0;e<=EP;e+=300)g.fillText(e,60+e/EP*460,H-40);g.fillStyle=C.muted;g.font='12px Inter,sans-serif';g.fillText('epochs',290,H-20);g.textAlign='left';
+    const XX=e=>60+e/EP*460;g.strokeStyle=C.orange;g.lineWidth=2;g.beginPath();mse.forEach((m,i)=>{i?g.lineTo(XX(i),Y(m)):g.moveTo(XX(i),Y(m));});g.stroke();
+    if(mse.length){const m=mse[mse.length-1];g.fillStyle=C.orange;g.beginPath();g.arc(XX(mse.length-1),Y(m),5,0,7);g.fill();g.font='600 13px ui-monospace,Menlo,monospace';g.fillText(m.toExponential(1),Math.min(470,XX(mse.length-1)+8),Y(m)-8);}
+    // training record strip
+    g.strokeStyle=C.blue;g.lineWidth=1;g.beginPath();wn.forEach((a,i)=>{const x=60+i/wn.length*460,y=H-8-28+(-a/0.8)*14;i?g.lineTo(x,y):g.moveTo(x,y);});
+    g.font='11px Inter,sans-serif';g.fillStyle=C.muted;}
+
+  /* ---------- predict ---------- */
+  let cache={},q='A',play=0,pt=0,last=0,shown=null;
+  function result(k){if(cache[k])return cache[k];const ag=k==='W'?wn:shaped(k);const s=simulate(ag);const p=net.rollout(ag);
+    const pk=Math.max(...s.y.map(Math.abs)),pp=Math.max(...p.map(Math.abs)),rms=Math.sqrt(s.y.reduce((a,v,i)=>a+(v-p[i])**2,0)/s.y.length);
+    return cache[k]={ag,y:s.y,v:s.v,p,pk,pp,rms};}
+  const gD=prep($('#dmDam')),gT=prep($('#dmTh'));
+  const H0=122,PTS=[[0,0],[0,122],[9.75,122],[9.75,109.7],[95.8,0]];
+  function drawDam(R,i){const W=640,H=440;bg(gD,W,H,'Pine Flat Dam, tallest monolith (122 m)');const ag=R?R.ag[i]:0,u=R?R.y[i]:0,un=R?R.p[i]:0,shake=ag*14;
+    const s=2.15,x0=210+shake,y0=345,EX=7,X=(x,h)=>x0+x*s+EX*u*Math.pow(h/H0,1.6),Y=h=>y0-h*s;
+    // foundation
+    gD.fillStyle='#2a2f38';gD.fillRect(10+shake,y0,620,70);gD.strokeStyle='#3d4655';for(let k=0;k<14;k++){gD.beginPath();gD.moveTo(20+k*46+shake,y0+8);gD.lineTo(4+k*46+shake,y0+62);gD.stroke();}
+    gD.fillStyle=C.muted;gD.font='12px Inter,sans-serif';gD.fillText('foundation rock',470,y0+50);
+    // reservoir
+    const hw=116.2;gD.fillStyle='rgba(56,120,190,.35)';gD.beginPath();gD.moveTo(10+shake,y0);gD.lineTo(10+shake,Y(hw));gD.lineTo(X(0,hw),Y(hw));for(let h=hw;h>=0;h-=4)gD.lineTo(X(0,h),Y(h));gD.closePath();gD.fill();
+    gD.strokeStyle='rgba(120,180,240,.6)';gD.lineWidth=1;for(let k=0;k<6;k++){const yy=Y(hw)+2+Math.sin(performance.now()/400+k)*1.5;gD.beginPath();gD.moveTo(20+k*28+shake,yy);gD.lineTo(34+k*28+shake,yy);gD.stroke();}
+    gD.fillStyle='rgba(160,200,240,.85)';gD.fillText('reservoir',30,Y(60));
+    // hydrodynamic pressure (Westergaard shape, sign of ground acceleration)
+    for(let h=8;h<hw;h+=14){const p=Math.sqrt(hw*(hw-h))/hw,L=Math.min(60,Math.abs(ag)*130*p),d=ag>0?1:-1;if(L<2)continue;const xa=X(0,h),ya=Y(h);gD.strokeStyle=C.blue;gD.fillStyle=C.blue;gD.lineWidth=1.6;gD.beginPath();gD.moveTo(xa-6-L*(d>0?1:0),ya);gD.lineTo(xa-6-L*(d>0?0:1),ya);gD.stroke();
+      const tip=d>0?xa-6:xa-6-L;gD.beginPath();gD.moveTo(tip+(d>0?0:-0),ya);gD.lineTo(tip-(d>0?7:-7),ya-4);gD.lineTo(tip-(d>0?7:-7),ya+4);gD.fill();}
+    // dam body + mesh
+    gD.fillStyle='#6f7884';gD.beginPath();const poly=[[0,0],[0,122],[9.75,122],[9.75,109.7],[95.8,0]];
+    const xr=h=>h>=109.7?9.75:9.75+(109.7-h)*0.7845;
+    gD.moveTo(X(0,0),Y(0));for(let h=0;h<=122;h+=4)gD.lineTo(X(0,h),Y(h));gD.lineTo(X(9.75,122),Y(122));for(let h=122;h>=0;h-=4)gD.lineTo(X(xr(h),h),Y(h));gD.closePath();gD.fill();
+    gD.strokeStyle='rgba(20,28,40,.55)';gD.lineWidth=.8;for(let h=12.2;h<122;h+=12.2){gD.beginPath();gD.moveTo(X(0,h),Y(h));gD.lineTo(X(xr(h),h),Y(h));gD.stroke();}
+    for(let f=.2;f<1;f+=.2){gD.beginPath();for(let h=0;h<=122;h+=4){const x=xr(h)*f;h?gD.lineTo(X(x,h),Y(h)):gD.moveTo(X(x,h),Y(h));}gD.stroke();}
+    // cracks (open when crest displacement passes 0.7 cm downstream)
+    const op=Math.max(0,u-0.7);if(op>0){const L=Math.min(1,op/1.2);gD.strokeStyle=C.red;gD.shadowColor=C.red;gD.shadowBlur=10;gD.lineWidth=2+3*L;
+      gD.beginPath();gD.moveTo(X(0,1),Y(1));gD.lineTo(X(30*L+6,2),Y(2+4*L));gD.stroke();
+      gD.beginPath();gD.moveTo(X(xr(108),108),Y(108));gD.lineTo(X(xr(108)-30*L-4,104-6*L),Y(104-6*L));gD.stroke();gD.shadowBlur=0;
+      gD.fillStyle=C.red;gD.font='600 12px Inter,sans-serif';gD.fillText('cracks open',X(40,8),Y(14));}
+    // crest markers
+    gD.fillStyle=C.ink;gD.beginPath();gD.arc(X(4.9,122),Y(122)-6,4,0,7);gD.fill();
+    if(R&&mse.length){gD.strokeStyle=C.orange;gD.setLineDash([3,3]);gD.lineWidth=1.5;const xn=x0+4.9*s+EX*un;gD.beginPath();gD.moveTo(xn,Y(122)-24);gD.lineTo(xn,Y(122)-2);gD.stroke();gD.setLineDash([]);}
+    gD.font='12px Inter,sans-serif';gD.fillStyle=C.muted;gD.fillText('upstream',x0-60,Y(124)-10);gD.fillText('downstream',X(70,40),Y(46));
+    gD.textAlign='right';gD.fillStyle=C.ink;gD.font='600 13px ui-monospace,Menlo,monospace';gD.fillText(`t = ${(i*DT).toFixed(2)} s   crest ${u.toFixed(2)} cm`,W-18,26);gD.textAlign='left';}
+  function drawTh(R,i){const W=560,H=440;bg(gT,W,H,'Crest displacement');if(!R)return;const n=R.y.length,X=k=>62+k/(n-1)*(W-82);
+    // ground motion strip
+    const ga=v=>92-v/0.65*32;gT.strokeStyle=C.rule;gT.beginPath();gT.moveTo(40,ga(0));gT.lineTo(W-20,ga(0));gT.stroke();gT.strokeStyle=C.blue;gT.lineWidth=1;gT.beginPath();for(let k=0;k<=i;k++){k?gT.lineTo(X(k),ga(R.ag[k])):gT.moveTo(X(k),ga(R.ag[k]));}gT.stroke();
+    gT.fillStyle=C.blue;gT.font='12px Inter,sans-serif';gT.fillText('ground acceleration',44,52);
+    const m=Math.max(R.pk,R.pp,0.5)*1.15,Y=v=>280-v/m*140;gT.strokeStyle=C.rule;gT.beginPath();gT.moveTo(40,Y(0));gT.lineTo(W-20,Y(0));gT.stroke();
+    gT.fillStyle='#6d7a88';gT.font='10px ui-monospace,Menlo,monospace';gT.textAlign='right';[-1,1].forEach(sg=>{const v=sg*Math.round(m*0.8*10)/10;gT.fillText(v.toFixed(1)+' cm',58,Y(v)+3);});gT.textAlign='center';for(let t=0;t<=n*DT;t+=2)gT.fillText(t+' s',X(t/DT),Y(0)+170);gT.textAlign='left';
+    gT.strokeStyle='rgba(224,96,90,.25)';gT.setLineDash([2,4]);gT.beginPath();gT.moveTo(40,Y(.7));gT.lineTo(W-20,Y(.7));gT.stroke();gT.setLineDash([]);gT.fillStyle='rgba(224,96,90,.7)';gT.fillText('crack opens',W-96,Y(.7)-4);
+    gT.strokeStyle=C.ink;gT.lineWidth=2;gT.beginPath();for(let k=0;k<=i;k++){k?gT.lineTo(X(k),Y(R.y[k])):gT.moveTo(X(k),Y(R.y[k]));}gT.stroke();
+    if(mse.length){gT.strokeStyle=C.orange;gT.lineWidth=2.2;gT.setLineDash([5,4]);gT.beginPath();for(let k=0;k<=i;k++){const v=Math.max(-m*1.4,Math.min(m*1.4,R.p[k]));k?gT.lineTo(X(k),Y(v)):gT.moveTo(X(k),Y(v));}gT.stroke();gT.setLineDash([]);}
+    gT.font='12px Inter,sans-serif';gT.fillStyle=C.ink;gT.fillRect(44,H-22,14,3);gT.fillText('finite element stand-in (target)',64,H-16);gT.fillStyle=C.orange;gT.fillRect(290,H-22,14,3);gT.fillText('neuro-modeller (prediction)',310,H-16);}
+  function pRead(R){const el=$('#dmPRead');if(!mse.length){el.innerHTML='The network is untrained: open tab 1 and press Train first.';return;}
+    el.innerHTML=`peak crest displacement: finite element <b>${R.pk.toFixed(2)} cm</b> · neuro-modeller <b>${R.pp.toFixed(2)} cm</b> · RMS error <b>${(R.rms/R.pk*100).toFixed(0)}%</b> of peak${mse.length<EP?' · network only trained '+mse.length+' epochs':''}`;}
+  function frameP(now){play=0;const R=result(q),n=R.y.length,dt=last?Math.min(.05,(now-last)/1000):0;last=now;pt=Math.min(n-1,pt+dt/DT);drawDam(R,Math.floor(pt));drawTh(R,Math.floor(pt));
+    if(pt<n-1&&tab==='pred')play=requestAnimationFrame(frameP);else{$('#dmPlay').textContent='Play again';}}
+  function startPlay(){cancelAnimationFrame(play);pt=0;last=0;const R=result(q);pRead(R);$('#dmPlay').textContent='Playing…';play=requestAnimationFrame(frameP);}
+  $('#dmPlay').onclick=startPlay;
+  $$('[data-q]').forEach(b=>b.onclick=()=>{q=b.dataset.q;$$('[data-q]').forEach(x=>x.setAttribute('aria-pressed',x===b));startPlay();});
+
+  /* ---------- how it remembers (step by step) ---------- */
+  const gL=prep($('#dmLoop'));let si=0,sy=0,sv=0,SY=[0],autoT=0,pulse=0,pulseT=0;
+  function stepOnce(){const R=result('A');if(si>=R.ag.length-1)return;const x=net.input(sy,sv,R.ag,si),{h,o}=net.fwd(x);sy+=o[0]*net.sc.dy;sv+=o[1]*net.sc.dv;si++;SY.push(sy);pulseT=performance.now();drawLoop({x,h,o});}
+  function drawLoop(act){const W=1100,H=430,R=result('A');bg(gL,W,H,'One time step of the neuro-modeller (record A)');
+    const G=netGeom(W,H,330,520,700,70,380);
+    // record box
+    gL.strokeStyle=C.rule;gL.lineWidth=1;gL.strokeRect(18,70,200,150);gL.fillStyle=C.muted;gL.font='12px Inter,sans-serif';gL.fillText('earthquake record',26,88);
+    gL.strokeStyle=C.blue;gL.beginPath();R.ag.forEach((a,k)=>{const x=26+k/R.ag.length*184,y=150-a/0.5*45;k?gL.lineTo(x,y):gL.moveTo(x,y);});gL.stroke();
+    const xw=26+si/R.ag.length*184;gL.fillStyle='rgba(107,183,227,.25)';gL.fillRect(xw-13/R.ag.length*184,100,14/R.ag.length*184+2,100);
+    gL.strokeStyle='rgba(107,183,227,.6)';gL.beginPath();gL.moveTo(218,145);gL.lineTo(300,G.yi(8));gL.stroke();gL.fillStyle=C.muted;gL.fillText('the 13 newest samples go in',26,240);
+    drawNet(gL,G,act);
+    // feedback loop
+    const t=Math.min(1,(performance.now()-pulseT)/700);gL.strokeStyle=C.green;gL.lineWidth=2.4;gL.beginPath();gL.moveTo(G.x2+40,G.yo(0)-4);gL.bezierCurveTo(820,30,330,20,300,G.yi(0));gL.stroke();gL.beginPath();gL.moveTo(G.x2+40,G.yo(1)+4);gL.bezierCurveTo(860,420,250,430,300,G.yi(1)+30);gL.lineTo(300,G.yi(1));gL.stroke();
+    if(t<1){const bz=(p0,p1,p2,p3,u)=>Math.pow(1-u,3)*p0+3*Math.pow(1-u,2)*u*p1+3*(1-u)*u*u*p2+u*u*u*p3;gL.fillStyle=C.green;gL.beginPath();gL.arc(bz(G.x2+40,820,330,300,t),bz(G.yo(0)-4,30,20,G.yi(0),t),6,0,7);gL.fill();}
+    gL.fillStyle=C.green;gL.font='600 12px Inter,sans-serif';gL.fillText('fed back: yᵢ₊₁ and ẏᵢ₊₁ become the next yᵢ and ẏᵢ',560,30);
+    // running prediction plot
+    const px0=800,pw=280,py=250,ph=150;gL.strokeStyle=C.rule;gL.lineWidth=1;gL.strokeRect(px0,py-ph/2,pw,ph);gL.beginPath();gL.moveTo(px0,py);gL.lineTo(px0+pw,py);gL.stroke();
+    const m=Math.max(R.pk,.5)*1.2,XX=k=>px0+k/R.y.length*pw*4,YY=v=>py-v/m*(ph/2-6);
+    gL.save();gL.beginPath();gL.rect(px0,py-ph/2,pw,ph);gL.clip();gL.strokeStyle='rgba(230,236,242,.55)';gL.lineWidth=1.5;gL.beginPath();for(let k=0;k<=Math.min(R.y.length-1,si+40);k++){k?gL.lineTo(XX(k),YY(R.y[k])):gL.moveTo(XX(k),YY(R.y[k]));}gL.stroke();
+    gL.strokeStyle=C.orange;gL.lineWidth=2;gL.beginPath();SY.forEach((v,k)=>{k?gL.lineTo(XX(k),YY(v)):gL.moveTo(XX(k),YY(v));});gL.stroke();gL.restore();
+    gL.fillStyle=C.muted;gL.font='12px Inter,sans-serif';gL.fillText('crest displacement, first 2.5 s',px0,py-ph/2-8);
+    gL.font='600 13px ui-monospace,Menlo,monospace';gL.fillStyle=C.ink;gL.fillText(`step i = ${si}  (t = ${(si*DT).toFixed(2)} s)`,px0,py+ph/2+24);
+    gL.fillStyle=C.orange;gL.fillText(`y = ${sy.toFixed(3)} cm   ẏ = ${sv.toFixed(1)} cm/s`,px0,py+ph/2+44);}
+  $('#dmStep').onclick=()=>{if(!mse.length){$('#dmLRead').textContent='Train the network in tab 1 first.';return;}stepOnce();lRead();};
+  $('#dmAuto').onclick=()=>{if(autoT){clearInterval(autoT);autoT=0;$('#dmAuto').textContent='Run';return;}if(!mse.length)return;$('#dmAuto').textContent='Pause';autoT=setInterval(()=>{if(si>=124||tab!=='net'){clearInterval(autoT);autoT=0;$('#dmAuto').textContent='Run';return;}stepOnce();lRead();},180);};
+  $('#dmRst').onclick=()=>{si=0;sy=0;sv=0;SY=[0];drawLoop(null);lRead();};
+  function lRead(){const R=result('A');$('#dmLRead').innerHTML=`target (finite element) at this step: <b>${R.y[si].toFixed(3)} cm</b> · neuro-modeller: <b>${sy.toFixed(3)} cm</b>`;}
+  (function anim(){if(tab==='net'&&performance.now()-pulseT<800)drawLoop(null);requestAnimationFrame(anim);})();
+
+  /* ---------- tabs ---------- */
+  const tabs=$$('.dm-tabs .hx-tab'),panes=$$('.dm-pane');
+  tabs.forEach(b=>b.onclick=()=>{tab=b.dataset.t;tabs.forEach(x=>{x.setAttribute('aria-selected',x===b);x.tabIndex=x===b?0:-1;});panes.forEach(p=>p.hidden=p.dataset.p!==tab);setTimeout(()=>{window.dispatchEvent(new Event('resize'));redraw();if(tab==='pred')startPlay();},0);});
+  $('.dm-tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const i=tabs.findIndex(b=>b.dataset.t===tab),j=(i+(e.key==='ArrowRight'?1:-1)+3)%3;tabs[j].click();tabs[j].focus();e.preventDefault();});
+  function redraw(){if(tab==='train')drawTrain();else if(tab==='pred'){const R=result(q);const i=Math.floor(pt);drawDam(R,i);drawTh(R,i);pRead(R);}else{drawLoop(null);lRead();}}
+  newRun();drawTrain();tRead();
+  new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;startTrain();}}).observe(root);
 })();
 </script>
 </body></html>
