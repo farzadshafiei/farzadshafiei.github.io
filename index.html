@@ -303,6 +303,19 @@ header.hero{padding-top:2.5rem}
 .quotes blockquote[hidden]{display:none}
 #students .quotes{display:block;columns:4 16rem;column-gap:1rem}
 #students .quotes blockquote{break-inside:avoid;margin:0 0 1rem}
+/* SMARD lab */
+.sm-tabs{margin-bottom:1rem}
+.sm-side{display:flex;flex-direction:column;gap:.8rem;min-width:0}
+.lab .sm-l{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font:500 .85rem var(--sans);color:var(--muted)}
+.lab .sm-l input[type=range]{flex:1;min-width:120px}
+.sm-tab{border-collapse:collapse;width:100%;font:500 .8rem var(--mono);color:var(--ink)}
+.sm-tab th,.sm-tab td{padding:.35rem .4rem;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+.sm-tab th:first-child{text-align:left;color:var(--muted);font-weight:500;white-space:normal}
+.sm-tab thead th{color:var(--muted)}
+.sm-tab td.on{color:var(--mark);font-weight:700}
+.lab .sm-pane[hidden]{display:none}
+.sm-scroll{overflow-x:auto;max-width:100%}
+.lab .seg{flex-wrap:wrap}
 /* CV & resumes */
 .docs-intro{margin:0 0 1.25rem;max-width:56rem}
 .docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
@@ -610,6 +623,72 @@ header.hero{padding-top:2.5rem}
     <video src="media/smard-3d.mp4" poster="media/smard-3d-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Rotating 3D model of the SMA re-centering damper: the piston moves back and forth and the plates compress the SMA bars and springs inside the cut-away housing"></video>
     <figcaption>3D model of the SMARD, after Figure 4(a) of the paper. The front of the housing is cut away: as the piston moves either way, one plate is pushed while the baffle holds the other, compressing the NiTiHfPd bars and springs.</figcaption>
   </figure>
+<div class="lab damper" id="lab-smard">
+  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Work the SMA re-centering damper</p>
+  <p class="sub">Three ways to explore the SMARD: drive the piston yourself and watch the SMA bars and friction springs work, see how the NiTiHfPd alloy changes with temperature, or tune the device and compare its flag-shaped loop with each component on its own.</p>
+  <div class="hx-tabs sm-tabs" role="tablist" aria-label="SMARD views">
+    <button type="button" class="hx-tab" role="tab" aria-selected="true" data-t="dev">Device in action</button>
+    <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="tmp">NiTiHfPd and temperature</button>
+    <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="des">Design your damper</button>
+  </div>
+
+  <!-- tab 1 -->
+  <div class="sm-pane" data-p="dev">
+    <canvas id="smDev" width="1100" height="360" aria-label="Cross-section of the SMARD; drag the piston"></canvas>
+    <div class="grid eq" style="margin-top:1rem">
+      <canvas id="smLoop" width="560" height="380" aria-label="Force-displacement loop of the SMARD and its components"></canvas>
+      <canvas id="smHist" width="560" height="380" aria-label="Displacement and force over time"></canvas>
+    </div>
+    <div class="ctrl">
+      <span class="seg" role="group" aria-label="Loading">
+        <button type="button" aria-pressed="true" data-pr="inc">Increasing cycles</button><button type="button" aria-pressed="false" data-pr="const">Constant amplitude</button><button type="button" aria-pressed="false" data-pr="eq">Earthquake-like</button>
+      </span>
+      <label>Amplitude <input id="smAmp" type="range" min="10" max="150" step="5" value="60"><span id="smAmpV">60 mm</span></label>
+      <button type="button" class="b primary" id="smGo">Play</button>
+      <button type="button" class="b" id="smReset">Reset</button>
+    </div>
+    <p class="read" id="smRead"></p>
+    <p class="fine">Tip: drag the piston rod left or right, then let go: the flag-shaped loop passes through zero, so the device pulls itself back to the center. Model: OpenSees self-centering elements for the SMA bars and the friction springs with the parameters in Table 4 of the paper (stroke ±150 mm).</p>
+  </div>
+
+  <!-- tab 2 -->
+  <div class="sm-pane" data-p="tmp" hidden>
+    <div class="grid">
+      <canvas id="smTemp" width="640" height="420" aria-label="Stress-strain loops of NiTiHfPd bars"></canvas>
+      <div class="sm-side">
+        <div class="seg" role="group" aria-label="Temperature">
+          <button type="button" aria-pressed="true" data-tc="25">25 °C</button><button type="button" aria-pressed="false" data-tc="5">5 °C</button><button type="button" aria-pressed="false" data-tc="-35">−35 °C</button>
+        </div>
+        <label class="sm-l">Strain amplitude <input id="smStr" type="range" min="1" max="4" step="0.1" value="3"><span id="smStrV">3.0%</span></label>
+        <label class="sm-l"><input type="checkbox" id="smAll"> Overlay all three temperatures</label>
+        <div class="sm-scroll"><table class="sm-tab" aria-label="Loop properties">
+          <thead><tr><th></th><th>25 °C</th><th>5 °C</th><th>−35 °C</th></tr></thead>
+          <tbody id="smTb"></tbody>
+        </table></div>
+        <p class="fine">Each bar is modelled as two self-centering materials in parallel (Figure 13a) with the parameters of Table 3 (initial stiffness, post-transformation stiffness, activation stress and β), fitted to compression tests at 1.0 Hz. Colder alloy gives a fatter loop: more energy dissipated per cycle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- tab 3 -->
+  <div class="sm-pane" data-p="des" hidden>
+    <div class="grid">
+      <canvas id="smDes" width="640" height="420" aria-label="Designed damper loop compared with its components"></canvas>
+      <div class="sm-side">
+        <label class="sm-l">SMA bar area <input id="dA" type="range" min="0.5" max="2" step="0.05" value="1"><span id="dAV">1.00×</span></label>
+        <label class="sm-l">SMA dissipation β <input id="dB" type="range" min="0" max="0.9" step="0.01" value="0.35"><span id="dBV">0.35</span></label>
+        <label class="sm-l">Friction springs <input id="dF" type="range" min="0" max="3" step="0.25" value="1"><span id="dFV">1.00×</span></label>
+        <label class="sm-l">Test amplitude <input id="dU" type="range" min="10" max="150" step="5" value="80"><span id="dUV">80 mm</span></label>
+        <div class="seg" role="group" aria-label="Show">
+          <button type="button" aria-pressed="true" data-sh="all">SMARD + parts</button><button type="button" aria-pressed="false" data-sh="sma">SMA only</button><button type="button" aria-pressed="false" data-sh="fs">Springs only</button>
+        </div>
+        <div class="sm-scroll"><table class="sm-tab"><tbody id="dTb"></tbody></table></div>
+        <button type="button" class="b" id="dRes">Back to paper values</button>
+        <p class="fine">Starts from Table 4: SMA k<sub>1</sub> = 61.23 kN/mm, k<sub>2</sub> = 13.80 kN/mm, F<sub>a</sub> = 104.01 kN, β = 0.35; friction springs k<sub>1</sub> = 28.75 kN/mm, k<sub>2</sub> = 0.9677 kN/mm, F<sub>a</sub> = 11.50 kN, β = 1.0. Equivalent damping ξ<sub>eq</sub> = E<sub>D</sub> / (4π E<sub>S</sub>).</p>
+      </div>
+    </div>
+  </div>
+</div>
   <figure class="damper" id="smard-2d" style="margin:0 0 1.5rem">
     <video src="media/smard-damper.mp4?v=3d9" poster="media/smard-damper-poster.jpg?v=3d9" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of the SMA re-centering damper: a 3D model of the 9-story building sways, with the analyzed perimeter frame highlighted; the damper's piston moves, its SMA bars and spring compress, and the flag-shaped force-displacement loop is traced"></video>
     <figcaption>The SMARD in motion. A 3D model of the 9-story building from Figure 11(a) of the paper (5 bays at 9.15 m in each direction, plus a basement) sways over an earthquake record (an illustrative ground acceleration, not one of the paper's 44 records). The bright frame is the east-west perimeter moment frame chosen for the analysis, with SMARDs in chevron braces in bays 2 and 4 of every story. As the building sways, the piston pushes one plate while the baffle holds the other, so the NiTiHfPd bars and spring are compressed in either direction and the device traces a flag-shaped loop: it dissipates energy and re-centers the structure. Based on Figures 4, 5, 11 and 15 of the paper.</figcaption>
@@ -748,7 +827,7 @@ header.hero{padding-top:2.5rem}
     <span class="meta" style="margin:0">University of Virginia</span>
   </div>
   <p>Charlottesville, Virginia</p>
-  <ul class="social contact"><li><a href="https://scholar.google.com/citations?user=aKvi7Q0AAAAJ&amp;hl=en" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 9.5l11 7.5 7.5-5.1V18h2V9.5L12 2z"/><circle cx="12" cy="17.2" r="4.6" fill="currentColor"/></svg><span>Google Scholar</span></a></li><li><a href="https://orcid.org/0000-0001-9165-8577" rel="noopener me" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#A6CE39"/><path fill="#fff" d="M8.2 7.1a.95.95 0 1 1-1.9 0 .95.95 0 0 1 1.9 0zM6.6 9.1h1.4v8H6.6zM9.9 9.1h3.3c3.1 0 4.6 2.2 4.6 4s-1.6 4-4.4 4H9.9zm1.4 1.3v5.4h1.9c2.4 0 3.1-1.6 3.1-2.7 0-1.7-1.1-2.7-3.1-2.7z"/></svg><span>ORCID</span></a></li><li><a href="https://www.researchgate.net/profile/Farzad-Shafiei-Dizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="currentColor"/><text x="12" y="16.4" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" font-weight="700" fill="var(--surface)" letter-spacing="-.3">R<tspan font-size="9" dy="-2.4">G</tspan></text></svg><span>ResearchGate</span></a></li><li><a href="https://independent.academia.edu/farzadshafieidizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 2 7v2h20V7L12 2zM4 10.5h2.6v7.5H4zm4.7 0h2.6v7.5H8.7zm4.7 0h2.6v7.5h-2.6zm4.7 0H20.7v7.5h-2.6zM2 19.5h20V22H2z"/></svg><span>Academia.edu</span></a></li><li><a href="https://www.linkedin.com/in/farzad-shafiei-dizaji-143945a6/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 1.5h16A2.5 2.5 0 0 1 22.5 4v16a2.5 2.5 0 0 1-2.5 2.5H4A2.5 2.5 0 0 1 1.5 20V4A2.5 2.5 0 0 1 4 1.5zM5.3 9.4v9.3h3V9.4h-3zm1.5-4.6a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM10.4 9.4v9.3h3v-4.9c0-1.4.6-2.2 1.7-2.2 1 0 1.5.7 1.5 2.1v5h3v-5.7c0-2.7-1.5-3.8-3.4-3.8-1.4 0-2.3.6-2.8 1.3V9.4h-3z"/></svg><span>LinkedIn</span></a></li><li><a href="https://github.com/farzadshafiei" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></li><li><a href="https://www.instagram.com/shafieidizaji/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor"/></svg><span>Instagram</span></a></li><li><a href="https://www.facebook.com/farzad.shafiei.5" rel="noopener me" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg><span>Facebook</span></a></li></ul>
+  <ul class="social contact"><li><a href="https://scholar.google.com/citations?user=aKvi7Q0AAAAJ&amp;hl=en" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 1 9.5l11 7.5 7.5-5.1V18h2V9.5L12 2z"/><circle cx="12" cy="17.2" r="4.6" fill="currentColor"/></svg><span>Google Scholar</span></a></li><li><a href="https://orcid.org/0000-0001-9165-8577" rel="noopener me" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#A6CE39"/><path fill="#fff" d="M8.2 7.1a.95.95 0 1 1-1.9 0 .95.95 0 0 1 1.9 0zM6.6 9.1h1.4v8H6.6zM9.9 9.1h3.3c3.1 0 4.6 2.2 4.6 4s-1.6 4-4.4 4H9.9zm1.4 1.3v5.4h1.9c2.4 0 3.1-1.6 3.1-2.7 0-1.7-1.1-2.7-3.1-2.7z"/></svg><span>ORCID</span></a></li><li><a href="https://www.researchgate.net/profile/Farzad-Shafiei-Dizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="currentColor"/><text x="12" y="16.4" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" font-weight="700" fill="var(--surface)" letter-spacing="-.3">R<tspan font-size="9" dy="-2.4">G</tspan></text></svg><span>ResearchGate</span></a></li><li><a href="https://independent.academia.edu/farzadshafieidizaji" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 2 7v2h20V7L12 2zM4 10.5h2.6v7.5H4zm4.7 0h2.6v7.5H8.7zm4.7 0h2.6v7.5h-2.6zm4.7 0H20.7v7.5h-2.6zM2 19.5h20V22H2z"/></svg><span>Academia.edu</span></a></li><li><a href="https://www.linkedin.com/in/farzad-shafiei-dizaji-143945a6/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 1.5h16A2.5 2.5 0 0 1 22.5 4v16a2.5 2.5 0 0 1-2.5 2.5H4A2.5 2.5 0 0 1 1.5 20V4A2.5 2.5 0 0 1 4 1.5zM5.3 9.4v9.3h3V9.4h-3zm1.5-4.6a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM10.4 9.4v9.3h3v-4.9c0-1.4.6-2.2 1.7-2.2 1 0 1.5.7 1.5 2.1v5h3v-5.7c0-2.7-1.5-3.8-3.4-3.8-1.4 0-2.3.6-2.8 1.3V9.4h-3z"/></svg><span>LinkedIn</span></a></li><li><a href="https://github.com/farzadshafiei" rel="noopener" target="_blank"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></li><li><a href="https://www.instagram.com/shafieidizaji/" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor"/></svg><span>Instagram</span></a></li><li><a href="https://www.facebook.com/farzad.shafiei.5" rel="noopener me" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg><span>Facebook</span></a></li><li><a href="https://www.wyzant.com/Tutors/Math_Engineering_Tutor" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 1 8.5 12 14l9-4.5V16h2V8.5L12 3zM5 12.2V16c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5v-3.8L12 15.7 5 12.2z"/></svg><span>Wyzant tutoring</span></a></li></ul>
 </div></section>
 
 <footer>© 2026 Farzad Shafiei Dizaji · Updated October 2026 · <a href="cv/Farzad_Shafiei_Dizaji_CV.pdf" download>Download CV</a></footer>
@@ -1179,5 +1258,177 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function(){var g=document.querySelector('#students .qfilter');if(!g)return;var bs=g.querySelectorAll('button'),qs=document.querySelectorAll('#students .quotes blockquote');
 g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var f=b.dataset.f;
 bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});qs.forEach(function(q){q.hidden=!(f==='all'||q.dataset.term===f)});});})();
+</script>
+<script>
+/* ======================= SMARD device lab ======================= */
+(function(){
+  const root=document.getElementById('lab-smard'); if(!root)return;
+  const $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
+  const C={ink:'#e6ecf2',muted:'#9aa8b6',rule:'#27436b',blue:'#6bb7e3',orange:'#f09a6e',yel:'#e8c547',vio:'#9b8cff',green:'#7bd389',bg:'#05080d',steel:'#7d8a99'};
+  const vis=new Set(); // canvases currently visible
+  function prep(cv){cv._w0=cv.width;cv._h0=cv.height;const g=cv.getContext('2d');const res=()=>{const r=window.devicePixelRatio||1,w=cv.clientWidth||cv._w0;cv.style.height=(w*cv._h0/cv._w0)+'px';cv.width=Math.round(w*r);cv.height=Math.round(w*r*cv._h0/cv._w0);g.setTransform(cv.width/cv._w0,0,0,cv.height/cv._h0,0,0);};res();window.addEventListener('resize',()=>{res();redraw();});return g;}
+
+  /* ---- OpenSees-style self-centering (flag) element, displacement driven ---- */
+  function SC(p){this.p=p;this.reset();}
+  SC.prototype.reset=function(){this.u=0;this.F=0;};
+  SC.prototype.bounds=function(u){const {k1,k2,Fa,beta}=this.p,a=Math.abs(u),ua=Fa/k1,E=k1*a;
+    const U=Fa+k2*(a-ua),L=(1-beta)*Fa+k2*(a-ua);const hi=Math.min(E,U),lo=Math.max(0,Math.min(E,L));return u>=0?[lo,hi]:[-hi,-lo];};
+  SC.prototype.step=function(u){const n=Math.max(1,Math.ceil(Math.abs(u-this.u)/(this.p.Fa/this.p.k1/10)));let F=this.F,u0=this.u;
+    for(let i=1;i<=n;i++){const ui=u0+(u-u0)*i/n;F=F+this.p.k1*(ui-u0-(u-u0)*(i-1)/n);const [lo,hi]=this.bounds(ui);F=Math.min(hi,Math.max(lo,F));}
+    this.u=u;this.F=F;return F;};
+  const T4={sma:{k1:61.23,k2:13.80,Fa:104.01,beta:0.35},fs:{k1:28.75,k2:0.9677,Fa:11.50,beta:1.0}};
+  const scale=(p,f)=>({k1:p.k1*f,k2:p.k2*f,Fa:p.Fa*f,beta:p.beta});
+  const env=(p,a)=>Math.min(p.k1*a,p.Fa+p.k2*(a-p.Fa/p.k1));
+
+  /* ---- tabs ---- */
+  const tabs=$$('.sm-tabs .hx-tab'),panes=$$('.sm-pane');let tab='dev';
+  tabs.forEach(b=>b.onclick=()=>{tab=b.dataset.t;tabs.forEach(x=>{x.setAttribute('aria-selected',x===b);x.tabIndex=x===b?0:-1;});panes.forEach(p=>p.hidden=p.dataset.p!==tab);
+    if(tab!=='dev')stop(); setTimeout(()=>{window.dispatchEvent(new Event('resize'));redraw();},0);});
+  $('.sm-tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const i=tabs.findIndex(b=>b.dataset.t===tab),j=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[j].click();tabs[j].focus();e.preventDefault();});
+
+  /* =========================== TAB 1: device in action =========================== */
+  const cd=$('#smDev'),cl=$('#smLoop'),ch=$('#smHist'),gd=prep(cd),gl=prep(cl),gh=prep(ch);
+  const sma=new SC(T4.sma),fs=new SC(T4.fs);
+  let u=0,Fs=0,Ff=0,trace=[],hist=[],tnow=0,Ed=0,peak=0,mode='idle',tA=0,proto='inc',amp=60,drag=false,dragX=0,dragU0=0,uTarget=0,raf=0,last=0;
+  const SPX=0.8; // px per mm (150 mm -> 120 px)
+  function gen(){ // displacement protocols, returns {T,f}
+    if(proto==='inc'){const fr=[0.1,0.2,0.35,0.5,0.7,1],P=2.0,T=fr.length*2*P;return{T,f:t=>{const k=Math.min(fr.length-1,Math.floor(t/(2*P)));return amp*fr[k]*Math.sin(2*Math.PI*t/P);}};}
+    if(proto==='const'){const P=2.4;return{T:4*P,f:t=>amp*Math.sin(2*Math.PI*t/P)};}
+    const cs=[[1,.42,.3],[.8,.65,1.7],[.55,.95,2.9],[.4,1.4,.6],[.3,.27,5.1]],T=14;
+    const raw=t=>{const e=Math.min(1,t/1.5)*Math.max(0,Math.min(1,(T-1-t)/4));let s=0;for(const [a,f,p] of cs)s+=a*Math.sin(2*Math.PI*f*t+p);return e*s;};
+    let m=0;for(let t=0;t<T;t+=0.02)m=Math.max(m,Math.abs(raw(t)));return{T,f:t=>amp*raw(t)/m};}
+  let G=gen();
+  function setU(nu,dt){const n=Math.max(1,Math.ceil(Math.abs(nu-u)/0.5));
+    for(let i=1;i<=n;i++){const ui=u+(nu-u)*i/n,Fo=Fs+Ff,uo=trace.length?trace[trace.length-1][0]:0;Fs=sma.step(ui);Ff=fs.step(ui);Ed+=0.5*(Fo+Fs+Ff)*(ui-uo)/1000;trace.push([ui,Fs+Ff,Fs,Ff]);}
+    u=nu;peak=Math.max(peak,Math.abs(u));tnow+=dt;hist.push([tnow,u,Fs+Ff]);while(hist.length&&hist[0][0]<tnow-12)hist.shift();if(trace.length>8000)trace.splice(0,trace.length-8000);}
+  function reset(){sma.reset();fs.reset();u=0;Fs=0;Ff=0;trace=[[0,0,0,0]];hist=[];tnow=0;Ed=0;peak=0;tA=0;uTarget=0;}
+  function stop(){if(mode==='play'){mode='idle';$('#smGo').textContent='Play';}}
+  function kick(){if(!raf){last=0;raf=requestAnimationFrame(frame);}}
+  function frame(now){raf=0;const dt=last?Math.min(.05,(now-last)/1000):1/60;last=now;let more=false;
+    if(mode==='play'){tA+=dt;if(tA>=G.T){tA=G.T;mode='idle';$('#smGo').textContent='Play again';}setU(G.f(tA),dt);more=mode==='play';}
+    else if(mode==='drag'){setU(uTarget,dt);more=true;}
+    else if(mode==='return'){const nu=Math.abs(u)<0.3?0:u*Math.exp(-dt*5);setU(nu,dt);more=nu!==0;if(!more)mode='idle';}
+    drawDev();drawLoop();drawHist();readout();if(more&&vis.has(root))raf=requestAnimationFrame(frame);}
+
+  // ---- device cross-section drawing
+  function plate(g,x,w,y0,y1,col){g.fillStyle=col;g.fillRect(x,y0,w,y1-y0);}
+  function heat(r){r=Math.max(0,Math.min(1,r));const a=[232,197,71],b=[240,154,110],c=[224,96,90];const m=r<.6?r/.6:1,n=r<.6?0:(r-.6)/.4;const s=a.map((v,i)=>v+(b[i]-v)*m),t=s.map((v,i)=>v+(c[i]-v)*n);return `rgb(${t.map(Math.round)})`;}
+  function drawDev(){const g=gd,W=1100,H=360;g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);
+    const cy=205,d=u*SPX,X0=170,X1=930,B1=250,B2=850,T=12,top=130,bot=280;
+    // enclosure (cut-away)
+    g.strokeStyle='#4a5a70';g.lineWidth=3;g.strokeRect(X0,top-14,X1-X0,bot-top+28);g.fillStyle='rgba(30,44,66,.35)';g.fillRect(X0,top-14,X1-X0,bot-top+28);
+    // end bracket (right, to frame)
+    g.fillStyle='#4a5a70';g.fillRect(X1,cy-34,26,68);g.beginPath();g.arc(X1+48,cy,16,0,7);g.fill();g.fillStyle=C.bg;g.beginPath();g.arc(X1+48,cy,6,0,7);g.fill();g.fillStyle='#4a5a70';g.fillRect(X1+24,cy-12,26,24);
+    // baffle plates (fixed, with central void)
+    [B1-T,B2].forEach(x=>{plate(g,x,T,top-10,cy-26,'#8796a8');plate(g,x,T,cy+26,bot+10,'#8796a8');});
+    // moving plates
+    const PL=B1+(d>0?d:0),PR=B2-T-(d<0?-d:0);
+    // assembly between PL+T and PR
+    const a0=PL+T,a1=PR,len=a1-a0,f1=.36,ff=.28,ip=8;
+    const s1=a0,s1e=a0+len*f1-ip/2,fs0=s1e+ip,fse=fs0+len*ff-ip,s2=fse+ip,s2e=a1;
+    const fmax=env(T4.sma,150)+env(T4.fs,150),rs=Math.abs(Fs)/env(T4.sma,150);
+    // SMA bars
+    [[s1,s1e],[s2,s2e]].forEach(([x0,x1])=>{[-52,-22,22,52].forEach(o=>{g.fillStyle=heat(rs*1.2);g.fillRect(x0,cy+o-7,x1-x0,14);g.strokeStyle='rgba(0,0,0,.35)';g.lineWidth=1;g.strokeRect(x0,cy+o-7,x1-x0,14);});});
+    // intermediate plates
+    plate(g,s1e,ip,top+6,bot-6,'#c9d2dc');plate(g,fse,ip,top+6,bot-6,'#c9d2dc');
+    // friction spring stack: 12 elements, outer/inner rings
+    const ne=12,ew=(fse-fs0)/ne,rf=Math.min(1,Math.abs(Ff)/env(T4.fs,150));
+    g.lineWidth=2;[-40,40].forEach(o=>{for(let k=0;k<ne;k++){const x=fs0+k*ew;g.strokeStyle=`rgba(155,140,255,${.55+.45*rf})`;g.beginPath();g.moveTo(x,cy+o);g.lineTo(x+ew/2,cy+o-22);g.lineTo(x+ew,cy+o);g.lineTo(x+ew/2,cy+o+22);g.closePath();g.stroke();
+      g.fillStyle=`rgba(155,140,255,${.12+.3*rf})`;g.fill();}});
+    plate(g,PL,T,top-4,bot+4,'#dfe6ee');plate(g,PR,T,top-4,bot+4,'#dfe6ee');
+    // piston rod + collars
+    const rx0=40+d,rx1=X1-30+d;g.fillStyle='#b8c3cf';g.fillRect(rx0,cy-9,rx1-rx0,18);
+    g.fillStyle='#e6ecf2';g.fillRect(B1-T-16+d,cy-20,16,40);g.fillRect(B2+T+d,cy-20,16,40);
+    // left clevis (to brace)
+    g.fillStyle='#b8c3cf';g.beginPath();g.arc(rx0,cy,16,0,7);g.fill();g.fillStyle=C.bg;g.beginPath();g.arc(rx0,cy,6,0,7);g.fill();
+    // handle hint
+    g.strokeStyle=drag?C.green:'rgba(123,211,137,.55)';g.lineWidth=2;g.setLineDash([4,4]);g.beginPath();g.arc(rx0,cy,26,0,7);g.stroke();g.setLineDash([]);
+    // force arrow
+    if(Math.abs(Fs+Ff)>1){const F=Fs+Ff,L=Math.min(110,Math.abs(F)/fmax*260),dir=-Math.sign(F),x=rx0+(dir>0?30:-30);g.strokeStyle=C.orange;g.fillStyle=C.orange;g.lineWidth=3;g.beginPath();g.moveTo(x,cy);g.lineTo(x+dir*L,cy);g.stroke();g.beginPath();g.moveTo(x+dir*(L+10),cy);g.lineTo(x+dir*L,cy-7);g.lineTo(x+dir*L,cy+7);g.fill();}
+    // labels
+    g.font='12px Inter,sans-serif';g.fillStyle=C.muted;g.textAlign='center';
+    const lab=(t,x,y,lx,ly)=>{g.strokeStyle='rgba(154,168,182,.5)';g.lineWidth=1;g.beginPath();g.moveTo(x,y);g.lineTo(lx,ly);g.stroke();g.fillText(t,lx,ly+(ly<y?-4:13));};
+    lab('Baffle plate (fixed)',B1-T/2,top-10,B1-30,84);lab('NiTiHfPd SMA bars',(s1+s1e)/2,cy-59,(s1+s1e)/2,84);lab('Friction spring (12 elements)',(fs0+fse)/2,cy-62,(fs0+fse)/2+10,84);
+    lab('Moving plate',PR+T/2,top-4,PR-10,84);lab('Piston',rx0+80,cy+9,rx0+80,336);lab('Enclosure',X1-60,bot+14,X1-60,336);lab('to brace',rx0,cy+18,rx0,336);lab('to frame',X1+48,cy+18,X1+48,336);
+    g.textAlign='left';g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.fillText('SMARD cross-section',20,24);
+    g.fillStyle=C.muted;g.font='12px Inter,sans-serif';g.fillText(u>0.5?'Piston pulled out: the left plate is pushed and the assembly is squeezed against the right baffle':u<-0.5?'Piston pushed in: the right plate is pushed and the assembly is squeezed against the left baffle':'Drag the piston (green ring) or press Play',20,42);
+    g.textAlign='right';g.fillStyle=C.ink;g.font='600 13px ui-monospace,Menlo,monospace';g.fillText(`u = ${u.toFixed(1)} mm   F = ${(Fs+Ff).toFixed(0)} kN`,W-20,24);g.textAlign='left';}
+  // ---- loop
+  function axes(g,W,H,title,xl,yl,X,Y){g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);g.strokeStyle=C.rule;g.lineWidth=1;g.beginPath();g.moveTo(30,Y(0));g.lineTo(W-16,Y(0));g.moveTo(X(0),46);g.lineTo(X(0),H-22);g.stroke();
+    g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.fillText(title,18,26);g.fillStyle=C.muted;g.font='12px Inter,sans-serif';g.textAlign='right';g.fillText(xl,W-18,Y(0)-7);g.textAlign='left';g.fillText(yl,X(0)+7,58);}
+  function ticks(g,X,Y,xs,ys,fx,fy){g.fillStyle='#6d7a88';g.font='10px ui-monospace,Menlo,monospace';g.textAlign='center';xs.forEach(v=>{if(v)g.fillText(fx(v),X(v),Y(0)+14);});g.textAlign='right';ys.forEach(v=>{if(v)g.fillText(fy(v),X(0)-5,Y(v)+3);});g.textAlign='left';}
+  function nice(m){const p=Math.pow(10,Math.floor(Math.log10(m))),r=m/p;return (r<=2?.5:r<=5?1:2)*p;}
+  function drawLoop(){const g=gl,W=560,H=380,xm=Math.max(amp,peak,20)*1.1,ym=(env(T4.sma,xm/1.1)+env(T4.fs,xm/1.1))*1.15;
+    const X=v=>W/2+v/xm*(W/2-34),Y=v=>H/2+12-v/ym*(H/2-52);axes(g,W,H,'Force–displacement','u (mm)','F (kN)',X,Y);
+    const sx=nice(xm/2),sy=nice(ym/2);const xs=[],ys=[];for(let v=-Math.floor(xm/sx)*sx;v<=xm;v+=sx)xs.push(v);for(let v=-Math.floor(ym/sy)*sy;v<=ym;v+=sy)ys.push(v);ticks(g,X,Y,xs,ys,v=>v.toFixed(0),v=>v.toFixed(0));
+    const line=(j,col,w)=>{g.strokeStyle=col;g.lineWidth=w;g.beginPath();trace.forEach((p,i)=>{i?g.lineTo(X(p[0]),Y(p[j])):g.moveTo(X(p[0]),Y(p[j]));});g.stroke();};
+    line(3,'rgba(155,140,255,.75)',1.4);line(2,'rgba(232,197,71,.8)',1.4);line(1,C.orange,2.2);
+    g.fillStyle=C.orange;g.beginPath();g.arc(X(u),Y(Fs+Ff),5.5,0,7);g.fill();
+    g.font='12px Inter,sans-serif';[[C.orange,'SMARD (total)'],[C.yel,'SMA bars'],[C.vio,'Friction springs']].forEach(([c,t],i)=>{g.fillStyle=c;g.fillRect(18+i*150,H-16,10,10);g.fillStyle=C.muted;g.fillText(t,33+i*150,H-7);});}
+  function drawHist(){const g=gh,W=560,H=380;g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.fillText('Over time',18,26);
+    const t0=tnow-12,TX=t=>30+(t-t0)/12*(W-50),xm=Math.max(amp,peak,20)*1.1,ym=(env(T4.sma,xm/1.1)+env(T4.fs,xm/1.1))*1.15;
+    [[1,C.blue,'displacement u',xm,60],[2,C.orange,'damper force F',ym,215]].forEach(([j,c,l,m,y0])=>{const hh=140,Y=v=>y0+hh/2-v/m*(hh/2-6);g.strokeStyle=C.rule;g.lineWidth=1;g.beginPath();g.moveTo(30,Y(0));g.lineTo(W-20,Y(0));g.stroke();
+      g.fillStyle=c;g.font='12px Inter,sans-serif';g.fillText(l,34,y0+12);g.strokeStyle=c;g.lineWidth=1.8;g.beginPath();hist.forEach((h,i)=>{i?g.lineTo(TX(h[0]),Y(h[j])):g.moveTo(TX(h[0]),Y(h[j]));});g.stroke();});}
+  function readout(){read1.innerHTML=`u = <b>${u.toFixed(1)} mm</b> · F = <b>${(Fs+Ff).toFixed(0)} kN</b> (SMA ${Fs.toFixed(0)}, springs ${Ff.toFixed(0)}) · work absorbed <b>${Ed.toFixed(1)} kJ</b> · peak ${peak.toFixed(0)} mm`;}
+  const read1=$('#smRead');
+  // controls
+  $$('[data-pr]').forEach(b=>b.onclick=()=>{proto=b.dataset.pr;$$('[data-pr]').forEach(x=>x.setAttribute('aria-pressed',x===b));G=gen();reset();mode='play';$('#smGo').textContent='Pause';kick();});
+  $('#smAmp').oninput=e=>{amp=+e.target.value;$('#smAmpV').textContent=amp+' mm';G=gen();if(mode!=='play'){drawLoop();drawHist();}};
+  $('#smGo').onclick=()=>{if(mode==='play'){stop();return;}if(tA===0||tA>=G.T){G=gen();reset();}mode='play';$('#smGo').textContent='Pause';kick();};
+  $('#smReset').onclick=()=>{stop();reset();redraw();};
+  const evU=e=>{const r=cd.getBoundingClientRect();return (e.clientX-r.left)*1100/r.width;};
+  cd.addEventListener('pointerdown',e=>{stop();drag=true;mode='drag';dragX=evU(e);dragU0=u;uTarget=u;cd.setPointerCapture(e.pointerId);kick();});
+  cd.addEventListener('pointermove',e=>{if(!drag)return;uTarget=Math.max(-150,Math.min(150,dragU0+(evU(e)-dragX)/SPX));});
+  const up=()=>{if(!drag)return;drag=false;mode='return';kick();};cd.addEventListener('pointerup',up);cd.addEventListener('pointercancel',up);
+
+  /* =========================== TAB 2: temperature =========================== */
+  const TP={'25':[[370,87,570,.50],[410,87,738,.20]],'5':[[234.4,67.4,410.2,.70],[377,67.4,829.4,.29]],'-35':[[370,50,629,.80],[230,50,505,.40]]};
+  const TC={'25':C.orange,'5':C.blue,'-35':C.vio};let tsel='25',eps=3,tAnim=1,tStart=0;
+  const gt=prep($('#smTemp'));
+  function ssLoop(t,ea){const ms=TP[t].map(([E,k2,s,b])=>new SC({k1:E,k2:k2,Fa:s,beta:b}));const pts=[];const n=160;
+    for(let i=0;i<=2*n;i++){const e=i<=n?ea*i/n:ea*(2*n-i)/n;pts.push([e,ms.reduce((a,m)=>a+m.step(e),0)]);}return pts;}
+  function props(pts){let Ed=0,sm=0;for(let i=1;i<pts.length;i++){Ed+=0.5*(pts[i][1]+pts[i-1][1])*(pts[i][0]-pts[i-1][0]);sm=Math.max(sm,pts[i][1]);}
+    const em=pts[Math.floor(pts.length/2)][0],Es=sm*em/2;return {Ed:Ed/100,sm,xi:Ed/(4*Math.PI*Es)*100,K:sm/em};}
+  function drawTemp(){const g=gt,W=640,H=420,X=v=>50+v/4.3*(W-80),Y=v=>H-44-v/2000*(H-100);g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);
+    g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.fillText('NiTiHfPd bar in compression',18,26);
+    g.strokeStyle=C.rule;g.lineWidth=1;g.beginPath();g.moveTo(X(0),46);g.lineTo(X(0),Y(0));g.lineTo(W-18,Y(0));g.stroke();
+    g.fillStyle='#6d7a88';g.font='10px ui-monospace,Menlo,monospace';g.textAlign='center';for(let e=1;e<=4;e++)g.fillText(e+'%',X(e),Y(0)+14);g.textAlign='right';for(let s=500;s<=2000;s+=500)g.fillText(s,X(0)-5,Y(s)+3);g.textAlign='left';
+    g.fillStyle=C.muted;g.font='12px Inter,sans-serif';g.fillText('stress (MPa)',X(0)+8,58);g.textAlign='right';g.fillText('strain',W-20,Y(0)-8);g.textAlign='left';
+    const ts=$('#smAll').checked?['-35','5','25']:[tsel];
+    ts.forEach(t=>{const pts=ssLoop(t,eps),k=t===tsel?Math.floor(pts.length*Math.min(1,tAnim)):pts.length;g.strokeStyle=TC[t];g.globalAlpha=t===tsel?1:.45;g.lineWidth=t===tsel?2.6:1.6;g.beginPath();pts.slice(0,Math.max(2,k)).forEach((p,i)=>{i?g.lineTo(X(p[0]),Y(p[1])):g.moveTo(X(p[0]),Y(p[1]));});g.stroke();
+      if(t===tsel&&tAnim>=1){g.fillStyle=TC[t];g.globalAlpha=.12;g.beginPath();pts.forEach((p,i)=>{i?g.lineTo(X(p[0]),Y(p[1])):g.moveTo(X(p[0]),Y(p[1]));});g.closePath();g.fill();}
+      g.globalAlpha=1;});
+    const p=props(ssLoop(tsel,eps));g.fillStyle=TC[tsel];g.font='600 13px Inter,sans-serif';g.fillText(`${tsel.replace('-','−')} °C · shaded area = energy dissipated, ${p.Ed.toFixed(1)} MJ/m³`,X(0)+12,H-14);}
+  function tempTable(){const rows=[['Peak stress (MPa)',p=>p.sm.toFixed(0)],['Energy per cycle (MJ/m³)',p=>p.Ed.toFixed(2)],['Equivalent damping ξ (%)',p=>p.xi.toFixed(1)],['Secant stiffness (MPa/%)',p=>p.K.toFixed(0)]];
+    const P={};['25','5','-35'].forEach(t=>P[t]=props(ssLoop(t,eps)));
+    $('#smTb').innerHTML=rows.map(([l,f])=>`<tr><th>${l}</th>${['25','5','-35'].map(t=>`<td${t===tsel?' class="on"':''}>${f(P[t])}</td>`).join('')}</tr>`).join('');}
+  function animTemp(){tStart=performance.now();const f=now=>{tAnim=(now-tStart)/900;drawTemp();if(tAnim<1)requestAnimationFrame(f);else{tAnim=1;drawTemp();}};requestAnimationFrame(f);}
+  $$('[data-tc]').forEach(b=>b.onclick=()=>{tsel=b.dataset.tc;$$('[data-tc]').forEach(x=>x.setAttribute('aria-pressed',x===b));tempTable();animTemp();});
+  $('#smStr').oninput=e=>{eps=+e.target.value;$('#smStrV').textContent=eps.toFixed(1)+'%';tempTable();tAnim=1;drawTemp();};
+  $('#smAll').onchange=()=>drawTemp();
+
+  /* =========================== TAB 3: design =========================== */
+  const gD=prep($('#smDes'));let show='all';
+  function cyc(p,U){const e=new SC(p),pts=[];const N=240;for(let c=0;c<2;c++)for(let i=0;i<=N;i++){const x=U*Math.sin(2*Math.PI*i/N);const F=e.step(x);if(c===1)pts.push([x,F]);}return pts;}
+  function metr(pts,U){let Ed=0,Fm=0;for(let i=1;i<pts.length;i++){Ed+=0.5*(pts[i][1]+pts[i-1][1])*(pts[i][0]-pts[i-1][0]);Fm=Math.max(Fm,Math.abs(pts[i][1]));}Ed=Math.abs(Ed);return {Fm,Ed:Ed/1000,xi:Ed/(4*Math.PI*Fm*U/2)*100,K:Fm/U};}
+  function design(){const A=+$('#dA').value,B=+$('#dB').value,Fk=+$('#dF').value,U=+$('#dU').value;
+    $('#dAV').textContent=A.toFixed(2)+'×';$('#dBV').textContent=B.toFixed(2);$('#dFV').textContent=Fk.toFixed(2)+'×';$('#dUV').textContent=U+' mm';
+    const ps={...scale(T4.sma,A),beta:B},pf=scale(T4.fs,Fk);const S=cyc(ps,U),Fp=Fk>0?cyc(pf,U):S.map(p=>[p[0],0]),D=S.map((p,i)=>[p[0],p[1]+Fp[i][1]]);
+    const g=gD,W=640,H=420,ym=Math.max(1,...D.map(p=>Math.abs(p[1])))*1.15,xm=U*1.12,X=v=>W/2+v/xm*(W/2-36),Y=v=>H/2+8-v/ym*(H/2-52);
+    axes(g,W,H,'One full cycle at ±'+U+' mm','u (mm)','F (kN)',X,Y);
+    const sx=nice(xm/2),sy=nice(ym/2),xs=[],ys=[];for(let v=-Math.floor(xm/sx)*sx;v<=xm;v+=sx)xs.push(v);for(let v=-Math.floor(ym/sy)*sy;v<=ym;v+=sy)ys.push(v);ticks(g,X,Y,xs,ys,v=>v.toFixed(0),v=>v.toFixed(0));
+    const L=(pts,c,w,fill)=>{g.beginPath();pts.forEach((p,i)=>{i?g.lineTo(X(p[0]),Y(p[1])):g.moveTo(X(p[0]),Y(p[1]));});if(fill){g.globalAlpha=.13;g.fillStyle=c;g.fill();g.globalAlpha=1;}g.strokeStyle=c;g.lineWidth=w;g.stroke();};
+    if(show==='all'){L(Fp,C.vio,1.5);L(S,C.yel,1.5);L(D,C.orange,2.6,true);}else if(show==='sma')L(S,C.yel,2.6,true);else L(Fp,C.vio,2.6,true);
+    g.font='12px Inter,sans-serif';[[C.orange,'SMARD'],[C.yel,'SMA bars'],[C.vio,'Friction springs']].forEach(([c,t],i)=>{g.fillStyle=c;g.fillRect(18+i*130,H-16,10,10);g.fillStyle=C.muted;g.fillText(t,33+i*130,H-7);});
+    const m=[['SMARD',metr(D,U)],['SMA bars',metr(S,U)],['Springs',metr(Fp,U)]];
+    $('#dTb').innerHTML='<tr><th></th><th>F<sub>max</sub> (kN)</th><th>E<sub>D</sub> (kJ)</th><th>ξ<sub>eq</sub> (%)</th><th>Residual</th></tr>'+m.map(([n,v])=>`<tr><th>${n}</th><td>${v.Fm.toFixed(0)}</td><td>${v.Ed.toFixed(1)}</td><td>${isFinite(v.xi)?v.xi.toFixed(1):'–'}</td><td>0 mm</td></tr>`).join('');}
+  ['#dA','#dB','#dF','#dU'].forEach(s=>$(s).oninput=design);
+  $$('[data-sh]').forEach(b=>b.onclick=()=>{show=b.dataset.sh;$$('[data-sh]').forEach(x=>x.setAttribute('aria-pressed',x===b));design();});
+  $('#dRes').onclick=()=>{$('#dA').value=1;$('#dB').value=.35;$('#dF').value=1;$('#dU').value=80;design();};
+
+  function redraw(){if(tab==='dev'){drawDev();drawLoop();drawHist();readout();}else if(tab==='tmp'){drawTemp();}else design();}
+  new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));if(vis.has(root)&&(mode!=='idle'))kick();}).observe(root);
+  reset();tempTable();redraw();
+})();
 </script>
 </body></html>
