@@ -292,6 +292,17 @@ header.hero{padding-top:2.5rem}
 .lab .hx-cap{font-size:.92rem;color:var(--ink);margin:.6rem 0 0;max-width:62rem}
 .lab .ctrl[hidden]{display:none}
 @media (min-width:761px){.body .lab.damper{margin-left:-12rem;width:calc(100% + 12rem);max-width:calc(100% + 12rem)}}
+.qfilter{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.qfilter button{font:600 .8rem var(--sans);padding:.4rem .85rem;border-radius:999px;border:1px solid var(--rule);background:transparent;color:var(--muted)}
+.qfilter button:hover{background:var(--accent-soft);color:var(--ink)}
+.qfilter button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#04121c}
+.quotes blockquote{display:flex;flex-direction:column}
+.quotes blockquote p{flex:1}
+.quotes blockquote footer{margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--rule);font:500 .76rem/1.4 var(--mono);color:var(--muted)}
+.quotes blockquote .qterm{display:inline-block;margin-right:.5rem;padding:.08rem .4rem;border-radius:3px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+.quotes blockquote[hidden]{display:none}
+#students .quotes{display:block;columns:4 16rem;column-gap:1rem}
+#students .quotes blockquote{break-inside:avoid;margin:0 0 1rem}
 /* CV & resumes */
 .docs-intro{margin:0 0 1.25rem;max-width:56rem}
 .docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
@@ -532,15 +543,33 @@ header.hero{padding-top:2.5rem}
 
 
 <section id="students"><h2>What students say</h2><div class="body">
-  <div class="quotes">
-    <blockquote><p>Professor Dizaji's class was a standout. His passion for the subject was infectious, breaking down complex topics with enthusiasm. He encouraged questions, provided engaging resources, and made learning a dynamic experience.</p></blockquote>
-    <blockquote><p>Professor Dizaji's class was amazing. His passion for the course material created an atmosphere where students were excited to learn. Moreover, Professor Dizaji is extremely knowledgeable about the course content and breaks down complex topics in a way anyone can understand.</p></blockquote>
-    <blockquote><p>When he would work a Math problem out on the board, he would often ask the students to guide him through the problem. This created an environment in which most students would actively participate as he would not be harsh towards an incorrect answer. Instead, he would kindly explain why a student is incorrect.</p></blockquote>
-    <blockquote><p>Professor Dizaji always welcomed questions and encouraged people to challenge his perspectives or correct him if he made any mistakes. He was very enthusiastic about participation and encouraging to have students answer questions and participate in lecture.</p></blockquote>
-    <blockquote><p>Going to Professor Dizaji's office hours as well as attending TA office hours greatly increased my knowledge on certain subject matters that had confusing or weirdly framed parts. After the sessions, I felt relatively more comfortable solving the problems on my own.</p></blockquote>
-    <blockquote><p>He is an excellent individual who genuinely cares about his students and their learning.</p></blockquote>
+  <div class="qfilter" role="group" aria-label="Filter comments by semester">
+    <button type="button" aria-pressed="true" data-f="all">All</button><button type="button" aria-pressed="false" data-f="s26">Spring 2026</button><button type="button" aria-pressed="false" data-f="f25">Fall 2025</button><button type="button" aria-pressed="false" data-f="f23">Fall 2023</button>
   </div>
-  <p class="meta">Selected comments from anonymous end-of-semester evaluations · APMA 1090 Single Variable Calculus I, Fall 2023 (two sections, 50 responses)</p>
+  <div class="quotes">
+    <blockquote data-term="s26"><p>He was always open to questions and discussions in class. One specific time I remember a student had found a different path to finding a solution to a problem, and Professor Dizaji allowed him to come write it on the board and share it with the class. He welcomed the student's new perspective and explained how it was an alternative method of solving the problem.</p><footer><span class="qterm">Spring 2026</span>APMA 1110 Calculus II</footer></blockquote>
+    <blockquote data-term="f25"><p>This was by far the best APMA I have taken so far. Professor Dizaji is a great guy and teacher and was always so willing to help.</p><footer><span class="qterm">Fall 2025</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="f25"><p>Students in the class would correct him. Instead of denying it, he re-thought the problem and saw whether or not the student was correct and fixed his mistake. If the student was wrong, he wouldn't make them feel bad.</p><footer><span class="qterm">Fall 2025</span>APMA 2120 Multivariable Calculus</footer></blockquote>
+    <blockquote data-term="s26"><p>Through office hours he reassured me when I was scared about passing the class or not. He gave me more confidence and enthusiasm to study more.</p><footer><span class="qterm">Spring 2026</span>APMA 1110 Calculus II</footer></blockquote>
+    <blockquote data-term="s26"><p>Professor Dizaji was very kind and respectful to all students. He was always available for extra support and made sure no student was lost or confused.</p><footer><span class="qterm">Spring 2026</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="f25"><p>Professor Dizaji was able to create an environment of welcomed diverse perspectives through his constant positive attitude and passion for calculus.</p><footer><span class="qterm">Fall 2025</span>APMA 2120 Multivariable Calculus</footer></blockquote>
+    <blockquote data-term="s26"><p>The instructor never critiqued a student for asking a particular question. I felt like he welcomed all levels of understanding and approach to solving these equations and never put anybody down.</p><footer><span class="qterm">Spring 2026</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="s26"><p>The instructor encouraged different approaches to solving problems and treated every student's contribution with respect. This created a welcoming atmosphere where I felt comfortable asking for help.</p><footer><span class="qterm">Spring 2026</span>APMA 1110 Calculus II</footer></blockquote>
+    <blockquote data-term="f25"><p>In-class lectures were the biggest thing for this class and they were pretty helpful. Professor likes to usually prove whatever we are learning then go into some examples which is an effective way to teach in my opinion.</p><footer><span class="qterm">Fall 2025</span>APMA 2120 Multivariable Calculus</footer></blockquote>
+    <blockquote data-term="f25"><p>Professor Dizaji was easy to talk to and a kind personality in the classroom. He treated everyone with respect and treated even the most stupid questions with professionalism and respect, which made me feel welcomed in the class.</p><footer><span class="qterm">Fall 2025</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="s26"><p>Professor Dizaji was amazing, and I really enjoyed the course!</p><footer><span class="qterm">Spring 2026</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="f25"><p>I believe that your lectures were SUPER helpful to my learning in this class.</p><footer><span class="qterm">Fall 2025</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="s26"><p>He never shut anyone down and always listened to students' thoughts respectfully, kindly correcting them when they were wrong.</p><footer><span class="qterm">Spring 2026</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="f25"><p>Dizaji was a very good professor that helped elaborate on topics with a lot of detail 1 on 1.</p><footer><span class="qterm">Fall 2025</span>APMA 2130 Ordinary Differential Equations</footer></blockquote>
+    <blockquote data-term="s26"><p>I had an excellent time learning this course from my professor, and when topics were unclear, he helped in explaining further.</p><footer><span class="qterm">Spring 2026</span>APMA 1110 Calculus II</footer></blockquote>
+    <blockquote data-term="f23"><p>Professor Dizaji's class was a standout. His passion for the subject was infectious, breaking down complex topics with enthusiasm. He encouraged questions, provided engaging resources, and made learning a dynamic experience.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+    <blockquote data-term="f23"><p>Professor Dizaji's class was amazing. His passion for the course material created an atmosphere where students were excited to learn. Moreover, Professor Dizaji is extremely knowledgeable about the course content and breaks down complex topics in a way anyone can understand.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+    <blockquote data-term="f23"><p>When he would work a Math problem out on the board, he would often ask the students to guide him through the problem. This created an environment in which most students would actively participate as he would not be harsh towards an incorrect answer. Instead, he would kindly explain why a student is incorrect.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+    <blockquote data-term="f23"><p>Professor Dizaji always welcomed questions and encouraged people to challenge his perspectives or correct him if he made any mistakes. He was very enthusiastic about participation and encouraging to have students answer questions and participate in lecture.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+    <blockquote data-term="f23"><p>Going to Professor Dizaji's office hours as well as attending TA office hours greatly increased my knowledge on certain subject matters that had confusing or weirdly framed parts. After the sessions, I felt relatively more comfortable solving the problems on my own.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+    <blockquote data-term="f23"><p>He is an excellent individual who genuinely cares about his students and their learning.</p><footer><span class="qterm">Fall 2023</span>APMA 1090 Calculus I</footer></blockquote>
+  </div>
+  <p class="meta">Selected comments from anonymous end-of-semester student evaluations (UVA Student Experience of Teaching) · Spring 2026: APMA 1110 and two sections of APMA 2130, 69 responses · Fall 2025: APMA 2120 and two sections of APMA 2130, 66 responses · Fall 2023: two sections of APMA 1090, 50 responses · Quotes are verbatim apart from small spelling fixes and trims</p>
 </div></section>
 
 <section id="demo" class="demo">
@@ -1145,5 +1174,10 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   $('#hClear').onclick=()=>start(false);
   syncNeuron(); select(0); playing=false; bAuto.textContent='Play';
 })();
+</script>
+<script>
+(function(){var g=document.querySelector('#students .qfilter');if(!g)return;var bs=g.querySelectorAll('button'),qs=document.querySelectorAll('#students .quotes blockquote');
+g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var f=b.dataset.f;
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});qs.forEach(function(q){q.hidden=!(f==='all'||q.dataset.term===f)});});})();
 </script>
 </body></html>
