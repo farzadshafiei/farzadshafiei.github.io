@@ -277,6 +277,19 @@ header.hero{padding-top:2.5rem}
 .lab .read{font:500 .85rem var(--mono);color:var(--ink);margin:.7rem 0 0;min-height:1.4em;max-width:none}
 .lab .read b{color:var(--mark)}
 .lab .fine{font-size:.8rem;color:var(--muted);margin:.6rem 0 0}
+.hx-tabs{display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none;padding:.3rem;margin:0 0 .7rem;background:#05080d;border:1px solid var(--rule);border-radius:999px;width:max-content;max-width:100%}
+.hx-tabs::-webkit-scrollbar{display:none}
+.lab .hx-tab{appearance:none;border:0;background:none;color:var(--muted);font:600 .82rem var(--sans);padding:.45rem .9rem;border-radius:999px;cursor:pointer;white-space:nowrap}
+.lab .hx-tab:hover{background:var(--accent-soft);color:var(--ink)}
+.lab .hx-tab[aria-selected="true"]{background:var(--accent);color:#04121c}
+.hx-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .8rem;max-width:none}
+.hx-chips span{font:600 .7rem var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:.15rem .45rem}
+.hx-chips .hx-ex{background:var(--mark);border-color:var(--mark);color:#1a0b04}
+.lab button.hx-pre{font-size:.8rem;padding:.35rem .7rem}
+.lab button.hx-pre span{opacity:.7;font-weight:500}
+.lab button.hx-pre[aria-pressed="true"]{background:var(--mark);border-color:var(--mark);color:#1a0b04}
+.lab .hx-cap{font-size:.92rem;color:var(--ink);margin:.6rem 0 0;max-width:62rem}
+.lab .ctrl[hidden]{display:none}
 @media (min-width:761px){.body .lab.damper{margin-left:-12rem;width:calc(100% + 12rem);max-width:calc(100% + 12rem)}}
 /* wide layout: use the full screen, big videos */
 .wrap{max-width:min(90rem,100%)}
@@ -562,19 +575,31 @@ header.hero{padding-top:2.5rem}
     <figcaption>The EPNN in motion. A growing input <em>x</em>(<em>t</em>) drives the network: the highlighted DS neuron's block sticks and slips, its soundness drops as slip accumulates, signals flow through the sigmoid layer, and the output traces hysteresis loops. Every frame is a real forward pass through the architecture in Figures 1 to 3 of the paper (Eqs. 1 to 6); the weights are illustrative rather than the trained values.</figcaption>
   </figure>
 <div class="lab damper" id="lab-hys">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Drive a hysteresis model</p>
-  <p class="sub">Move the slider (or drag across the plot) to set the input. A weighted sum of play operators, the kind of neuron used in the first layer of the Extended Preisach Neural Network, turns it into an output with memory: reversing the input traces new inner loops.</p>
+  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Explore the hysteresis loops in the EPNN paper</p>
+  <p class="sub">Pick a tab. The first one is a single NDS neuron (Eqs. 1–6 and Figure 5): change <em>w<sub>x</sub></em>, <em>w<sub>ẋ</sub></em> and <em>β</em> and see which loops it can make. The others are the kinds of hysteresis from the paper's eight examples. Press Play, or drag the slider (or across the plot) to set the input yourself; in the rate-dependent tabs, dragging faster opens the loop wider.</p>
+  <div class="hx-tabs" role="tablist" aria-label="Choose a hysteresis loop"></div>
+  <p class="hx-chips" aria-label="Properties of this hysteresis"></p>
   <div class="grid eq">
-    <canvas id="hPlot" width="560" height="420" aria-label="Output versus input loop"></canvas>
-    <canvas id="hOps" width="560" height="420" aria-label="Individual play operators"></canvas>
+    <canvas id="hPlot" width="560" height="420" aria-label="Output versus input hysteresis loop"></canvas>
+    <canvas id="hTime" width="560" height="420" aria-label="Input and output over time"></canvas>
+  </div>
+  <div class="ctrl hx-neuron">
+    <label><em>w<sub>x</sub></em> <input id="hWx" type="range" min="0.5" max="2.5" step="0.01" value="1.42"><span id="hWxV">1.42</span></label>
+    <label><em>w<sub>ẋ</sub></em> <input id="hWd" type="range" min="-2.5" max="2.5" step="0.05" value="0"><span id="hWdV">0.00</span></label>
+    <label><em>β</em> <input id="hB" type="range" min="0" max="6" step="1" value="6"><span id="hBV">∞</span></label>
+  </div>
+  <div class="ctrl hx-neuron hx-presets" aria-label="Cases from Figure 5"></div>
+  <div class="ctrl hx-freq">
+    <label>Excitation frequency <input id="hF" type="range" min="0" max="1" step="0.01" value="0.5"><span id="hFV"></span></label>
   </div>
   <div class="ctrl">
-    <label>Input <input id="hIn" type="range" min="-1" max="1" step="0.005" value="0" style="width:260px"></label>
-    <button class="b primary" id="hAuto">Play decaying cycles</button>
-    <button class="b" id="hClear">Clear</button>
+    <label>Input <input id="hIn" type="range" min="-1" max="1" step="0.002" value="0" style="width:240px"></label>
+    <button class="b primary" id="hAuto">Play</button>
+    <button class="b" id="hClear">Reset</button>
   </div>
-  <p class="read" id="hRead">Input 0.00 · output 0.00</p>
-  <p class="fine">Illustrative weights and thresholds. The EPNN paper (Neural Processing Letters, 2022) adds deteriorating-stop neurons, a sigmoidal layer and the input rate to learn real, rate-dependent hysteresis.</p>
+  <p class="read" id="hRead"></p>
+  <p class="hx-cap"></p>
+  <p class="fine">The NDS neuron tab follows the paper's equations exactly. The other tabs reproduce the <em>kind</em> of loop in each example (symmetric or not, saturated, degrading, rate-dependent), built from the same neurons; they are illustrations, not the measured data or the trained networks from the paper.</p>
 </div>
   <h3>Interests</h3>
   <ul class="chips" style="margin-top:.5rem"><li>Smart structures</li><li>Energy dissipation</li><li>Structural optimization</li><li>Machine learning</li><li>Finite element methods</li><li>Earthquake engineering</li><li>Structural health monitoring</li><li>System identification</li></ul>
@@ -879,40 +904,180 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){spin=false;document.getElementById('dSpin').checked=false;}
 })();
 
-/* ======================= 3. play-operator hysteresis ======================= */
-(function(){
-  const cp=document.getElementById('hPlot'), co=document.getElementById('hOps'), gp=prep(cp), go=prep(co), W=560,H=420;
-  const R=[0.06,0.2,0.34,0.48,0.62,0.76], WGT=[0.12,0.16,0.2,0.22,0.24,0.26];
-  let st=R.map(()=>0), u=0, trace=[[0,0]], auto=null;
-  const out=()=>st.reduce((s,z,i)=>s+WGT[i]*z,0)+0.05*u;
-  const YS=1/(WGT.reduce((a,w,i)=>a+w*(1-R[i]),0)+0.05);
-  function setU(nu){ // play operators: z = clamp(z, u - r, u + r)
-    const n=Math.max(2,Math.ceil(Math.abs(nu-u)/0.004)); for(let s=1;s<=n;s++){const uu=u+(nu-u)*s/n; st=st.map((z,i)=>Math.min(uu+R[i],Math.max(uu-R[i],z))); trace.push([uu,out()]);} u=nu; if(trace.length>6000)trace.splice(0,trace.length-6000); draw();}
-  function axes(g,title,xl,yl){g.clearRect(0,0,W,H); g.fillStyle='#05080d'; g.fillRect(0,0,W,H); g.strokeStyle=C.rule; g.lineWidth=1; g.beginPath(); g.moveTo(30,H/2+10); g.lineTo(W-20,H/2+10); g.moveTo(W/2,44); g.lineTo(W/2,H-24); g.stroke();
-    g.fillStyle=C.ink; g.font='600 14px Inter,sans-serif'; g.fillText(title,20,28); g.fillStyle=C.muted; g.font='12px Inter,sans-serif'; g.fillText(xl,W-60,H/2+2); g.fillText(yl,W/2+8,56);}
-  const X=v=>W/2+v*(W/2-40), Y=v=>H/2+10-v*(H/2-50);
-  function draw(){
-    axes(gp,'Output with memory','input','output');
-    gp.lineWidth=1.8; for(let i=1;i<trace.length;i++){const a=i/trace.length; gp.strokeStyle=`rgba(107,183,227,${0.12+0.88*a*a})`; gp.beginPath(); gp.moveTo(X(trace[i-1][0]),Y(trace[i-1][1]*YS)); gp.lineTo(X(trace[i][0]),Y(trace[i][1]*YS)); gp.stroke();}
-    gp.fillStyle=C.orange; gp.beginPath(); gp.arc(X(u),Y(out()*YS),6,0,7); gp.fill();
-    axes(go,'Play operators (neurons)','input','state');
-    R.forEach((r,i)=>{const c=`hsla(${30+i*28},75%,65%,.9)`; go.strokeStyle=c; go.lineWidth=1.3; go.globalAlpha=.45; go.beginPath(); go.moveTo(X(-1),Y(-1+r)); go.lineTo(X(-1+2*r),Y(-1+r)); go.lineTo(X(1),Y(1-r)); go.lineTo(X(1-2*r),Y(1-r)); go.closePath(); go.stroke(); go.globalAlpha=1;
-      go.fillStyle=c; go.beginPath(); go.arc(X(u),Y(st[i]),4.5,0,7); go.fill();});
-    go.fillStyle=C.muted; go.font='12px Inter,sans-serif'; go.fillText('each operator has its own backlash width r',20,H-10);
-    document.getElementById('hRead').textContent=`Input ${u.toFixed(2)} · output ${(out()*YS).toFixed(2)}`;
-    document.getElementById('hIn').value=u;
-  }
-  cp._redraw=draw; co._redraw=draw;
-  document.getElementById('hIn').oninput=e=>{stop(); setU(+e.target.value);};
-  let dragging=false; const fromEv=e=>{const r=cp.getBoundingClientRect(); return Math.max(-1,Math.min(1,((e.clientX-r.left)*W/r.width-W/2)/(W/2-40)));};
-  cp.addEventListener('pointerdown',e=>{stop();dragging=true;cp.setPointerCapture(e.pointerId);setU(fromEv(e));});
-  cp.addEventListener('pointermove',e=>{if(dragging)setU(fromEv(e));}); cp.addEventListener('pointerup',()=>dragging=false);
-  function stop(){if(auto){cancelAnimationFrame(auto);auto=null;document.getElementById('hAuto').textContent='Play decaying cycles';}}
-  document.getElementById('hAuto').onclick=()=>{ if(auto){stop();return;} let t0=performance.now(); document.getElementById('hAuto').textContent='Pause';
-    const f=now=>{const t=(now-t0)/1000; const a=Math.max(0.08,0.95*Math.exp(-t/9)); setU(a*Math.sin(2*Math.PI*t/2.6)); auto=t<26?requestAnimationFrame(f):(stop(),null);}; auto=requestAnimationFrame(f);};
-  document.getElementById('hClear').onclick=()=>{stop(); st=R.map(()=>0); u=0; trace=[[0,0]]; draw();};
-  draw();
 })();
+</script>
+<script>
+/* ======================= 3. EPNN hysteresis explorer ======================= */
+(function(){
+  const root=document.getElementById('lab-hys'); if(!root)return;
+  const C={ink:'#e6ecf2',muted:'#9aa8b6',rule:'#27436b',blue:'#6bb7e3',orange:'#f09a6e',yel:'#e8c547',bg:'#05080d'};
+  const $=s=>root.querySelector(s);
+  function prep(cv){cv._w0=cv.width;cv._h0=cv.height;const g=cv.getContext('2d');const res=()=>{const r=window.devicePixelRatio||1,w=cv.clientWidth||cv._w0;cv.style.height=(w*cv._h0/cv._w0)+'px';cv.width=Math.round(w*r);cv.height=Math.round(w*r*cv._h0/cv._w0);g.setTransform(cv.width/cv._w0,0,0,cv.height/cv._h0,0,0);};res();window.addEventListener('resize',()=>{res();draw();});return g;}
+  const cp=$('#hPlot'), ct=$('#hTime'), gp=prep(cp), gt=prep(ct), W=560, H=420;
+  const cl=v=>Math.max(-1,Math.min(1,v));
+
+  /* ---- NDS neurons: stop operator with r = 1 (Eqs. 1-2), play operator and cumulative slip (Eqs. 3-4),
+          bilinear soundness (Eq. 5), DS output = stop x soundness (Eq. 6). Neuron input v = wx*x + wxdot*xdot + b. */
+  function Net(neurons,w0,post){this.n=neurons;this.w0=w0||0;this.post=post||(h=>h);this.reset();}
+  Net.prototype.reset=function(){this.st=this.n.map(()=>({v:null,y:0,s:0,bl:1}));};
+  Net.prototype.step=function(x,xd){let h=this.w0*x;
+    for(let i=0;i<this.n.length;i++){const n=this.n[i],q=this.st[i],v=n.a*x+(n.c||0)*xd+(n.b||0);
+      if(q.v===null){q.y=cl(v);q.v=v;} else {const y=cl(v-q.v+q.y); q.s+=Math.abs((v-y)-(q.v-q.y)); q.y=y; q.v=v;}
+      q.bl=isFinite(n.beta)?Math.max(0,1-q.s/n.beta):1; h+=(n.w==null?1:n.w)*q.y*q.bl;}
+    return this.post(h,x);};
+
+  /* ---- concrete under cyclic compression: Popovics envelope, Karsan-Jirsa plastic strain,
+          curved unloading, linear reloading that loses strength on each repeat (non-congruent) */
+  function Concrete(){this.reset();}
+  const env=e=>e<=0?0:2.5*e/(1.5+Math.pow(e,2.5));
+  Concrete.prototype.reset=function(){Object.assign(this,{e:0,s:0,dir:0,mode:'env',emax:0,base:0,deg:.95,eR:0,sR:0,ep:0,e0:0,s0:0,tgt:0});};
+  Concrete.prototype.step=function(e){
+    const de=e-this.e; if(Math.abs(de)<1e-12)return this.s; const dir=Math.sign(de);
+    if(this.dir!==0&&dir!==this.dir){
+      if(dir<0){this.mode='unl';this.eR=this.e;this.sR=this.s;this.ep=Math.min(this.e-1e-6,0.145*this.emax*this.emax+0.13*this.emax);}
+      else if(this.emax>0){this.mode='rel';this.e0=Math.max(this.e,this.ep);this.s0=this.s;this.tgt=this.base*this.deg;this.deg*=0.93;}
+    }
+    this.dir=dir;this.e=e;let s;
+    if(this.mode==='env'){s=env(e);if(e>this.emax){this.emax=e;this.base=s;this.deg=.95;}}
+    else if(this.mode==='unl'){s=e>this.ep?this.sR*Math.pow((e-this.ep)/(this.eR-this.ep),2):0;}
+    else if(this.mode==='rel'){ if(e<this.emax){s=e<this.e0?0:this.s0+(this.tgt-this.s0)*(e-this.e0)/Math.max(1e-6,this.emax-this.e0);} else {this.mode='blend';} }
+    if(this.mode==='blend'){const L=.12,u=(e-this.emax)/L; if(u>=1){this.mode='env';s=env(e);this.emax=e;this.base=s;this.deg=.95;} else s=this.tgt+(env(this.emax+L)-this.tgt)*Math.max(0,u);}
+    this.s=Math.max(0,s);return this.s;};
+
+  /* ---- input generators */
+  function path(pk,sp){const seg=[];let T=0;for(let i=1;i<pk.length;i++){const d=Math.abs(pk[i]-pk[i-1])/sp;seg.push([T,T+d,pk[i-1],pk[i]]);T+=d;}
+    return {T,f:t=>{for(const s of seg)if(t<=s[1])return s[2]+(s[3]-s[2])*(t-s[0])/(s[1]-s[0]||1);return pk[pk.length-1];},d:()=>0};}
+  const P=2.4; // seconds per cycle on screen; the physical frequency only scales the rate input
+  function sine(bias,amps){const w=2*Math.PI/P,A=t=>amps[Math.min(amps.length-1,Math.floor(t/P))];
+    return {T:amps.length*P,f:t=>bias+A(t)*Math.sin(w*t),d:t=>A(t)*Math.cos(w*t)};}
+  const TS=3; // neuron tab: normalised time units per second
+  const chirp={T:40/TS,f:t=>{const u=t*TS;return Math.sin(0.25*u+0.75*u*u/80);},d:t=>{const u=t*TS;return (0.25+0.75*u/40)*Math.cos(0.25*u+0.75*u*u/80);}};
+
+  const EX=[
+   {tab:'NDS neuron',nds:true,chips:['Eqs. 1–6','Figure 5'],xl:'input x',yl:'neuron output',dom:[-1,1],gen:chirp,
+    cap:'One normalized deteriorating stop (NDS) neuron, driven like Figure 5(a): a signal between −1 and 1 whose frequency rises. Its input is <em>w<sub>x</sub>x + w<sub>ẋ</sub>ẋ</em>. With <em>w<sub>x</sub></em> above 1 it makes static loops; a nonzero <em>w<sub>ẋ</sub></em> adds rate-dependent loops that spread apart as the frequency rises; a finite <em>β</em> lets accumulated slip lower its soundness, so repeated loops shrink (non-congruent). With <em>w<sub>x</sub></em> = 1 and <em>w<sub>ẋ</sub></em> = 0 there is no loop at all.'},
+   {tab:'Ferromagnet',ex:1,chips:['Symmetric','Saturated','Non-Masing','Rate-independent'],xl:'magnetic field H',yl:'flux density B',dom:[-1,1],
+    net:()=>new Net([{a:1.15,w:.3},{a:1.4,w:.3},{a:1.8,w:.25},{a:2.5,w:.2},{a:3.5,w:.15}],0.1,h=>Math.tanh(1.5*h)),
+    gen:path([0,1,-1,1,-.55,.55,-.55,.25,-.25,.25,1,-1],0.55),
+    cap:'Example 1: flux density against applied field in a ferromagnetic material. The loops are symmetric, saturate once the field passes a limit, do not follow the Masing rules, and are treated as rate-independent at low frequency.'},
+   {tab:'RC beam–column joint',ex:2,chips:['Non-congruent','Non-Masing','Degrading'],xl:'drift ratio',yl:'lateral load',dom:[-1,1],
+    net:()=>new Net([{a:1.4,beta:45,w:.35},{a:2,beta:55,w:.35},{a:3,beta:70,w:.3},{a:4.5,beta:95,w:.25}],0.06),
+    gen:path([0,.25,-.25,.25,-.25,.5,-.5,.5,-.5,.75,-.75,.75,-.75,1,-1,1,-1,0],0.5),
+    cap:'Example 2: drift ratio against lateral load for exterior beam–column joints of reinforced concrete frames (test data of Clyde et al., 2000). Damage makes the second cycle to the same drift weaker than the first, so loops with equal peaks do not coincide. The deteriorating stop neurons model this loss through their soundness factor.'},
+   {tab:'Terfenol-D actuator',ex:3,chips:['Asymmetric','Saturated','Non-Masing','Major & minor loops'],xl:'input current (A)',yl:'deformation',dom:[-.7,1.2],
+    net:()=>new Net([{a:1.2,w:.3},{a:1.6,w:.3},{a:2.2,w:.25},{a:3,w:.2}],0.1,h=>h>0?Math.tanh(2.2*h):0.45*Math.tanh(1.6*h)),
+    gen:path([0,.3,-.2,.6,-.45,.9,-.6,1.2,-.7,1.2,-.7],0.6),
+    cap:'Example 3: a magnetostrictive (Terfenol-D) actuator driven by rising triangular currents from −0.7 to 1.2 A (tests of Tan and Baras). Below about 5 Hz it is rate-independent; its major and minor loops are asymmetric and the output saturates.'},
+   {tab:'SMA actuator',ex:4,chips:['Asymmetric','Output-saturated','Major & minor loops'],xl:'input current (temperature)',yl:'displacement',dom:[-1,1],
+    net:()=>new Net([{a:1.25,w:.4},{a:1.5,w:.35},{a:1.9,w:.3}],0.25,h=>1/(1+Math.exp(-6*(h-0.15)))),
+    gen:path([-1,1,-1,.4,-.35,.75,-.6,1,-1],0.5),
+    cap:'Example 4: a two-wire shape memory alloy actuator (Gorbet): displacement against temperature, set by currents from −1 to 1 A (about −175 to 175 °C). Major and minor loops are strongly asymmetric, and the output saturates once the wires are hot enough.'},
+   {tab:'Concrete in compression',ex:5,chips:['Asymmetric','Non-Masing','Non-congruent'],xl:'strain',yl:'compressive stress',dom:[0,3],
+    net:()=>new Concrete(), gen:path([0,1,.35,1,.4,1.6,.75,1.6,.85,2.3,1.3,2.3,1.4,3],0.45),
+    cap:'Example 5: plain concrete under cyclic uniaxial compression (tests of Sinha et al.). The stress–strain loops are one-sided, soften after the peak, and lose strength each time a cycle returns to the same strain.'},
+   {tab:'Piezo actuator',ex:6,rate:true,fr:[0.5,300],chips:['Symmetric','Rate-dependent'],xl:'input voltage',yl:'displacement',dom:[-1,1],
+    net:()=>new Net([{a:1.25,w:.2},{a:1.6,w:.15},{a:1.02,c:1.0,w:.3},{a:1.1,c:1.6,w:.3}],0.45),
+    gen:sine(0,[1,1,.6,.6,1,1]),
+    cap:'Example 6: a piezoelectric (PZT) actuator under sinusoidal voltages from 0.5 to 300 Hz (tests of Gu and Zhu, 2010). The loops are symmetric but widen as the frequency rises, so the EPNN also takes the input rate ẋ. Example 7 tests the same ability on data from a rate-dependent Prandtl–Ishlinskii model.'},
+   {tab:'Terfenol-D, 10–300 Hz',ex:8,rate:true,fr:[10,300],chips:['Asymmetric','Non-congruent','Rate-dependent'],xl:'input current (A)',yl:'displacement',dom:[-.7,.9],
+    net:()=>new Net([{a:1.2,w:.25,beta:300},{a:1.7,w:.25,beta:400},{a:1.05,c:1.1,w:.3},{a:1.15,c:1.7,w:.3}],0.15,h=>h>0?Math.tanh(1.9*h):0.5*Math.tanh(1.5*h)),
+    gen:sine(.1,[.8,.8,.8,.8,.8]),
+    cap:'Example 8: a magnetostrictive actuator driven by 0.8 A sinusoidal currents with a 0.1 A bias, from 10 to 300 Hz (tests of Tan and Baras). The loops are asymmetric and non-congruent, and they grow as the frequency rises.'}
+  ];
+
+  /* ---- neuron controls (Figure 5 cases) */
+  const BETAS=[5,10,25,50,100,250,Infinity];
+  const PRE=[['Static loops','5c',1.42,0,6],['Rate-dependent','5d',1.42,-1.1,6],['Non-congruent','5e',1.42,0,2],['Both','5f',1.42,2,2],['No loop','5g',1,0,6],['Dynamic only','5h',1,2,6]];
+  const sWx=$('#hWx'),sWd=$('#hWd'),sB=$('#hB'),sF=$('#hF'),sIn=$('#hIn'),bAuto=$('#hAuto'),read=$('#hRead');
+  const presets=$('.hx-presets');
+  PRE.forEach(p=>{const b=document.createElement('button');b.className='b hx-pre';b.type='button';b.innerHTML=`${p[0]} <span>Fig. ${p[1]}</span>`;
+    b.onclick=()=>{sWx.value=p[2];sWd.value=p[3];sB.value=p[4];syncNeuron();start(true);};presets.appendChild(b);});
+  function syncNeuron(){$('#hWxV').textContent=(+sWx.value).toFixed(2);$('#hWdV').textContent=(+sWd.value).toFixed(2);const b=BETAS[+sB.value];$('#hBV').textContent=isFinite(b)?b:'∞';
+    presets.querySelectorAll('button').forEach((el,i)=>{const p=PRE[i];el.setAttribute('aria-pressed',Math.abs(+sWx.value-p[2])<.005&&Math.abs(+sWd.value-p[3])<.01&&+sB.value===p[4]);});}
+  const fOf=()=>{const fr=cur.fr;return fr[0]*Math.pow(fr[1]/fr[0],+sF.value);};
+
+  /* ---- state */
+  let k=0,cur=EX[0],net=null,playing=false,tA=0,x=0,xd=0,y=0,xm=0,vel=0,trace=[],hist=[],tNow=0,bnd=null,last=0;
+  function buildNet(){ if(cur.nds){const b=BETAS[+sB.value];return new Net([{a:+sWx.value,c:+sWd.value,beta:b,w:1}],0);} return cur.net(); }
+  function bounds(){ // run the play pattern once (at the highest rate) to fix the axes
+    if(cur.nds)return {x:[-1.08,1.08],y:[-1.15,1.15]};
+    const n=cur.net();let lo=0,hi=0;const g=cur.gen;
+    for(let t=0;t<=g.T;t+=0.01){const v=n.step(g.f(t),g.d(t));lo=Math.min(lo,v);hi=Math.max(hi,v);}
+    const px=(cur.dom[1]-cur.dom[0])*.06,py=(hi-lo)*.12;return {x:[Math.min(0,cur.dom[0])-px,cur.dom[1]+px],y:[lo-py,hi+py]};}
+  function reset(play){net=buildNet();x=cur.gen.f(0);xm=x;xd=play?cur.gen.d(0)*(cur.rate?fOf()/cur.fr[1]:1):0;vel=0;y=net.step(x,xd);trace=[[x,y]];hist=[];tNow=0;tA=0;}
+  function select(i){k=i;cur=EX[i];
+    tabs.forEach((b,j)=>{b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1;});
+    $('.hx-chips').innerHTML=(cur.ex?`<span class="hx-ex">Example ${cur.ex}</span>`:'')+cur.chips.map(c=>`<span>${c}</span>`).join('');
+    $('.hx-cap').innerHTML=cur.cap;
+    root.querySelectorAll('.hx-neuron').forEach(e=>e.hidden=!cur.nds); root.querySelector('.hx-freq').hidden=!cur.rate;
+    sIn.min=cur.dom[0];sIn.max=cur.dom[1];
+    $('#hFV').textContent=cur.rate?fmtF(fOf()):'';
+    bnd=bounds(); start(true);}
+  function start(play){reset(play);playing=!!play;bAuto.textContent=playing?'Pause':'Play';kick();}
+
+  /* ---- time stepping */
+  function rateFromVel(v){ if(cur.nds)return v/TS; if(cur.rate)return v*P/(2*Math.PI); return 0; }
+  function advance(nx,nxd,dt){
+    const n=Math.max(1,Math.ceil(Math.abs(nx-x)/0.006));
+    for(let i=1;i<=n;i++){const u=i/n,xi=x+(nx-x)*u; y=net.step(xi,xd+(nxd-xd)*u); trace.push([xi,y]);}
+    x=nx;xd=nxd;tNow+=dt;hist.push([tNow,x,y,xd]);
+    if(trace.length>6000)trace.splice(0,trace.length-6000); while(hist.length&&hist[0][0]<tNow-12)hist.shift();}
+  let vis=false,raf=0;
+  let seen=false;
+  new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!seen){seen=true;start(true);}else if(vis)kick();},{rootMargin:'0px'}).observe(cp);
+  function kick(){if(!raf&&vis){last=0;raf=requestAnimationFrame(frame);} else if(!vis)draw();}
+  function frame(now){raf=0;if(!vis)return;
+    const dt=last?Math.min(.05,(now-last)/1000):1/60;last=now;let more=false;
+    if(playing){tA+=dt;const g=cur.gen;if(tA>=g.T){tA=g.T;playing=false;bAuto.textContent='Play again';}
+      const fn=cur.rate?fOf()/cur.fr[1]:1; advance(g.f(tA),g.d(tA)*fn,dt); more=playing;}
+    else{const v=(xm-x)/dt;vel+=(v-vel)*.35;if(Math.abs(vel)<2e-3&&Math.abs(xm-x)<1e-6)vel=0;
+      advance(xm,Math.max(-1.6,Math.min(1.6,rateFromVel(vel))),dt);more=vel!==0||(cur.rate||cur.nds)&&Math.abs(xd)>1e-4;}
+    draw(); if(more)raf=requestAnimationFrame(frame);}
+
+  /* ---- drawing */
+  const X=v=>40+(v-bnd.x[0])/(bnd.x[1]-bnd.x[0])*(W-70), Y=v=>H-40-(v-bnd.y[0])/(bnd.y[1]-bnd.y[0])*(H-100);
+  function frameBox(g,title){g.clearRect(0,0,W,H);g.fillStyle=C.bg;g.fillRect(0,0,W,H);g.fillStyle=C.ink;g.font='600 14px Inter,sans-serif';g.fillText(title,20,28);}
+  function draw(){ if(!bnd)return;
+    // loop plot
+    frameBox(gp,cur.nds?'NDS neuron: output against input':cur.tab+(cur.rate?` · ${fmtF(fOf())}`:''));
+    gp.strokeStyle=C.rule;gp.lineWidth=1;gp.beginPath();gp.moveTo(30,Y(0));gp.lineTo(W-20,Y(0));gp.moveTo(X(0),48);gp.lineTo(X(0),H-30);gp.stroke();
+    gp.fillStyle=C.muted;gp.font='12px Inter,sans-serif';gp.textAlign='right';gp.fillText(cur.xl,W-22,Y(0)-8);gp.textAlign='left';gp.fillText(cur.yl,X(0)+8,58);
+    const N=trace.length,CH=40;gp.lineWidth=2;gp.lineJoin='round';
+    for(let s=1;s<N;s+=CH){const a=(s/N);gp.strokeStyle=`rgba(107,183,227,${0.3+0.7*a*a})`;gp.beginPath();gp.moveTo(X(trace[s-1][0]),Y(trace[s-1][1]));
+      for(let i=s;i<Math.min(N,s+CH);i++)gp.lineTo(X(trace[i][0]),Y(trace[i][1]));gp.stroke();}
+    gp.fillStyle=C.orange;gp.beginPath();gp.arc(X(x),Y(y),6,0,7);gp.fill();
+    // time plot
+    frameBox(gt,'Input and output over time');
+    const t0=tNow-12,TX=t=>30+(t-t0)/12*(W-50),bands=[[1,C.blue,'input',bnd.x],[2,C.orange,'output',bnd.y]];
+    gt.font='12px Inter,sans-serif';
+    const rows=(cur.rate||cur.nds)?3:2, top=50, hh=(H-top-30)/rows;
+    bands.forEach(([j,c,lab,b],r)=>{const y0=top+r*hh,m=v=>y0+hh-6-(v-b[0])/(b[1]-b[0])*(hh-12);
+      gt.strokeStyle=C.rule;gt.beginPath();gt.moveTo(30,m(0));gt.lineTo(W-20,m(0));gt.stroke();gt.fillStyle=c;gt.fillText(lab,34,y0+12);
+      gt.strokeStyle=c;gt.lineWidth=1.8;gt.beginPath();hist.forEach((h,i)=>{const px=TX(h[0]),py=m(h[j]);i?gt.lineTo(px,py):gt.moveTo(px,py);});gt.stroke();});
+    if(rows===3){const y0=top+2*hh,m=v=>y0+hh/2-v/1.7*(hh/2-6);gt.strokeStyle=C.rule;gt.beginPath();gt.moveTo(30,m(0));gt.lineTo(W-20,m(0));gt.stroke();
+      gt.fillStyle=C.yel;gt.fillText('rate ẋ (scaled)',34,y0+12);gt.strokeStyle=C.yel;gt.lineWidth=1.5;gt.beginPath();hist.forEach((h,i)=>{const px=TX(h[0]),py=m(h[3]);i?gt.lineTo(px,py):gt.moveTo(px,py);});gt.stroke();}
+    // readout
+    let r=`input ${x.toFixed(2)} · output ${y.toFixed(2)}`;
+    if(cur.nds){const q=net.st[0];r+=` · slip s = ${q.s.toFixed(2)} · soundness BL = ${q.bl.toFixed(2)}`;}
+    if(cur.rate)r+=` · frequency ${fmtF(fOf())}`;
+    read.textContent=r; sIn.value=x;}
+  const fmtF=f=>(f<10?f.toFixed(1):Math.round(f))+' Hz';
+
+  /* ---- tabs and inputs */
+  const tl=$('.hx-tabs'), tabs=EX.map((e,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.className='hx-tab';b.textContent=e.tab;b.onclick=()=>select(i);tl.appendChild(b);return b;});
+  tl.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const i=(k+(e.key==='ArrowRight'?1:-1)+EX.length)%EX.length;select(i);tabs[i].focus();tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});e.preventDefault();}});
+  [sWx,sWd,sB].forEach(s=>s.addEventListener('input',()=>{syncNeuron();start(true);}));
+  sF.addEventListener('input',()=>{$('#hFV').textContent=fmtF(fOf());start(true);});
+  function manual(v){if(playing){playing=false;bAuto.textContent='Play';}xm=Math.max(cur.dom[0],Math.min(cur.dom[1],v));kick();}
+  sIn.addEventListener('input',()=>manual(+sIn.value));
+  let drag=false;const fromEv=e=>{const r=cp.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;return bnd.x[0]+(px-40)/(W-70)*(bnd.x[1]-bnd.x[0]);};
+  cp.addEventListener('pointerdown',e=>{drag=true;cp.setPointerCapture(e.pointerId);manual(fromEv(e));});
+  cp.addEventListener('pointermove',e=>{if(drag)manual(fromEv(e));});
+  cp.addEventListener('pointerup',()=>drag=false);cp.addEventListener('pointercancel',()=>drag=false);
+  bAuto.onclick=()=>{ if(playing){playing=false;bAuto.textContent='Play';return;}
+    if(tA>=cur.gen.T||tA===0)start(true); else {playing=true;bAuto.textContent='Pause';kick();} };
+  $('#hClear').onclick=()=>start(false);
+  syncNeuron(); select(0); playing=false; bAuto.textContent='Play';
 })();
 </script>
 </body></html>
