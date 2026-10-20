@@ -1,10 +1,10 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#000000;color:#e6ecf2}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Farzad Shafiei Dizaji · Mathematics and Civil (Structural) Engineering Educator</title>
-<meta name="description" content="Farzad Shafiei Dizaji, mathematics educator. Seven years as a Lecturer in the Applied Mathematics Center at the University of Virginia teaching calculus, differential equations, linear algebra, and probability to engineering students.">
+<meta name="description" content="Farzad Shafiei Dizaji, mathematics and civil (structural) engineering educator. Seven years as a Lecturer at the University of Virginia teaching calculus, differential equations, linear algebra and probability to engineering students; research in smart structures, structural optimization and neural networks. CV, résumés, teaching and research statements.">
 <link rel="canonical" href="https://farzadshafiei.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Farzad Shafiei Dizaji · Mathematics and Civil (Structural) Engineering Educator">
-<meta property="og:description" content="Calculus, differential equations, linear algebra, and probability for engineering students. Teaching philosophy, student feedback, research, and CV.">
+<meta property="og:description" content="Mathematics and civil (structural) engineering educator: seven years teaching engineering mathematics at UVA, research in smart structures and structural optimization, interactive demos, CV, résumés and statements.">
 <meta property="og:url" content="https://farzadshafiei.github.io/">
 <meta property="og:image" content="https://farzadshafiei.github.io/media/share.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -321,6 +321,33 @@ header.hero{padding-top:2.5rem}
 /* dam lab */
 .dm-tabs{margin-bottom:1rem}
 .lab .dm-pane[hidden]{display:none}
+/* collapsible interactive labs */
+.body details.lab-wrap{margin:0 0 1.75rem;border:1px solid var(--rule);border-radius:10px;background:linear-gradient(160deg,rgba(240,154,110,.07),rgba(11,22,38,.9) 55%)}
+@media (min-width:761px){.body details.lab-wrap{margin-left:-12rem;width:calc(100% + 12rem);max-width:calc(100% + 12rem)}}
+details.lab-wrap>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.9rem 1.1rem;border-radius:10px}
+details.lab-wrap>summary::-webkit-details-marker{display:none}
+details.lab-wrap>summary:hover{background:rgba(107,183,227,.07)}
+details.lab-wrap>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details.lab-wrap .lw-t{font:600 1.08rem/1.3 var(--serif);color:var(--ink);flex:1;min-width:12rem}
+details.lab-wrap .lw-o{display:inline-flex;align-items:center;gap:.4rem;font:600 .85rem var(--sans);color:#04121c;background:var(--accent);padding:.45rem .85rem;border-radius:6px}
+details.lab-wrap .lw-o svg{width:16px;height:16px;transition:transform .25s}
+details.lab-wrap[open] .lw-o{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+details.lab-wrap[open] .lw-o svg{transform:rotate(180deg)}
+details.lab-wrap .lw-close,details.lab-wrap[open] .lw-open{display:none}
+details.lab-wrap[open] .lw-close{display:inline}
+.body details.lab-wrap .lab.damper{margin:0;width:auto;max-width:none;border:0;border-top:1px solid var(--rule);border-radius:0 0 10px 10px;background:transparent}
+@media (min-width:761px){.body details.lab-wrap .lab.damper{margin-left:0}}
+/* statements strip */
+.stmts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.1rem 0 0}
+@media (max-width:760px){.stmts{grid-template-columns:minmax(0,1fr)}}
+.stmt{display:flex;align-items:center;gap:.75rem;padding:.75rem .9rem;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+.stmt>svg{width:22px;height:22px;color:var(--accent);flex:none}
+.stmt .st-t{flex:1;font:600 .95rem var(--sans);color:var(--ink)}
+.stmt .st-t small{display:block;font:500 .72rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:.1rem}
+.stmt a{font:600 .8rem var(--sans);color:var(--accent);text-decoration:none;border:1px solid var(--accent);border-radius:5px;padding:.3rem .55rem;white-space:nowrap}
+.stmt a:hover{background:var(--accent-soft)}
+.stmt a.dl{border-color:transparent}
+.stmt.new{border-color:var(--mark)}
 /* CV & resumes */
 .docs-intro{margin:0 0 1.25rem;max-width:56rem}
 .docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
@@ -369,7 +396,7 @@ header.hero{padding-top:2.5rem}
     <img class="intro-photo" src="media/portrait-intro.jpg" width="600" height="400" alt="Farzad Shafiei Dizaji">
     <p class="intro-name">Farzad Shafiei Dizaji</p>
     <p class="intro-role">Mathematics / Civil (Structural) Engineering Educator</p>
-    <p class="intro-btns"><a class="btn primary" href="cv/Farzad_Shafiei_Dizaji_CV.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>View CV</a><a class="btn ghost" href="#teaching">Teaching</a><a class="btn ghost" href="#research">Research</a><a class="btn tutor" href="https://www.wyzant.com/Tutors/Math_Engineering_Tutor" target="_blank" rel="noopener" aria-label="Book tutoring with me on Wyzant (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 1 8.5 12 14l9-4.5V16h2V8.5L12 3zM5 12.2V16c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5v-3.8L12 15.7 5 12.2z"/></svg>Tutoring on Wyzant</a><a class="btn thesis" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener" title="High Performance Superelastic Materials for Seismic Applications (M.S. thesis, UVA, 2019)" aria-label="Read my M.S. thesis, High Performance Superelastic Materials for Seismic Applications (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v15H5.5A1.5 1.5 0 0 0 4 19.5zM4 19.5A1.5 1.5 0 0 0 5.5 21H19v-3"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 13c1-2.2 2-2.2 3 0s2 2.2 3 0 1.4-2 2-1.2M8 7.5h7"/></svg>M.S. Thesis</a></p>
+    <p class="intro-btns"><a class="btn primary" href="cv/Farzad_Shafiei_Dizaji_CV.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>View CV</a><a class="btn ghost" href="#teaching">Teaching</a><a class="btn ghost" href="#research">Research</a><a class="btn thesis" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener" title="High Performance Superelastic Materials for Seismic Applications (M.S. thesis, UVA, 2019)" aria-label="Read my M.S. thesis, High Performance Superelastic Materials for Seismic Applications (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v15H5.5A1.5 1.5 0 0 0 4 19.5zM4 19.5A1.5 1.5 0 0 0 5.5 21H19v-3"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 13c1-2.2 2-2.2 3 0s2 2.2 3 0 1.4-2 2-1.2M8 7.5h7"/></svg>M.S. Thesis</a></p>
   </div>
   <a class="intro-cue" href="#hero" aria-label="Scroll to content"><span>Scroll</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></a>
 </div>
@@ -385,7 +412,7 @@ header.hero{padding-top:2.5rem}
       <a class="btn ghost" href="#documents"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>CV &amp; résumés</a>
       <a class="btn ghost" href="#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>Contact me</a>
       <a class="btn ghost" href="#philosophy"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>Teaching philosophy</a>
-      <a class="btn ghost" href="cv/Research_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Research statement</a>
+      <a class="btn ghost" href="cv/Teaching_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Teaching statement</a><a class="btn ghost" href="cv/Research_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Research statement</a>
       <a class="btn ghost" href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Diversity statement</a>
     </div>
     <div class="watches"><a class="watch" href="#smard"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M10 8.2v7.6l6-3.8z"/></svg>See my damper in motion</a><a class="watch red" href="#braces"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M10 8.2v7.6l6-3.8z"/></svg>See my SMA braces in motion</a><a class="watch blue" href="#cycles"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M10 8.2v7.6l6-3.8z"/></svg>See my graph-theory algorithms in motion</a><a class="watch yel" href="#epnn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M10 8.2v7.6l6-3.8z"/></svg>See my neural network in motion</a></div>
@@ -448,7 +475,8 @@ header.hero{padding-top:2.5rem}
       </div>
     </article>
   </div>
-  <p class="meta docs-note">Research and diversity statements: <a href="cv/Research_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener">Research statement</a> · <a href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener">Diversity statement</a> · Updated October 2026 · References available upon request</p>
+  <div class="stmts" aria-label="Statements"><div class="stmt new"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg><span class="st-t">Teaching Statement<small>2 pages</small></span><a href="cv/Teaching_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener">View</a><a class="dl" href="cv/Teaching_Statement_Farzad_Shafiei_Dizaji.pdf" download>Download</a></div><div class="stmt"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg><span class="st-t">Research Statement<small>1 page</small></span><a href="cv/Research_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener">View</a><a class="dl" href="cv/Research_Statement_Farzad_Shafiei_Dizaji.pdf" download>Download</a></div><div class="stmt"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg><span class="st-t">Diversity Statement<small>2 pages</small></span><a href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener">View</a><a class="dl" href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" download>Download</a></div></div>
+  <p class="meta docs-note">Updated October 2026 · References available upon request</p>
 </div></section>
 
 <section id="philosophy"><h2>Teaching philosophy</h2><div class="body">
@@ -460,12 +488,13 @@ header.hero{padding-top:2.5rem}
     <div><h3>Low stakes first</h3><p>Early assessments are diagnostic and low-stakes, so misconceptions surface before they compound and students see where they stand.</p></div>
     <div><h3>Office hours without embarrassment</h3><p>I make office hours a low-pressure space to ask foundational questions, because the students who most need help are often the least comfortable asking for it.</p></div>
   </div>
+  <p class="paperlink" style="margin:1.25rem 0 0"><a href="cv/Teaching_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Teaching statement</a><a href="cv/Teaching_Statement_Farzad_Shafiei_Dizaji.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Download</a></p>
   <p class="paperlink" style="margin:1.25rem 0 0"><a href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Diversity statement</a><a href="cv/Diversity_Statement_Farzad_Shafiei_Dizaji.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Download</a></p>
 </div></section>
 
 <section id="teaching"><h2>Teaching</h2><div class="body">
   <figure class="damper" id="teach-intro" style="margin:0 0 1.75rem">
-    <video src="media/teaching-intro.mp4" poster="media/teaching-intro-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animated introduction: Farzad Shafiei Dizaji, former Lecturer at the University of Virginia; teaching at a glance (7 years, 1,100+ students, 4 universities, courses taught); clips on Laplace transforms, inquiry-based ODE and mastery grading; three student evaluation quotes; research in the classroom; contact card"></video>
+    <video src="media/teaching-intro.mp4" poster="media/teaching-intro-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animated introduction: Farzad Shafiei Dizaji, former Lecturer at the University of Virginia; teaching at a glance (7 years, 1,100+ students, 4 universities, courses taught); clips on Laplace transforms, inquiry-based ODE and mastery grading; three student evaluation quotes; research in the classroom; contact card"></video>
     <figcaption>My teaching in 50 seconds: courses, methods, student voices, and how research comes into the classroom. An animated overview built from the materials on this site; the quotes are from anonymous UVA student evaluations.</figcaption>
   </figure>
   <h3>University of Virginia, Applied Mathematics Center</h3>
@@ -485,11 +514,11 @@ header.hero{padding-top:2.5rem}
     </div>
   </div>
   <figure class="damper" id="teach-ode" style="margin:0 0 1.25rem">
-    <video src="media/ode-inquiry.mp4" poster="media/ode-inquiry-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of an inquiry-based ODE lesson: a slope field is drawn, solution curves are traced from several starting populations, the equilibria y equals 0 and y equals K are identified, and only then the logistic equation and its solution appear"></video>
+    <video src="media/ode-inquiry.mp4" poster="media/ode-inquiry-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation of an inquiry-based ODE lesson: a slope field is drawn, solution curves are traced from several starting populations, the equilibria y equals 0 and y equals K are identified, and only then the logistic equation and its solution appear"></video>
     <figcaption>An inquiry-based ODE lesson in four stages. Students explore the slope field, follow it from different starting populations, test where the slope is zero to find the equilibria, and only then formalize the logistic model and solve it.</figcaption>
   </figure>
   <figure class="damper" id="teach-mastery" style="margin:0 0 1.75rem">
-    <video src="media/mastery-grading.mp4?v=cp4" poster="media/mastery-grading-poster.jpg?v=cp4" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of mastery-based grading: an example student's grid of eight Calculus I skills fills in across four checkpoints, with progressing results turning into mastered after reassessment, until all eight skills are mastered"></video>
+    <video src="media/mastery-grading.mp4?v=cp4" poster="media/mastery-grading-poster.jpg?v=cp4" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation of mastery-based grading: an example student's grid of eight Calculus I skills fills in across four checkpoints, with progressing results turning into mastered after reassessment, until all eight skills are mastered"></video>
     <figcaption>Mastery-based grading in Calculus I, shown for an illustrative student. Skills are assessed at four checkpoints during the term. A "progressing" result brings feedback and a chance to reassess at the next checkpoint, so by the end of the term the grade reflects the eight skills the student has mastered rather than an average of early attempts.</figcaption>
   </figure>
   <p class="paperlink"><a href="papers/Morris_Ma_ShafieiDizaji_2024_ASEE_Mastery_Grading.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Mastery grading study (PDF) · ASEE 2024</a></p>
@@ -629,12 +658,13 @@ header.hero{padding-top:2.5rem}
   <p>My M.Sc. thesis at UVA, advised by Prof. O. E. Ozbulut, developed self-centering control devices that use shape memory alloys to reduce seismic response at several hazard levels. A related paper in <em>Smart Materials and Structures</em> (2022) studies steel frames upgraded with NiTiHfPd re-centering dampers.</p>
   <p class="paperlink"><a href="https://doi.org/10.1088/1361-665X/ac65c4" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg>Read the paper · Smart Materials and Structures</a> <a href="papers/ShafieiDizaji_2022_SPIE_NiTiHfPd_Passive_Control.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>SPIE 2022 paper (PDF)</a></p>
   <figure class="damper" id="smard" style="margin:1rem 0 1.25rem">
-    <video src="media/smard-3d.mp4" poster="media/smard-3d-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Rotating 3D model of the SMA re-centering damper: the piston moves back and forth and the plates compress the SMA bars and springs inside the cut-away housing"></video>
+    <video src="media/smard-3d.mp4" poster="media/smard-3d-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Rotating 3D model of the SMA re-centering damper: the piston moves back and forth and the plates compress the SMA bars and springs inside the cut-away housing"></video>
     <figcaption>3D model of the SMARD, after Figure 4(a) of the paper. The front of the housing is cut away: as the piston moves either way, one plate is pushed while the baffle holds the other, compressing the NiTiHfPd bars and springs.</figcaption>
   </figure>
+<details class="lab-wrap" id="lab-smard-wrap">
+  <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Work the SMA re-centering damper</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-smard">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Work the SMA re-centering damper</p>
-  <p class="sub">Three ways to explore the SMARD: drive the piston yourself and watch the SMA bars and friction springs work, see how the NiTiHfPd alloy changes with temperature, or tune the device and compare its flag-shaped loop with each component on its own.</p>
+    <p class="sub">Three ways to explore the SMARD: drive the piston yourself and watch the SMA bars and friction springs work, see how the NiTiHfPd alloy changes with temperature, or tune the device and compare its flag-shaped loop with each component on its own.</p>
   <div class="hx-tabs sm-tabs" role="tablist" aria-label="SMARD views">
     <button type="button" class="hx-tab" role="tab" aria-selected="true" data-t="dev">Device in action</button>
     <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="tmp">NiTiHfPd and temperature</button>
@@ -698,13 +728,15 @@ header.hero{padding-top:2.5rem}
     </div>
   </div>
 </div>
+</details>
   <figure class="damper" id="smard-2d" style="margin:0 0 1.5rem">
-    <video src="media/smard-damper.mp4?v=3d9" poster="media/smard-damper-poster.jpg?v=3d9" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of the SMA re-centering damper: a 3D model of the 9-story building sways, with the analyzed perimeter frame highlighted; the damper's piston moves, its SMA bars and spring compress, and the flag-shaped force-displacement loop is traced"></video>
+    <video src="media/smard-damper.mp4?v=3d9" poster="media/smard-damper-poster.jpg?v=3d9" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation of the SMA re-centering damper: a 3D model of the 9-story building sways, with the analyzed perimeter frame highlighted; the damper's piston moves, its SMA bars and spring compress, and the flag-shaped force-displacement loop is traced"></video>
     <figcaption>The SMARD in motion. A 3D model of the 9-story building from Figure 11(a) of the paper (5 bays at 9.15 m in each direction, plus a basement) sways over an earthquake record (an illustrative ground acceleration, not one of the paper's 44 records). The bright frame is the east-west perimeter moment frame chosen for the analysis, with SMARDs in chevron braces in bays 2 and 4 of every story. As the building sways, the piston pushes one plate while the baffle holds the other, so the NiTiHfPd bars and spring are compressed in either direction and the device traces a flag-shaped loop: it dissipates energy and re-centers the structure. Based on Figures 4, 5, 11 and 15 of the paper.</figcaption>
   </figure>
+<details class="lab-wrap" id="lab-quake-wrap">
+  <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Shake the building</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-quake">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Shake the building</p>
-  <p class="sub">Choose an earthquake strength and run it on a steel moment frame with or without SMA re-centering dampers. Watch the force–displacement loop and the drift left behind when the shaking stops.</p>
+    <p class="sub">Choose an earthquake strength and run it on a steel moment frame with or without SMA re-centering dampers. Watch the force–displacement loop and the drift left behind when the shaking stops.</p>
   <div class="grid">
     <canvas id="qFrame" width="640" height="420" aria-label="Frame swaying under the earthquake"></canvas>
     <canvas id="qLoop" width="560" height="420" aria-label="Force-displacement loop"></canvas>
@@ -717,49 +749,53 @@ header.hero{padding-top:2.5rem}
   <p class="read" id="qRead">Press “Start earthquake”.</p>
   <p class="fine">Illustrative single-degree-of-freedom model with a synthetic ground motion: an elastic–plastic frame, plus a flag-shaped SMA device when the dampers are on. It shows the behaviour studied in the Smart Materials and Structures (2022) paper, not its numbers.</p>
 </div>
+</details>
   <h3>Self-centering SMA braces</h3>
   <p>With F. Shi, G. P. Toker, O. E. Ozbulut and H. E. Karaca, I studied NiTi-based shape memory alloy braces for steel buildings (11th U.S. National Conference on Earthquake Engineering, 2018). The braces sit in a chevron layout in every bay of every story of a 4-story steel frame and work only in tension: as the building sways, one brace of each pair stretches and the other goes slack. Their superelastic, flag-shaped response dissipates energy and then pulls the building back to plumb. Under the strongest ground motions, the median residual drift fell from 4.31% for the moment frame to 0.69% with SMA braces, and the performance stayed nearly the same from &minus;35&nbsp;&deg;C to 25&nbsp;&deg;C.</p>
   <p class="paperlink"><a href="papers/Shi_et_al_2018_11NCEE_High_Damping_SMAs.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Read the paper (PDF) · 11NCEE 2018</a></p>
   <figure class="damper" id="braces" style="margin:1rem 0 1.5rem">
-    <video src="media/sma-braces.mp4?v=3d" poster="media/sma-braces-poster.jpg?v=3d" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation: a 4-story steel frame with chevron SMA braces sways under ground motion; tensioned braces glow orange while the opposite braces go slack; one brace is shown stretching while its flag-shaped stress-strain loop is traced; at the end, the moment frame alone is left leaning with 4.31 percent residual drift while the SMA-braced frame returns to plumb with 0.69 percent"></video>
+    <video src="media/sma-braces.mp4?v=3d" poster="media/sma-braces-poster.jpg?v=3d" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation: a 4-story steel frame with chevron SMA braces sways under ground motion; tensioned braces glow orange while the opposite braces go slack; one brace is shown stretching while its flag-shaped stress-strain loop is traced; at the end, the moment frame alone is left leaning with 4.31 percent residual drift while the SMA-braced frame returns to plumb with 0.69 percent"></video>
     <figcaption>Tension-only SMA braces, shown in a 3D model of the 4-story building from Figure 6(a) of the paper (4 bays at 30&nbsp;ft east-west, 3 bays at 30&nbsp;ft north-south). The bright frame is the south perimeter frame chosen for the analysis, braced as in Figure 6(c); the rest of the building is shown faintly. Orange braces are in tension; dashed braces are slack, since the braces carry no compression. On the right, the circled brace stretches and traces a flag-shaped loop using the model parameters in Table 1 (25&nbsp;&deg;C), returning to zero strain each cycle. The closing comparison uses the median residual drifts in Table 3.</figcaption>
   </figure>
   <h3>Optimization with graph theory</h3>
   <p>My first M.Sc. thesis, advised by Prof. Ali Kaveh, proposed seven graph-theoretical algorithms for improving the conditioning of structural flexibility matrices. Five of them appear in <em>Engineering Computations</em> (2022). The algorithms choose which cycles of a frame's graph model are used in the force method. Short cycles make the flexibility matrix sparse; cycles chosen by member weight make it better conditioned, so round-off errors shrink. Sparsity and conditioning cannot both be optimized at once, so the problem is a multi-objective one.</p>
   <p class="paperlink"><a href="https://doi.org/10.1108/EC-09-2021-0547" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg>Read the paper · Engineering Computations</a></p>
   <figure class="damper" id="srt-fig1" style="margin:1rem 0 1.25rem">
-    <video src="media/srt-dome.mp4" poster="media/srt-dome-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation: on a 3D lattice dome, a shortest route tree grows level by level from node n s with member m j removed; when it reaches n t, the tree path plus m j forms the minimal cycle"></video>
+    <video src="media/srt-dome.mp4" poster="media/srt-dome-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation: on a 3D lattice dome, a shortest route tree grows level by level from node n s with member m j removed; when it reaches n t, the tree path plus m j forms the minimal cycle"></video>
     <figcaption>The minimal cycle on a member, shown on a 3D lattice dome (96 nodes, 176 members). With member <em>m<sub>j</sub></em> removed, a shortest route tree (SRT) grows level by level from <em>n<sub>s</sub></em>; colors mark each node's level. The tree first reaches <em>n<sub>t</sub></em> at level 3, so the tree path back to <em>n<sub>s</sub></em> plus <em>m<sub>j</sub></em> is the minimal cycle. Repeating this for every member builds a cycle basis of M − N + 1 = 81 cycles. The procedure follows the paper's Figure 1; the dome is an illustrative space structure.</figcaption>
   </figure>
+<details class="lab-wrap" id="lab-srt-wrap">
+  <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Pick a member, find its minimal cycle</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-srt">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Pick a member, find its minimal cycle</p>
-  <p class="sub">Drag to rotate the dome. Click any member: it is removed, a shortest route tree grows from one of its ends, and the moment the tree reaches the other end, the tree path plus the member is the minimal cycle.</p>
+    <p class="sub">Drag to rotate the dome. Click any member: it is removed, a shortest route tree grows from one of its ends, and the moment the tree reaches the other end, the tree path plus the member is the minimal cycle.</p>
   <canvas id="dome" width="1100" height="470" aria-label="Lattice dome; click a member"></canvas>
   <div class="ctrl"><button class="b" id="dRandom">Pick a random member</button><label><input id="dSpin" type="checkbox" checked> Auto-rotate</label></div>
   <p class="read" id="dRead">96 nodes · 176 members · cycle basis M − N + 1 = 81. Click a member.</p>
 </div>
+</details>
   <figure class="damper" id="cycles" style="margin:1rem 0 1.5rem">
-    <video src="media/srt-cycle-bases.mp4" poster="media/srt-cycle-bases-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation on a 9-story setback frame: a shortest route tree labels nodes level by level, two shortest route trees grown from a member's end nodes meet to form a minimal cycle, then all 31 cycles are chosen and the 31 by 31 flexibility-matrix pattern fills in with 127 non-zero entries"></video>
+    <video src="media/srt-cycle-bases.mp4" poster="media/srt-cycle-bases-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation on a 9-story setback frame: a shortest route tree labels nodes level by level, two shortest route trees grown from a member's end nodes meet to form a minimal cycle, then all 31 cycles are chosen and the 31 by 31 flexibility-matrix pattern fills in with 127 non-zero entries"></video>
     <figcaption>Example 4 from the paper: a 9-story setback frame with 31 independent cycles (Figure 16). <strong>1</strong>&nbsp;A shortest route tree (SRT) labels every node with its distance from a root node, as in Figure 5. <strong>2</strong>&nbsp;Two SRTs grown at once from the ends of a member meet, and their routes plus the member form a minimal cycle, as in Figure 1. <strong>3</strong>&nbsp;Repeating this for every member gives the cycle basis; the flexibility-matrix pattern ends with 127 non-zero entries, matching Table 11(a) (PL&nbsp;4.26).</figcaption>
   </figure>
   <figure class="damper" id="ex3" style="margin:0 0 1.25rem">
-    <video src="media/ex3-algorithms.mp4" poster="media/ex3-algorithms-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of Example 3: on a 4-story, 4-span frame, Algorithm 1 picks 16 short cycles giving 64 non-zero entries, then Algorithm 2 picks taller cycles giving 120 non-zero entries"></video>
+    <video src="media/ex3-algorithms.mp4" poster="media/ex3-algorithms-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation of Example 3: on a 4-story, 4-span frame, Algorithm 1 picks 16 short cycles giving 64 non-zero entries, then Algorithm 2 picks taller cycles giving 120 non-zero entries"></video>
     <figcaption>Two of my algorithms on Example 3, a 4-story, 4-span frame. Algorithm 1 chooses the shortest cycles and gives the sparsest matrix (64 non-zeros, PL&nbsp;4.48); Algorithm 2 chooses cycles by member weight and gives a better-conditioned matrix (120 non-zeros, PL&nbsp;4.04). The matrix patterns are computed from the cycles shown and match Tables 8(c) and 9(f); cycle layouts follow Figure 12.</figcaption>
   </figure>
   <figure class="damper" id="space3d" style="margin:0 0 1.5rem">
-    <video src="media/space-frame-3d.mp4" poster="media/space-frame-3d-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Rotating 3D model of a 4-story steel space frame; 17 cycles appear on its faces, first with Algorithm 1 and then with Algorithm 5"></video>
+    <video src="media/space-frame-3d.mp4" poster="media/space-frame-3d-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Rotating 3D model of a 4-story steel space frame; 17 cycles appear on its faces, first with Algorithm 1 and then with Algorithm 5"></video>
     <figcaption>The 3D space frame of Example 5 (Figure 20). The same ideas work in three dimensions: Algorithm 1 gives the sparser matrix (74 non-zeros, PL&nbsp;7.25) and Algorithm 5 the better-conditioned one (106 non-zeros, PL&nbsp;5.14), from Table 14. Beside the frame, the 17 × 17 flexibility-matrix pattern fills in as each cycle is chosen. It is computed from the cycles drawn (81 and 105 non-zeros), which are illustrative layouts close to, but not identical to, those in the paper.</figcaption>
   </figure>
   <h3>Neural networks for hysteresis</h3>
   <p>With M. Farrokh and M. Shafiei Dizaji, I developed the Extended Preisach Neural Network (EPNN), published in <em>Neural Processing Letters</em> (2022). Ordinary neural networks lack the memory needed to reproduce hysteresis, where the output depends on the path the input has taken. The EPNN has two hidden layers. Its deteriorating stop (DS) neurons each act like a spring pulling a block across a friction surface, which gives the network memory and lets loops degrade; its sigmoid neurons shape non-Masing and asymmetric loops; and an extra input for the rate <em>&#7819;</em>(<em>t</em>) lets it learn rate-dependent hysteresis. Trained with a hybrid of a genetic algorithm and sub-gradient optimization, it agreed well with experimental hysteresis from ferromagnetic materials, magnetostrictive actuators and shape memory alloy actuators.</p>
   <p class="paperlink"><a href="https://doi.org/10.1007/s11063-021-10692-7" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg>Read the paper · Neural Processing Letters</a></p>
   <figure class="damper" id="epnn" style="margin:1rem 0 1.5rem">
-    <video src="media/epnn-hysteresis.mp4" poster="media/epnn-hysteresis-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Animation of the Extended Preisach Neural Network: an input signal drives a spring-and-block stop operator, signals flow through deteriorating stop neurons and sigmoid neurons, and the output traces hysteresis loops"></video>
+    <video src="media/epnn-hysteresis.mp4" poster="media/epnn-hysteresis-poster.jpg" data-autoplay muted loop playsinline controls preload="none" aria-label="Animation of the Extended Preisach Neural Network: an input signal drives a spring-and-block stop operator, signals flow through deteriorating stop neurons and sigmoid neurons, and the output traces hysteresis loops"></video>
     <figcaption>The EPNN in motion. A growing input <em>x</em>(<em>t</em>) drives the network: the highlighted DS neuron's block sticks and slips, its soundness drops as slip accumulates, signals flow through the sigmoid layer, and the output traces hysteresis loops. Every frame is a real forward pass through the architecture in Figures 1 to 3 of the paper (Eqs. 1 to 6); the weights are illustrative rather than the trained values.</figcaption>
   </figure>
+<details class="lab-wrap" id="lab-hys-wrap">
+  <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Explore the hysteresis loops in the EPNN paper</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-hys">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Explore the hysteresis loops in the EPNN paper</p>
-  <p class="sub">Pick a tab. The first one is a single NDS neuron (Eqs. 1–6 and Figure 5): change <em>w<sub>x</sub></em>, <em>w<sub>ẋ</sub></em> and <em>β</em> and see which loops it can make. The others are the kinds of hysteresis from the paper's eight examples. Press Play, or drag the slider (or across the plot) to set the input yourself; in the rate-dependent tabs, dragging faster opens the loop wider.</p>
+    <p class="sub">Pick a tab. The first one is a single NDS neuron (Eqs. 1–6 and Figure 5): change <em>w<sub>x</sub></em>, <em>w<sub>ẋ</sub></em> and <em>β</em> and see which loops it can make. The others are the kinds of hysteresis from the paper's eight examples. Press Play, or drag the slider (or across the plot) to set the input yourself; in the rate-dependent tabs, dragging faster opens the loop wider.</p>
   <div class="hx-tabs" role="tablist" aria-label="Choose a hysteresis loop"></div>
   <p class="hx-chips" aria-label="Properties of this hysteresis"></p>
   <div class="grid eq">
@@ -784,12 +820,14 @@ header.hero{padding-top:2.5rem}
   <p class="hx-cap"></p>
   <p class="fine">The NDS neuron tab follows the paper's equations exactly. The other tabs reproduce the <em>kind</em> of loop in each example (symmetric or not, saturated, degrading, rate-dependent), built from the same neurons; they are illustrations, not the measured data or the trained networks from the paper.</p>
 </div>
+</details>
   <h3>Neural networks for dam–reservoir–foundation interaction</h3>
   <p>With A. Joghataie and M. Shafiei Dizaji, I built a "neuro-modeller" for Pine Flat concrete gravity dam (International Conference on Intelligent Computational Systems, ICICS'2012, Dubai). Nonlinear finite element analysis of a cracking dam that includes the reservoir and the foundation is slow. We trained a feed-forward network with 15 input nodes, 8 sigmoid hidden neurons and 2 output nodes on 20 seconds of the dam's response to a white-noise earthquake (1000 input–output pairs at 0.02 s). Its outputs, the crest displacement and velocity at the next time step, are fed back as inputs, which gives the network the memory it needs to follow hysteretic behaviour. Once trained, it reproduced the finite element response to El Centro, Taft and Corralitos records that it had never seen, in far less time.</p>
 <p class="paperlink"><a href="papers/Joghataie_ShafieiDizaji_2012_ICICS_Neural_Network_Dam.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 13h6M9 17h6"/></svg>Read the paper (PDF) · ICICS 2012</a></p>
+<details class="lab-wrap" id="lab-dam-wrap">
+  <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Train a neuro-modeller for Pine Flat Dam</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-dam">
-  <p class="lab-h"><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span> Train a neuro-modeller for Pine Flat Dam</p>
-  <p class="sub">Train the network yourself on a white-noise record, then let it predict the dam's crest displacement under earthquakes it has never seen, step by step, feeding its own output back as input.</p>
+    <p class="sub">Train the network yourself on a white-noise record, then let it predict the dam's crest displacement under earthquakes it has never seen, step by step, feeding its own output back as input.</p>
   <div class="hx-tabs dm-tabs" role="tablist" aria-label="Neuro-modeller views">
     <button type="button" class="hx-tab" role="tab" aria-selected="true" data-t="train">1 · Train on white noise</button>
     <button type="button" class="hx-tab" role="tab" aria-selected="false" data-t="pred">2 · Predict new earthquakes</button>
@@ -836,6 +874,7 @@ header.hero{padding-top:2.5rem}
     <p class="fine">Figure 9 of the paper: at each step only the new ground accelerations come from outside; the displacement and velocity the network predicted a moment ago are fed back as inputs. This "side memory" is what lets a static feed-forward network follow the dam's history.</p>
   </div>
 </div>
+</details>
   <h3>Interests</h3>
   <ul class="chips" style="margin-top:.5rem"><li>Smart structures</li><li>Energy dissipation</li><li>Structural optimization</li><li>Machine learning</li><li>Finite element methods</li><li>Earthquake engineering</li><li>Structural health monitoring</li><li>System identification</li></ul>
 </div></section>
@@ -1693,5 +1732,19 @@ G.DamNN={DT,whiteNoise,shaped,simulate,Net,pairs};
   document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||!window.goatcounter||!window.goatcounter.count)return;var h=a.getAttribute('href');
     if(/\.pdf($|\?)/i.test(h))window.goatcounter.count({path:'pdf: '+h.replace(/^.*\//,''),title:a.textContent.trim().slice(0,80),event:true});
     else if(/^https?:/i.test(h)&&a.host!==location.host)window.goatcounter.count({path:'link: '+a.host,title:a.textContent.trim().slice(0,80),event:true});},true);})();
+</script>
+<script>
+document.querySelectorAll('details.lab-wrap').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)setTimeout(function(){window.dispatchEvent(new Event('resize'));},30);});});
+if(location.hash){var t=document.querySelector(location.hash);var w=t&&t.closest&&t.closest('details.lab-wrap');if(w)w.open=true;}
+</script>
+<script>
+(function(){var vs=[].slice.call(document.querySelectorAll('video[data-autoplay]'));if(!vs.length)return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)){vs.forEach(function(v){v.preload='metadata';});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+    if(e.isIntersecting&&e.intersectionRatio>=0.35){if(v.dataset.userPaused)return;if(v.preload==='none')v.preload='auto';if(!reduce){var p=v.play();if(p&&p.catch)p.catch(function(){});}}
+    else if(!v.paused)v.pause();});},{threshold:[0,0.35,0.6]});
+  vs.forEach(function(v){io.observe(v);v.addEventListener('pause',function(){if(v.getBoundingClientRect().top<innerHeight&&v.getBoundingClientRect().bottom>0&&!document.hidden)v.dataset.userPaused='1';});v.addEventListener('play',function(){delete v.dataset.userPaused;});});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)vs.forEach(function(v){v.pause();});});})();
 </script>
 </body></html>
