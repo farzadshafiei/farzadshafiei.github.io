@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /downloads/
 
 Sitemap: https://farzadshafiei.github.io/sitemap.xml
