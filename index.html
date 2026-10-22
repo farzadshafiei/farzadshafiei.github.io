@@ -894,7 +894,7 @@ html:not([data-theme="dark"]) .sheet .wordlit.on .w{animation-name:wglowL}
 <details class="lab-wrap" id="lab-quake-wrap">
   <summary><span class="lab-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 2l13 8.5-5.6 1.4 3.3 6.3-2.6 1.4-3.3-6.4L5 17z"/></svg>Interactive</span><span class="lw-t">Shake the building</span><span class="lw-o"><span class="lw-open">Explore the interactive version</span><span class="lw-close">Close</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></span></summary>
 <div class="lab damper" id="lab-quake">
-    <p class="sub">Choose an earthquake strength and run it on a steel moment frame with or without SMA re-centering dampers. Watch the force–displacement loop and the drift left behind when the shaking stops.</p>
+    <p class="sub">Choose an earthquake strength and run it on a 9-story, 5-bay steel moment frame with or without SMA re-centering dampers. Watch the force–displacement loop and the drift left behind when the shaking stops.</p>
   <div class="grid">
     <canvas id="qFrame" width="640" height="420" aria-label="Frame swaying under the earthquake"></canvas>
     <canvas id="qLoop" width="560" height="420" aria-label="Force-displacement loop"></canvas>
@@ -905,7 +905,7 @@ html:not([data-theme="dark"]) .sheet .wordlit.on .w{animation-name:wglowL}
     <button class="b primary" id="qGo">Start earthquake</button>
   </div>
   <p class="read" id="qRead">Press “Start earthquake”.</p>
-  <p class="fine">Illustrative single-degree-of-freedom model with a synthetic ground motion: an elastic–plastic frame, plus a flag-shaped SMA device when the dampers are on. It shows the behaviour studied in the Smart Materials and Structures (2022) paper, not its numbers.</p>
+  <p class="fine">Illustrative single-degree-of-freedom model with a synthetic ground motion: an elastic–plastic frame, plus a flag-shaped SMA device when the dampers are on. The frame is drawn as the 9-story, 5-bay building from the Smart Materials and Structures (2022) paper; the model shows the behaviour studied there, not its numbers.</p>
 </div>
 </details>
   <h3>Self-centering SMA braces</h3>
@@ -1237,16 +1237,16 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     g.strokeStyle=C.blue; g.lineWidth=1.2; g.beginPath();
     for(let i=0;i<=580;i++){const tt=Math.max(0,t-16+i*16/580); const y=385-(tt>0&&tt<TDUR?ag(tt):0)*6; i?g.lineTo(30+i,y):g.moveTo(30+i,y);} g.stroke();
     g.fillStyle=C.muted; g.font='12px Inter,sans-serif'; g.fillText('ground acceleration',30,368);
-    // frame: 6 stories, 3 bays
-    const X0=150,B=110,FB=330,S=46,ns=6,scale=80; const sh=x*scale;
+    // frame: 9 stories, 5 bays (the 9-story building of the 2022 paper)
+    const NB=5,X0=130,B=76,FB=332,S=29,ns=9,scale=80; const sh=x*scale;
     const u=k_=>sh*Math.sin(Math.PI/2*k_/ns), base=t<TDUR?ag(t)*2:0;
     g.lineWidth=2; g.strokeStyle=C.ink;
-    for(let k=0;k<=ns;k++){g.beginPath(); g.moveTo(X0+u(k)+base,FB-k*S); g.lineTo(X0+3*B+u(k)+base,FB-k*S); g.stroke();}
-    for(let c=0;c<=3;c++){g.beginPath(); for(let k=0;k<=ns;k++){const px=X0+c*B+u(k)+base,py=FB-k*S; k?g.lineTo(px,py):g.moveTo(px,py);} g.stroke();}
-    if(sma){g.lineWidth=1.5; g.strokeStyle=C.blue; for(let k=0;k<ns;k++){for(const c of [0,2]){const xl=X0+c*B+u(k)+base,xr=X0+(c+1)*B+u(k)+base,ax=X0+(c+.5)*B+u(k+1)+base,ay=FB-(k+1)*S+6;g.beginPath();g.moveTo(xl,FB-k*S);g.lineTo(ax,ay);g.lineTo(xr,FB-k*S);g.stroke();g.fillStyle=C.orange;g.fillRect(ax-12,ay-4,18,6);}}}
-    g.strokeStyle=C.muted; g.lineWidth=1; g.beginPath(); g.moveTo(X0-40+base,FB); g.lineTo(X0+3*B+40+base,FB); g.stroke();
-    g.setLineDash([3,4]); g.beginPath(); g.moveTo(X0+3*B+base,FB); g.lineTo(X0+3*B+base,FB-ns*S-10); g.stroke(); g.setLineDash([]);
-    g.fillStyle=C.ink; g.font='600 14px Inter,sans-serif'; g.fillText(sma?'Steel frame + SMA dampers':'Moment frame only',20,28);
+    for(let k=0;k<=ns;k++){g.beginPath(); g.moveTo(X0+u(k)+base,FB-k*S); g.lineTo(X0+NB*B+u(k)+base,FB-k*S); g.stroke();}
+    for(let c=0;c<=NB;c++){g.beginPath(); for(let k=0;k<=ns;k++){const px=X0+c*B+u(k)+base,py=FB-k*S; k?g.lineTo(px,py):g.moveTo(px,py);} g.stroke();}
+    if(sma){g.lineWidth=1.5; g.strokeStyle=C.blue; for(let k=0;k<ns;k++){for(const c of [1,3]){const xl=X0+c*B+u(k)+base,xr=X0+(c+1)*B+u(k)+base,ax=X0+(c+.5)*B+u(k+1)+base,ay=FB-(k+1)*S+6;g.beginPath();g.moveTo(xl,FB-k*S);g.lineTo(ax,ay);g.lineTo(xr,FB-k*S);g.stroke();g.fillStyle=C.orange;g.fillRect(ax-9,ay-3,14,5);}}}
+    g.strokeStyle=C.muted; g.lineWidth=1; g.beginPath(); g.moveTo(X0-40+base,FB); g.lineTo(X0+NB*B+40+base,FB); g.stroke();
+    g.setLineDash([3,4]); g.beginPath(); g.moveTo(X0+NB*B+base,FB); g.lineTo(X0+NB*B+base,FB-ns*S-10); g.stroke(); g.setLineDash([]);
+    g.fillStyle=C.ink; g.font='600 14px Inter,sans-serif'; g.fillText(sma?'9-story, 5-bay steel frame + SMA dampers':'9-story, 5-bay moment frame only',20,28);
     g.fillStyle=C.muted; g.font='12px Inter,sans-serif'; g.fillText('roof drift (exaggerated)',20,46);
   }
   function drawLoop(){
