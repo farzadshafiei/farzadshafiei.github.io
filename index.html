@@ -508,6 +508,10 @@ details.lab-wrap[open] .lw-close{display:inline}
 .fitgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin-top:.9rem;max-width:36rem}
 .fitclip{margin:0}
 .fitclip video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#05080d;border:1px solid var(--rule)}
+.fitwrap{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fitplay{position:absolute;left:50%;top:50%;width:3.2rem;height:3.2rem;margin:-1.6rem 0 0 -1.6rem;border-radius:50%;background:rgba(5,8,13,.55);border:1px solid rgba(255,255,255,.55);display:grid;place-items:center;pointer-events:none;opacity:0;transition:opacity .2s}
+.fitplay::before{content:"";margin-left:.25rem;border-style:solid;border-width:.6rem 0 .6rem 1rem;border-color:transparent transparent transparent #fff}
+.fitwrap.is-paused .fitplay{opacity:1}
 .fitclip figcaption{margin-top:.45rem;font:500 .8rem var(--sans);color:var(--muted);text-align:center}
 @media (max-width:640px){.fitgrid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem}.fitclip{scroll-snap-align:start}}
 /* ===== Light reading theme (default). Dark islands: intro, interactive labs, math-in-motion player. ===== */
@@ -1936,6 +1940,14 @@ if(location.hash){var t=document.querySelector(location.hash);var w=t&&t.closest
     else if(!v.paused)v.pause();});},{threshold:[0,0.35,0.6]});
   vs.forEach(function(v){io.observe(v);v.addEventListener('pause',function(){if(v.getBoundingClientRect().top<innerHeight&&v.getBoundingClientRect().bottom>0&&!document.hidden)v.dataset.userPaused='1';});v.addEventListener('play',function(){delete v.dataset.userPaused;});});
   document.addEventListener('visibilitychange',function(){if(document.hidden)vs.forEach(function(v){v.pause();});});})();
+(function(){[].forEach.call(document.querySelectorAll('.fitclip video'),function(v){
+  var w=document.createElement('div');w.className='fitwrap is-paused';w.setAttribute('role','button');w.setAttribute('tabindex','0');w.setAttribute('aria-label','Play or pause video');
+  v.parentNode.insertBefore(w,v);w.appendChild(v);var i=document.createElement('span');i.className='fitplay';i.setAttribute('aria-hidden','true');w.appendChild(i);
+  function sync(){w.classList.toggle('is-paused',v.paused);}
+  v.addEventListener('play',sync);v.addEventListener('playing',sync);v.addEventListener('pause',sync);
+  function toggle(){if(v.paused){if(v.preload==='none')v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}}
+  w.addEventListener('click',toggle);w.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle();}});
+});})();
 </script>
 <script>
 document.querySelectorAll('.theme-sw').forEach(function(b){b.addEventListener('click',function(){var h=document.documentElement,d=h.getAttribute('data-theme')==='dark';if(d)h.removeAttribute('data-theme');else h.setAttribute('data-theme','dark');try{localStorage.setItem('fsd-theme',d?'light':'dark')}catch(e){}});});
