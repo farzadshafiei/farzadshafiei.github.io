@@ -106,14 +106,14 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
     <p class="eyebrow">M.S. thesis · University of Virginia · 2019</p>
     <h1>High Performance Superelastic Materials for Seismic Applications</h1>
     <p class="lead">Buildings that survive an earthquake can still be lost if they are left leaning. My thesis asks whether an ultra-strong shape memory alloy, NiTiHfPd, can pull steel buildings back to plumb after shaking, and turns the answer into a new device: the SMA re-centering damper (SMARD).</p>
-    <ul class="meta"><li>Author <b>Farzad Shafiei Dizaji</b></li><li>Advisor <b>Prof. Osman E. Ozbulut</b></li><li>Degree <b>M.S., Civil Engineering</b></li></ul>
+    <ul class="meta"><li>Author <b>Farzad Shafiei Dizaji</b></li><li>Advisor <b>Prof. Osman E. Ozbulut</b></li><li>Committee <b>Prof. Devin K. Harris, Prof. Jose Gomez</b></li><li>Degree <b>M.S., May 2019</b></li></ul>
     <div class="btns"><a class="btn p" href="#material">Start the tour</a><a class="btn g" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener">Read the full thesis (PDF)</a></div>
   </div>
   <canvas id="heroCv" width="640" height="440" aria-label="Animated flag-shaped hysteresis loop of a superelastic alloy"></canvas>
   <div class="stats" style="grid-column:1/-1">
-    <div class="stat"><b>−35 to 25 °C</b><span>test temperatures for the NiTiHfPd alloy</span></div>
+    <div class="stat"><b>−55 to +40 °C</b><span>eight test temperatures on two NiTiHfPd specimens</span></div>
     <div class="stat"><b>4.31% → 0.69%</b><span>median residual drift, 4-story frame, 2%-in-50-years shaking</span></div>
-    <div class="stat"><b>17 → 1</b><span>collapses in 44 records, 6-story frame at MCE, without vs with SMARDs</span></div>
+    <div class="stat"><b>4.21% → 1.93%</b><span>median peak drift, 6-story frame at MCE, without vs with SMARDs</span></div>
     <div class="stat"><b>44</b><span>far-field ground motions (FEMA P695) per analysis</span></div>
   </div>
 </div></section>
@@ -125,29 +125,32 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
   <div class="grid2">
     <div class="text">
       <p class="k">Superelastic shape memory alloys can be squeezed several percent and spring back with almost no permanent deformation. Their stress–strain curve is a <em>flag</em>: a plateau on loading, a lower plateau on unloading, and a return to zero.</p>
-      <p>Ordinary NiTi is limited in strength and changes behavior with temperature. I tested a new alloy, Ni<sub>45.3</sub>Ti<sub>29.7</sub>Hf<sub>20</sub>Pd<sub>5</sub>, in compression at −35, 5 and 25 °C and at 0.05, 0.5 and 1 Hz, then built a numerical model of its response for structural analysis.</p>
+      <p>Ordinary NiTi is limited in strength and changes behavior with temperature. NiTiHfPd alloys from NASA reach about 2000 MPa with large damping. With Prof. Haluk Karaca's team at the University of Kentucky, two specimens were tested in compression at three loading frequencies (0.05, 0.5 and 1 Hz) and four strain amplitudes, from −55 °C to +40 °C. I then calculated their energy dissipation and equivalent viscous damping and built an OpenSees model of their response.</p>
       <ul class="facts">
-        <li><span>Specimen</span><span>4 × 4 × 8 mm, heat treated at 400 °C for 3 h</span></li>
-        <li><span>Test machine</span><span>100 kN MTS servo-hydraulic frame, 12 mm high-temperature extensometer</span></li>
-        <li><span>Model</span><span>two flag-shaped elements in parallel, fitted to the 1 Hz tests (Table 3 of the paper)</span></li>
+        <li><span>Sample 2</span><span>single crystal [111] Ni<sub>45.3</sub>Ti<sub>29.7</sub>Hf<sub>20</sub>Pd<sub>5</sub>, 7.71 mm tall, 3.84 × 3.85 mm; tested at −55, −35, −15, +5 and +25 °C</span></li>
+        <li><span>Sample 1</span><span>polycrystal Ni<sub>45.7</sub>Ti<sub>29.3</sub>Hf<sub>20</sub>Pd<sub>5</sub>, 7.76 mm tall, 3.68 × 3.78 mm; tested at 0, +20 and +40 °C</span></li>
+        <li><span>Testing</span><span>aged at 400 °C for 3 h; 100 kN MTS Landmark frame; 12 mm high-temperature extensometer; heating by band heaters, cooling by liquid nitrogen</span></li>
+        <li><span>Model</span><span>two self-centering materials in parallel in OpenSees, fitted to the 1 Hz tests (Table 4-1)</span></li>
       </ul>
       <div class="quiz" data-q="1"><p>Quick check: when the alloy gets colder (25 °C → −35 °C), what happens to its energy dissipation at 1 Hz?</p>
         <div class="opts"><button data-a="0">It drops by half</button><button data-a="1">It roughly doubles</button><button data-a="0">It stays the same</button></div><p class="ans" aria-live="polite"></p></div>
     </div>
     <div class="lab">
-      <div class="lab-title"><b>Load the specimen</b><span class="tag">Interactive</span></div>
+      <div class="lab-title"><b>Load the specimen (model)</b><span class="tag">Interactive</span></div>
       <canvas id="matCv" width="720" height="440" aria-label="Specimen and stress-strain loop of NiTiHfPd"></canvas>
       <div class="ctrl">
         <span class="seg" role="group" aria-label="Temperature"><button data-t="-35" aria-pressed="false">−35 °C</button><button data-t="5" aria-pressed="false">5 °C</button><button data-t="25" aria-pressed="true">25 °C</button></span>
-        <span class="seg" role="group" aria-label="Loading frequency"><button data-f="0.05" aria-pressed="false">0.05 Hz</button><button data-f="0.5" aria-pressed="false">0.5 Hz</button><button data-f="1" aria-pressed="true">1 Hz</button></span>
-        <label>Strain amplitude <input id="matAmp" type="range" min="1" max="4" step="0.1" value="3"> <span id="matAmpV">3.0%</span></label>
+                <label>Strain amplitude <input id="matAmp" type="range" min="1" max="4" step="0.1" value="3"> <span id="matAmpV">3.0%</span></label>
       </div>
-      <div class="cards">
-        <div class="card"><small>Equivalent damping</small><b id="cDamp">1.98%</b><i id="cDampN">measured at 25 °C, 1 Hz</i></div>
-        <div class="card"><small>Energy dissipated vs −35 °C</small><b id="cEn">−50%</b><i id="cEnN">25 °C vs −35 °C, 1 Hz</i></div>
-        <div class="card"><small>Stiffness vs −35 °C</small><b id="cSt">+35%</b><i id="cStN">25 °C vs −35 °C, 1 Hz</i></div>
+      <p class="fine">Loop: OpenSees model with the Table 4-1 parameters (fitted to 1 Hz tests at −35, +5 and +25 °C).</p>
+      <div class="lab-title" style="margin-top:1rem"><b>Measured damping, Tables 3-1 to 3-8</b><span class="tag">Data</span></div>
+      <canvas id="evdCv" width="720" height="300" aria-label="Equivalent viscous damping of NiTiHfPd by temperature"></canvas>
+      <div class="ctrl">
+        <span class="seg" role="group" aria-label="Specimen" id="evdS"><button data-s="2" aria-pressed="true">Sample 2 · single crystal</button><button data-s="1" aria-pressed="false">Sample 1 · polycrystal</button></span>
+        <span class="seg" role="group" aria-label="Frequency" id="evdF"><button data-f="0" aria-pressed="true">0.05 Hz</button><button data-f="1" aria-pressed="false">0.5 Hz</button><button data-f="2" aria-pressed="false">1 Hz</button></span>
+        <span class="seg" role="group" aria-label="Strain level" id="evdL"><button data-l="L" aria-pressed="false">Low</button><button data-l="M" aria-pressed="false">Medium</button><button data-l="H" aria-pressed="false">High</button><button data-l="VH" aria-pressed="true">Very high</button></span>
       </div>
-      <p class="fine">The loop is drawn from the fitted model at the chosen temperature (1 Hz parameters). The cards show the measured changes reported in the paper; between 5 °C and 25 °C dissipated energy and damping differ by less than 10%.</p>
+      <p class="read" id="evdRead"></p>
     </div>
   </div>
 </section>
@@ -158,8 +161,8 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
   <div class="grid2">
     <div class="text">
       <p class="k">A steel moment frame can survive a strong earthquake but stay permanently tilted, and a building left leaning more than about 0.5% is often demolished.</p>
-      <p>I designed a 4-story frame with NiTiHfPd braces in a chevron layout in every bay and story, with a lighter frame so that strength and stiffness match the original. Both frames were analyzed under 20 SAC ground motions for Los Angeles at three hazard levels: 50%, 10% and 2% probability of exceedance in 50 years.</p>
-      <p>The braced frame matched the original in peak drift and floor acceleration but cut the drift left behind dramatically, and its performance held up from −35 to 25 °C.</p>
+      <p>The case study is a 4-story steel office building in Los Angeles (soil type D) with special moment frames and reduced beam sections. I modeled the perimeter frame (two moment-frame bays and two gravity bays) in OpenSees. For the SMA-braced version, the frame was made lighter, to about 75% of the original base-shear capacity, and NiTiHfPd braces were added in a chevron layout in every bay of every story. Both frames were analyzed under 20 SAC ground motions for Los Angeles at three hazard levels: 50%, 10% and 2% probability of exceedance in 50 years (return periods of 72, 475 and 2475 years).</p>
+      <p>The braced frame matched the original in peak drift and floor acceleration but cut the drift left behind dramatically. Changing the brace temperature between −35 °C and +25 °C barely mattered: the largest change was the median residual drift at 2%-in-50-years shaking, from 0.69% at +25 °C to 0.95% at −35 °C.</p>
       <div class="quiz" data-q="2"><p>Quick check: under the rarest shaking (2% in 50 years), what was the median residual drift of the frame <em>without</em> SMA braces?</p>
         <div class="opts"><button data-a="0">0.69%</button><button data-a="1">4.31%</button><button data-a="0">0.09%</button></div><p class="ans" aria-live="polite"></p></div>
     </div>
@@ -168,6 +171,7 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
       <canvas id="frCv" width="720" height="420" aria-label="Moment frame and SMA-braced frame side by side under an earthquake"></canvas>
       <div class="ctrl">
         <span class="seg" role="group" aria-label="Hazard level"><button data-h="0" aria-pressed="false">50% in 50 yr</button><button data-h="1" aria-pressed="false">10% in 50 yr</button><button data-h="2" aria-pressed="true">2% in 50 yr</button></span>
+        <span class="seg" role="group" aria-label="Brace temperature" id="frT"><button data-t="0" aria-pressed="true">+25 °C</button><button data-t="1" aria-pressed="false">+5 °C</button><button data-t="2" aria-pressed="false">−35 °C</button></span>
         <button class="b" id="frGo">Start earthquake</button>
       </div>
       <div class="cards">
@@ -175,7 +179,7 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
         <div class="card"><small>Median floor accel.</small><b id="fFAA">14.03 / 13.14</b><i>m/s², moment frame / SMA-braced</i></div>
         <div class="card"><small>Median residual drift</small><b id="fRIDR">4.31 / 0.69%</b><i>moment frame / SMA-braced</i></div>
       </div>
-      <p class="fine">Numbers are the medians of 20 records from Table 3 of Shi, Shafiei Dizaji et al. (11NCEE, 2018). The animation is illustrative: each frame's final lean is scaled from its median residual drift.</p>
+      <p class="fine">Medians of 20 records: moment frame from Table 4-3, SMA-braced frame at the chosen brace temperature from Table 4-5. The animation is illustrative: each frame's final lean is scaled from its median residual drift.</p>
     </div>
   </div>
 </section>
@@ -185,26 +189,27 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
   <div class="ch-head"><span class="ch-num">Chapter 3</span><h2>The SMA re-centering damper (SMARD)</h2></div>
   <div class="grid2">
     <div class="text">
-      <p class="k">The SMARD combines two jobs in one compact device: NiTiHfPd bars that re-center the structure, and friction springs that dissipate energy and add stroke.</p>
-      <p>A piston runs through a housing with baffles. Whichever way it moves, it pushes one plate while the baffle holds the other, so the bars and springs are always compressed. The result is a flag-shaped force–displacement loop.</p>
+      <p class="k">The SMARD combines two jobs in one compact device: NiTiHfPd bars that re-center the structure, and high-force friction springs that dissipate energy and give it a large stroke.</p>
+      <p>An SMA–spring assembly sits inside an enclosure with rigidly attached baffle plates, and a piston passes freely through holes in the baffles. Whether the piston is pulled out or pushed in, the assembly is compressed, which suits NiTiHfPd because it behaves best in compression. The bars can have up to four different diameters (SMA1 and SMA2 here): in a weak event the softer bars work, in a strong event both groups engage, and in an extreme event the bars stiffen again and limit displacement.</p>
       <ul class="facts">
-        <li><span>Capacity</span><span>3600 kN from four 900 kN friction-spring groups; 150 mm stroke; loss factor over 0.30</span></li>
-        <li><span>SMA bars</span><span>25 mm diameter, 200 mm long, design stress 1800 MPa</span></li>
-        <li><span>Buildings</span><span>6-story and 9-story steel moment frames in Seattle, two SMARDs per story in chevron braces</span></li>
-        <li><span>Analysis</span><span>OpenSees, 44 far-field records, design (DBE) and maximum (MCE) earthquakes</span></li>
+        <li><span>Design</span><span>3600 kN force capacity, 150 mm stroke, loss factor over 0.30</span></li>
+        <li><span>SMA bars</span><span>two groups of four 25 mm bars, 200 mm long, design stress 1800 MPa; buckling load 1473 kN &gt; 900 kN</span></li>
+        <li><span>Friction springs</span><span>four 900 kN springs in parallel, each 12 elements (type 24301), 400 mm long; about 2/3 of the energy is absorbed by friction between the rings</span></li>
+        <li><span>Buildings</span><span>6-story (FEMA P-751) and 9-story (SAC) steel moment frames in Seattle, two SMARDs per story in the 2nd and 4th bays, chevron braces; periods 2.04 → 1.29 s and 2.37 → 2.19 s</span></li>
+        <li><span>Analysis</span><span>OpenSees, 22 far-field record pairs (44 records, FEMA P695) at the design (DBE) and maximum (MCE) earthquakes; collapse at 10% drift</span></li>
       </ul>
-      <div class="quiz" data-q="3"><p>Quick check: in the 6-story frame at MCE, how many of the 44 records collapsed the frame <em>with</em> SMARDs?</p>
-        <div class="opts"><button data-a="1">1</button><button data-a="0">9</button><button data-a="0">17</button></div><p class="ans" aria-live="polite"></p></div>
+      <div class="quiz" data-q="3"><p>Quick check: in the 6-story frame at MCE, what was the median peak drift <em>with</em> SMARDs?</p>
+        <div class="opts"><button data-a="0">4.21%</button><button data-a="1">1.93%</button><button data-a="0">9.42%</button></div><p class="ans" aria-live="polite"></p></div>
     </div>
     <div class="lab">
       <div class="lab-title"><b>Drive the piston</b><span class="tag">Drag or play</span></div>
       <canvas id="smCv" width="720" height="300" aria-label="Cutaway of the SMARD; drag the piston"></canvas>
       <canvas id="smLoop" width="720" height="240" style="margin-top:.6rem" aria-label="Force-displacement loop of the SMARD"></canvas>
       <div class="ctrl"><button class="b" id="smPlay">Play cycles</button><span>or drag the piston rod left and right</span></div>
-      <div class="lab-title" style="margin-top:1.1rem"><b>6-story frame, 44 records</b></div>
+      <div class="lab-title" style="margin-top:1.1rem"><b>Results over 44 records</b></div>
       <canvas id="barCv" width="720" height="260" aria-label="Bar chart comparing the frame with and without SMARDs"></canvas>
-      <div class="ctrl"><span class="seg" role="group" aria-label="Result"><button data-r="drift" aria-pressed="true">Median peak drift</button><button data-r="col" aria-pressed="false">Collapses</button><button data-r="res" aria-pressed="false">Residual drift &gt; 1%</button></span></div>
-      <p class="fine" id="barNote">Median peak inter-story drift at the design earthquake (DBE): 4.21% without and 0.87% with SMARDs. Smart Materials and Structures 31 (2022) 065004.</p>
+      <div class="ctrl"><span class="seg" role="group" aria-label="Result"><button data-r="drift" aria-pressed="true">6-story drift</button><button data-r="p84" aria-pressed="false">6-story 84th pct.</button><button data-r="acc" aria-pressed="false">6-story accel.</button><button data-r="nine" aria-pressed="false">9-story at MCE</button></span></div>
+      <p class="fine" id="barNote"></p>
     </div>
   </div>
 </section>
@@ -212,14 +217,14 @@ footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
 <section class="chapter" style="border-bottom:0">
   <div class="ch-head"><span class="ch-num">Conclusions</span><h2>What the thesis shows</h2></div>
   <div class="concl">
-    <div><b>A strong, damping alloy</b>NiTiHfPd keeps its superelastic flag from −35 to 25 °C; colder means more damping, and from 5 to 25 °C the change is under 10%.</div>
-    <div><b>Braces that re-center</b>In a 4-story frame, SMA braces cut the median residual drift at the rarest shaking from 4.31% to 0.69%, with similar peak drifts and accelerations.</div>
-    <div><b>A practical device</b>The SMARD sharply reduced drifts, residual drifts and collapses in 6- and 9-story frames, with only a small increase in floor acceleration.</div>
+    <div><b>A strong, damping alloy</b>NiTiHfPd kept its superelastic flag from −55 to +40 °C. Colder and slower loading means more damping; from +5 to +25 °C damping and energy change by less than 10%.</div>
+    <div><b>Braces that re-center</b>In a 4-story frame, SMA braces cut the median residual drift at the rarest shaking from 4.31% to 0.69% (0.95% at −35 °C), with similar peak drifts and accelerations.</div>
+    <div><b>A practical device</b>The SMARD cut the 6-story median peak drift from 4.21% to 1.93% at MCE, nearly removed residual drift, and raised floor acceleration only moderately. Next steps: test a prototype and study temperature effects on the full device.</div>
   </div>
   <p style="margin-top:1.5rem"><a class="btn p" style="color:#14213d" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener">Read the full thesis</a> &nbsp; <a href="index.html#smard">See the SMARD research on the main site</a></p>
 </section>
 </main>
-<footer><div class="wrap">© 2026 Farzad Shafiei Dizaji · M.S. thesis, Department of Civil and Environmental Engineering, University of Virginia, 2019 · Numbers from the thesis, the 11NCEE (2018) paper and Smart Materials and Structures 31 (2022) 065004; animations are illustrative.</div></footer>
+<footer><div class="wrap">© 2026 Farzad Shafiei Dizaji · M.S. thesis, Department of Civil and Environmental Engineering, University of Virginia, 2019 · All numbers are from the thesis; animations are illustrative.</div></footer>
 
 <script>
 (function(){
@@ -251,13 +256,7 @@ function loopPts(T,amp){const pts=[];const N=120;for(let i=0;i<=N;i++){const e=a
   cv._draw=()=>draw(performance.now());requestAnimationFrame(draw);})();
 // ---- chapter 1: specimen + loop
 (function(){const cv=document.getElementById('matCv'),g=prep(cv);watch(cv);let T='25',F='1',amp=3,t0=performance.now();
-  const data={damp:{'-35':{0.05:'4.96%',0.5:'4.04%',1:'4.07%'},25:{0.05:'3.34%',0.5:'2.29%',1:'1.98%'}},en:{0.05:'−32%',0.5:'−42%',1:'−50%'},st:{0.05:'+29%',0.5:'+34%',1:'+35%'}};
-  function cards(){const d=document.getElementById('cDamp'),dn=document.getElementById('cDampN'),en=document.getElementById('cEn'),enn=document.getElementById('cEnN'),st=document.getElementById('cSt'),stn=document.getElementById('cStN');
-    if(T==='5'){d.textContent='≈ 25 °C value';dn.textContent='within 10% of 25 °C (measured)';en.textContent='< 10%';enn.textContent='difference from 25 °C';st.textContent='—';stn.textContent='not reported separately';}
-    else{d.textContent=data.damp[T][F];dn.textContent=`measured at ${T==='-35'?'−35':T} °C, ${F} Hz`;
-      if(T==='25'){en.textContent=data.en[F];enn.textContent=`25 °C vs −35 °C, ${F} Hz`;st.textContent=data.st[F];stn.textContent=`25 °C vs −35 °C, ${F} Hz`;}
-      else{en.textContent='baseline';enn.textContent='−35 °C has the widest loops';st.textContent='baseline';stn.textContent='softest of the three';}}}
-  document.querySelectorAll('#material .seg button').forEach(b=>b.onclick=()=>{const grp=b.parentElement;grp.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(b.dataset.t)T=b.dataset.t;if(b.dataset.f)F=b.dataset.f;cards();});
+  document.querySelectorAll('#material .seg[aria-label="Temperature"] button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));T=b.dataset.t;});
   const sl=document.getElementById('matAmp');sl.oninput=()=>{amp=+sl.value;document.getElementById('matAmpV').textContent=amp.toFixed(1)+'%';};
   function draw(now){const W=720,H=440;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);
     const pts=loopPts(T,amp);const per=reduce?1e9:3600;const ph=reduce?0.25:((Math.max(0,now-t0))%per)/per;const idx=Math.floor(ph*(pts.length-1));const cur=pts[idx];
@@ -276,25 +275,44 @@ function loopPts(T,amp){const pts=[];const N=120;for(let i=0;i<=N;i++){const e=a
     g.fillStyle=C.yel;g.beginPath();g.arc(ox+cur[0]*sx,oy-cur[1]*sy,5,0,7);g.fill();
     g.fillStyle=C.ink;g.font='600 14px IBM Plex Sans,sans-serif';g.fillText(`${T==='-35'?'−35':T} °C · ε = ${cur[0].toFixed(2)}% · σ = ${Math.round(cur[1])} MPa`,ox,24);
     if(!reduce)requestAnimationFrame(draw);}
-  cv._draw=()=>draw(performance.now());cards();requestAnimationFrame(draw);})();
+  cv._draw=()=>draw(performance.now());requestAnimationFrame(draw);})();
+
+// ---- chapter 1: measured EVD explorer (thesis Tables 3-1 to 3-8; columns = 0.05, 0.5, 1 Hz)
+(function(){const EV={"1": {"0": {"L": [3.68, 3.65, 3.09], "M": [4.42, 3.69, 3.19], "H": [4.57, 3.59, 3.31], "VH": [4.22, 3.58, 3.2]}, "20": {"L": [3.37, 2.01, 1.57], "M": [3.87, 2.63, 2.21], "H": [4.96, 3.29, 2.82], "VH": [5.26, 4.08, 3.41]}, "40": {"L": [2.77, 1.91, 1.59], "M": [3.49, 2.57, 2.08], "H": [3.81, 2.89, 2.75], "VH": [4.27, 3.41, 2.95]}}, "2": {"-55": {"L": [1.24, 0.6, 0.51], "M": [4.0, 3.44, 3.43], "H": [5.48, 4.65, 4.43], "VH": [5.66, 4.86, 4.54]}, "-35": {"L": [1.41, 0.71, 0.48], "M": [3.39, 2.77, 2.49], "H": [4.54, 3.69, 3.43], "VH": [4.96, 4.04, 4.07]}, "-15": {"L": [0.84, 0.54, 0.31], "M": [2.56, 2.04, 1.9], "H": [3.59, 2.81, 2.61], "VH": [4.29, 3.31, 2.97]}, "25": {"L": [0.66, 0.34, 0.16], "M": [1.62, 1.17, 1.0], "H": [2.64, 1.87, 1.62], "VH": [3.33, 2.29, 1.98]}, "5": {"L": [0.31, 0.07, 0.12], "M": [1.7, 1.24, 1.11], "H": [2.74, 2.03, 1.81], "VH": [3.43, 2.52, 2.23]}}};const cv=document.getElementById('evdCv'),g=prep(cv);let S='2',F=0,L='VH',t0=0;
+  const order={'2':['-55','-35','-15','5','25'],'1':['0','20','40']};const lab={L:'low',M:'medium',H:'high',VH:'very high'};const fr=['0.05','0.5','1'];
+  function draw(now){const W=720,H=300;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);const k=reduce?1:Math.min(1,Math.max(0,(now-t0)/600));const e=k*k*(3-2*k);
+    const temps=order[S];const vals=temps.map(T=>EV[S][T][L][F]);const max=6;const x0=70,x1=700,yb=250,yt=40,bw=(x1-x0)/temps.length*0.56;
+    g.strokeStyle=C.rule;g.lineWidth=1;g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';
+    for(let v=0;v<=6;v+=1){const y=yb-(yb-yt)*v/max;g.beginPath();g.moveTo(x0,y);g.lineTo(x1,y);g.stroke();g.fillText(v+'%',30,y+4);}
+    temps.forEach((T,i)=>{const cx=x0+(i+.5)*(x1-x0)/temps.length;const h=(yb-yt)*vals[i]/max*e;const tt=+T;const col=tt<=-15?C.blue:(tt<=5?C.green:C.orange);
+      g.fillStyle=col;g.fillRect(cx-bw/2,yb-h,bw,h);g.fillStyle=C.ink;g.font='600 13px IBM Plex Mono,monospace';g.fillText(vals[i].toFixed(2)+'%',cx-26,yb-h-8);
+      g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';g.fillText((tt>0?'+':'')+T.replace('-','−')+' °C',cx-24,yb+20);});
+    g.fillStyle=C.ink;g.font='600 14px IBM Plex Sans,sans-serif';g.fillText('Equivalent viscous damping, '+lab[L]+' strain, '+fr[F]+' Hz',x0,24);
+    const r=document.getElementById('evdRead');const hi=Math.max(...vals),lo=Math.min(...vals);r.innerHTML=`Sample ${S}: damping ranges from <b>${lo.toFixed(2)}%</b> to <b>${hi.toFixed(2)}%</b> across ${temps.length} temperatures. Colder generally means more damping, and larger strains open the flag wider.`;
+    if(k<1&&!reduce)requestAnimationFrame(draw);}
+  function go(){t0=performance.now();requestAnimationFrame(draw);}
+  [['evdS','s'],['evdF','f'],['evdL','l']].forEach(([id,key])=>document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(key==='s')S=b.dataset.s;if(key==='f')F=+b.dataset.f;if(key==='l')L=b.dataset.l;go();}));
+  cv._draw=()=>{t0=-1e9;draw(performance.now());};go();})();
 // ---- chapter 2: two 4-story frames
 (function(){const cv=document.getElementById('frCv'),g=prep(cv);let hz=2,run=false,t=0,last=0;
-  const D=[{i:['1.13','1.07'],a:['6.72','6.68'],r:['0.09','0.06'],R:[0.09,0.06],A:0.35},{i:['2.34','2.23'],a:['9.12','9.35'],r:['0.79','0.33'],R:[0.79,0.33],A:0.6},{i:['5.88','5.23'],a:['14.03','13.14'],r:['4.31','0.69'],R:[4.31,0.69],A:1}];
-  function setH(h){hz=h;const d=D[h];document.getElementById('fIDR').textContent=`${d.i[0]} / ${d.i[1]}%`;document.getElementById('fFAA').textContent=`${d.a[0]} / ${d.a[1]}`;document.getElementById('fRIDR').textContent=`${d.r[0]} / ${d.r[1]}%`;t=0;run=false;document.getElementById('frGo').textContent='Start earthquake';draw();}
-  document.querySelectorAll('#braces .seg button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));setH(+b.dataset.h);});
+  const M=[{i:'1.13',a:'6.72',r:0.09,A:0.35},{i:'2.34',a:'9.12',r:0.79,A:0.6},{i:'5.88',a:'14.03',r:4.31,A:1}];
+  const S=[[['1.068','6.678',0.064],['1.073','6.574',0.065],['1.225','6.573',0.061]],[['2.229','9.35',0.328],['2.312','9.15',0.369],['2.329','9.144',0.391]],[['5.227','13.14',0.689],['5.251','13.33',0.829],['5.118','13.15',0.950]]];
+  let tp=0;const D=[{},{},{}];
+  function setH(h){hz=h;const m=M[h],q=S[h][tp];D[h]={R:[m.r,q[2]],A:m.A};document.getElementById('fIDR').textContent=`${m.i} / ${q[0]}%`;document.getElementById('fFAA').textContent=`${m.a} / ${q[1]}`;document.getElementById('fRIDR').textContent=`${m.r.toFixed(2)} / ${q[2].toFixed(3)}%`;t=0;run=false;document.getElementById('frGo').textContent='Start earthquake';draw();}
+  document.querySelectorAll('#braces .seg button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(b.dataset.t!==undefined)tp=+b.dataset.t;setH(b.dataset.h!==undefined?+b.dataset.h:hz);});
   const TD=9;
   function gm(tt){if(tt>TD)return 0;const e=Math.sin(Math.PI*tt/TD)**2;return e*(Math.sin(2*Math.PI*0.9*tt)+0.6*Math.sin(2*Math.PI*1.7*tt+1)+0.4*Math.sin(2*Math.PI*2.6*tt+2));}
   function lean(k,tt){const d=D[hz];const settle=Math.min(1,Math.max(0,(tt-1.5)/(TD-1.5)));const res=d.R[k]*6*settle;return res+gm(tt)*16*d.A;}
-  function frame(x0,label,col,k,tt){const B=70,Hs=58,ns=4,base=350;const top=lean(k,tt);const u=j=>top*(j/ns);
-    g.strokeStyle='#8794a3';g.lineWidth=3;for(let j=1;j<=ns;j++){g.beginPath();g.moveTo(x0+u(j),base-j*Hs);g.lineTo(x0+3*B+u(j),base-j*Hs);g.stroke();}
-    for(let c=0;c<=3;c++){g.beginPath();for(let j=0;j<=ns;j++){const x=x0+c*B+u(j),y=base-j*Hs;j?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();}
-    if(k===1){g.strokeStyle=C.orange;g.lineWidth=2;for(let j=0;j<ns;j++)for(let c=0;c<3;c++){const xl=x0+c*B+u(j),xr=x0+(c+1)*B+u(j),xm=x0+(c+.5)*B+u(j+1);g.beginPath();g.moveTo(xl,base-j*Hs);g.lineTo(xm,base-(j+1)*Hs+3);g.lineTo(xr,base-j*Hs);g.stroke();}}
-    g.strokeStyle=C.muted;g.setLineDash([4,4]);g.lineWidth=1;g.beginPath();g.moveTo(x0+3*B,base);g.lineTo(x0+3*B,base-ns*Hs-12);g.stroke();g.setLineDash([]);
+  function frame(x0,label,col,k,tt){const NB=4,B=58,Hs=58,ns=4,base=350;const top=lean(k,tt);const u=j=>top*(j/ns);
+    g.strokeStyle='#8794a3';g.lineWidth=3;for(let j=1;j<=ns;j++){g.beginPath();g.moveTo(x0+u(j),base-j*Hs);g.lineTo(x0+NB*B+u(j),base-j*Hs);g.stroke();}
+    for(let c=0;c<=NB;c++){g.beginPath();for(let j=0;j<=ns;j++){const x=x0+c*B+u(j),y=base-j*Hs;j?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();}
+    if(k===1){g.strokeStyle=C.orange;g.lineWidth=2;for(let j=0;j<ns;j++)for(let c=0;c<NB;c++){const xl=x0+c*B+u(j),xr=x0+(c+1)*B+u(j),xm=x0+(c+.5)*B+u(j+1);g.beginPath();g.moveTo(xl,base-j*Hs);g.lineTo(xm,base-(j+1)*Hs+3);g.lineTo(xr,base-j*Hs);g.stroke();}}
+    g.strokeStyle=C.muted;g.setLineDash([4,4]);g.lineWidth=1;g.beginPath();g.moveTo(x0+NB*B,base);g.lineTo(x0+NB*B,base-ns*Hs-12);g.stroke();g.setLineDash([]);
     g.fillStyle=col;g.font='600 14px IBM Plex Sans,sans-serif';g.fillText(label,x0,base-ns*Hs-26);
-    if(tt>TD+0.5){const r=D[hz].R[k];g.fillStyle=k?C.green:C.red;g.font='600 13px IBM Plex Mono,monospace';g.fillText(`residual drift ${r.toFixed(2)}%`,x0,base+36);}}
+    if(tt>TD+0.5){const r=D[hz].R[k];g.fillStyle=k?C.green:C.red;g.font='600 13px IBM Plex Mono,monospace';g.fillText(`residual drift ${k?r.toFixed(3):r.toFixed(2)}%`,x0,base+36);}}
   function draw(){const W=720,H=420;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);
     const sh=gm(t)*6*D[hz].A;g.strokeStyle=C.rule;g.lineWidth=2;g.beginPath();g.moveTo(20+sh,350);g.lineTo(700+sh,350);g.stroke();
-    frame(60+sh,'Moment frame',C.ink,0,t);frame(420+sh,'SMA-braced frame',C.orange,1,t);
+    frame(60+sh,'Moment frame',C.ink,0,t);frame(410+sh,'SMA-braced frame',C.orange,1,t);
     g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';g.fillText(run?`t = ${t.toFixed(1)} s`:(t>0?'shaking over':'press Start'),20,30);g.fillText('lean exaggerated for visibility',520,30);}
   function tick(now){if(!run)return;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;draw();if(t<TD+1.5)requestAnimationFrame(tick);else{run=false;document.getElementById('frGo').textContent='Run again';draw();}}
   document.getElementById('frGo').onclick=()=>{t=0;run=true;last=performance.now();document.getElementById('frGo').textContent='Shaking…';if(reduce){t=TD+1;run=false;draw();return;}requestAnimationFrame(tick);};
@@ -333,9 +351,10 @@ function loopPts(T,amp){const pts=[];const N=120;for(let i=0;i<=N;i++){const e=a
   cv._draw=draw;lc._draw=draw;draw();
   // results bars
   const bc=document.getElementById('barCv'),gb=prep(bc);let mode='drift';
-  const R={drift:{u:'%',rows:[['DBE median',4.21,0.87],['DBE 84th pct.',6.25,1.92],['MCE 84th pct.',9.42,3.11]],note:'Median and 84th-percentile peak inter-story drift of the 6-story frame over 44 records, without and with SMARDs. Smart Materials and Structures 31 (2022) 065004.'},
-    col:{u:'',rows:[['DBE',9,0],['MCE',17,1]],note:'Number of the 44 records that collapsed the 6-story frame (peak drift above 10%). At the DBE the controlled frame stayed below 3.25% drift except one record at 5.25%.'},
-    res:{u:'',rows:[['DBE',18,1]],note:'Records leaving more than 1% residual drift in the 6-story frame at the DBE: 18 without SMARDs; with SMARDs only one record, at 1.24%.'}};
+  const R={drift:{u:'%',rows:[['DBE',2.89,0.87],['MCE',4.21,1.93]],note:'Median peak inter-story drift of the 6-story frame, without and with SMARDs (thesis Section 5.4.1). At the DBE the moment frame alone failed under 9 of the 44 records.'},
+    p84:{u:'%',rows:[['DBE',6.25,1.92],['MCE',9.42,3.11]],note:'84th-percentile peak inter-story drift of the 6-story frame, without and with SMARDs.'},
+    acc:{u:' g',rows:[['DBE',0.85,0.88],['MCE',1.25,1.45]],note:'Median peak floor acceleration of the 6-story frame: the SMARDs raise it only moderately.'},
+    nine:{u:'',rows:[['Drift (%)',2.32,1.92],['Accel. (g)',1.09,1.15]],note:'9-story frame at MCE: median peak drift and peak floor acceleration, without and with SMARDs. The SMARD frame also had less scatter and minimal residual drift.'}};
   function drawB(){const W=720,H=260;gb.clearRect(0,0,W,H);gb.fillStyle='#05080d';gb.fillRect(0,0,W,H);const d=R[mode];const max=Math.max(...d.rows.flatMap(r=>[r[1],r[2]]))*1.5;
     const x0=150,x1=690,rowH=(H-60)/d.rows.length;gb.font='12px IBM Plex Mono,monospace';
     d.rows.forEach((r,i)=>{const y=30+i*rowH;gb.fillStyle=C.muted;gb.fillText(r[0],16,y+rowH*0.45);
@@ -344,7 +363,7 @@ function loopPts(T,amp){const pts=[];const N=120;for(let i=0;i<=N;i++){const e=a
   document.querySelectorAll('#smard .seg button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));mode=b.dataset.r;drawB();});
   bc._draw=drawB;drawB();})();
 // ---- quizzes
-document.querySelectorAll('.quiz').forEach(q=>{const ans=q.querySelector('.ans');const exp={1:'Correct: colder alloy dissipates more energy. From −35 °C to 25 °C, dissipated energy at 1 Hz drops by 50%, so at −35 °C it is about twice the 25 °C value.',2:'Correct: 4.31% without braces versus 0.69% with SMA braces.',3:'Correct: only 1 of 44 records, versus 17 without SMARDs.'};
+document.querySelectorAll('.quiz').forEach(q=>{const ans=q.querySelector('.ans');const exp={1:'Correct: colder alloy dissipates more energy. From −35 °C to 25 °C, dissipated energy at 1 Hz drops by 50%, so at −35 °C it is about twice the 25 °C value.',2:'Correct: 4.31% without braces versus 0.69% with SMA braces.',3:'Correct: 1.93% with SMARDs, versus 4.21% for the moment frame alone.'};
   q.querySelectorAll('button').forEach(b=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.classList.remove('right','wrong'));if(b.dataset.a==='1'){b.classList.add('right');ans.textContent=exp[q.dataset.q];}else{b.classList.add('wrong');ans.textContent='Not quite. Try another answer.';}});});
 })();
 </script>
