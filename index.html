@@ -503,6 +503,12 @@ details.lab-wrap[open] .lw-close{display:inline}
 .intro-cap{margin:0;font:500 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);text-align:center}
 .intro-cue{bottom:.8rem!important}
 @media (max-width:560px){.tbtn{min-width:0;flex:1 1 100%}.intro{padding-block:7vh 4rem}}
+/* beyond the classroom */
+.fitgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin-top:.9rem;max-width:34rem}
+.fitclip{margin:0}
+.fitclip video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#05080d;border:1px solid var(--rule)}
+.fitclip figcaption{margin-top:.45rem;font:500 .8rem var(--sans);color:var(--muted);text-align:center}
+@media (max-width:640px){.fitgrid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem}.fitclip{scroll-snap-align:start}}
 /* ===== Light reading theme (default). Dark islands: intro, interactive labs, math-in-motion player. ===== */
 :root{--on-accent:#04121c;--accent-hover:#9bd1f0}
 html:not([data-theme="dark"]) .sheet{--bg:#faf8f4;--surface:#ffffff;--ink:#14213d;--muted:#566175;--rule:#dfd9ce;--accent:#1f5f99;--accent-soft:#e4edf7;--mark:#c2570c;--on-accent:#ffffff;--accent-hover:#174a78;--cta:#e57200;--cta-ink:#14213d;color-scheme:light;color:var(--ink)}
@@ -1094,6 +1100,11 @@ html:not([data-theme="dark"]) .sheet .wordlit.on .w{animation-name:wglowL}
   </ul>
   <h3>Industry</h3>
   <p>Before graduate study in the United States, I worked for about a decade in Tabriz, Iran as a structural engineer. I supervised school renovation projects, designed and reviewed bridge and building structures, and wrote technical reports on two bridge collapses.</p>
+</div></section>
+
+<section id="beyond" aria-labelledby="beyond-h"><h2 id="beyond-h">Beyond the classroom</h2><div class="body">
+  <p>Strength training is part of my weekly routine. It takes the same things I ask of my students: steady practice, patience with small gains, and showing up even on hard days.</p>
+  <div class="fitgrid"><figure class="fitclip"><video src="media/fit-shoulder-press.mp4" poster="media/fit-shoulder-press-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Farzad doing a seated dumbbell shoulder press with 75 lb dumbbells"></video><figcaption>Seated shoulder press, 75 lb dumbbells</figcaption></figure><figure class="fitclip"><video src="media/fit-weighted-dips.mp4" poster="media/fit-weighted-dips-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Farzad doing weighted dips with a plate on a dip belt"></video><figcaption>Weighted dips</figcaption></figure><figure class="fitclip"><video src="media/fit-back-squat.mp4" poster="media/fit-back-squat-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Farzad doing barbell back squats in a squat rack"></video><figcaption>Back squats</figcaption></figure></div>
 </div></section>
 
 <section id="contact"><h2>Contact</h2><div class="body">
