@@ -1,0 +1,359 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Google tag (gtag.js): loads only on the live site, so previews are not counted -->
+<script>
+if(location.hostname==='farzadshafiei.github.io'){
+  (function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-VP09FY47HP';document.head.appendChild(s);})();
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','G-VP09FY47HP');
+}
+</script>
+<title>Superelastic Materials Thesis · Farzad Shafiei Dizaji</title>
+<meta name="description" content="Interactive tour of Farzad Shafiei Dizaji's M.S. thesis (University of Virginia, 2019): NiTiHfPd shape memory alloys, SMA-braced frames and the SMA re-centering damper (SMARD).">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<style>
+/* Long-form scroll story: three chapters, each a text column beside a live instrument panel (dark "lab bench" islands on a light page) */
+:root{
+  --bg:#faf8f4;--surface:#ffffff;--ink:#14213d;--muted:#566175;--rule:#dfd9ce;--accent:#1f5f99;--accent-soft:#e4edf7;--mark:#c2570c;--cta:#e57200;
+  --lab:#0b1626;--lab-ink:#e6ecf2;--lab-muted:#9aa8b6;--lab-rule:#27436b;--blue:#6bb7e3;--orange:#f09a6e;--yel:#e8c547;--green:#7bd389;
+  --serif:'Source Serif 4',Georgia,serif;--sans:'IBM Plex Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--display:'Fraunces',var(--serif);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070b12;--surface:#0f1a2b;--ink:#e6ecf2;--muted:#9aa8b6;--rule:#24364f;--accent:#6bb7e3;--accent-soft:#16304f;--mark:#f09a6e;--cta:#f09a6e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#070b12;--surface:#0f1a2b;--ink:#e6ecf2;--muted:#9aa8b6;--rule:#24364f;--accent:#6bb7e3;--accent-soft:#16304f;--mark:#f09a6e;--cta:#f09a6e;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans)}
+a{color:var(--accent)}
+.wrap{max-width:72rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:0;z-index:20;background:#0d182a;color:#e6ecf2;border-bottom:1px solid #27436b}
+header.top .wrap{display:flex;align-items:center;gap:1rem;padding-block:.7rem;flex-wrap:wrap}
+header.top a{color:#e6ecf2;text-decoration:none;font:500 .78rem var(--mono);letter-spacing:.06em;text-transform:uppercase}
+header.top .home{font:600 1rem var(--display);letter-spacing:0;text-transform:none;margin-right:auto}
+header.top nav{display:flex;gap:1.1rem;flex-wrap:wrap}
+header.top a:hover{color:var(--blue)}
+/* hero */
+.hero{background:radial-gradient(120% 90% at 80% 0%,#1d3a63 0%,#0b1626 55%,#070b12 100%);color:#e6ecf2;overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:2rem;align-items:center;padding-block:3.5rem 3rem}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:0 0 .8rem}
+.hero h1{font:600 clamp(2rem,4.6vw,3.3rem)/1.08 var(--display);margin:0 0 1rem;text-wrap:balance}
+.hero p.lead{font:400 1.12rem/1.6 var(--serif);color:#c9d3de;margin:0 0 1.3rem;max-width:36rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font:500 .8rem var(--mono);color:#9aa8b6;margin:0 0 1.5rem;padding:0;list-style:none}
+.meta b{color:#e6ecf2;font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.65rem 1.1rem;border-radius:6px;font:600 .9rem var(--sans);text-decoration:none}
+.btn.p{background:#e57200;color:#14213d}.btn.p:hover{background:#ff8a1f}
+.btn.g{border:1px solid #6bb7e3;color:#e6ecf2}.btn.g:hover{background:rgba(107,183,227,.14)}
+.hero canvas{width:100%;height:auto;display:block;border-radius:12px;background:#08111f;border:1px solid #27436b}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin-top:2rem}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{border-top:2px solid var(--blue);padding-top:.6rem}
+.stat b{display:block;font:600 1.9rem/1 var(--display);color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font:400 .82rem/1.4 var(--sans);color:#9aa8b6}
+/* chapters */
+.chapter{padding-block:3.5rem;border-bottom:1px solid var(--rule)}
+.ch-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.ch-num{font:600 .8rem var(--mono);letter-spacing:.12em;color:var(--mark);text-transform:uppercase}
+.chapter h2{font:600 clamp(1.6rem,3vw,2.2rem)/1.15 var(--display);margin:0;text-wrap:balance}
+.grid2{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:2rem;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.text p{margin:0 0 1rem;max-width:38rem}
+.text p.k{font:400 1.08rem/1.6 var(--serif)}
+.facts{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.5rem}
+.facts li{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:.8rem;font-size:.92rem;border-bottom:1px solid var(--rule);padding-bottom:.45rem}
+.facts li span:first-child{font:500 .74rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:.15rem}
+/* lab panel */
+.lab{background:var(--lab);color:var(--lab-ink);border:1px solid var(--lab-rule);border-radius:12px;padding:1rem;min-width:0}
+.lab-title{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin:0 0 .7rem;flex-wrap:wrap}
+.lab-title b{font:600 1rem var(--display)}
+.tag{font:600 .66rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#04121c;background:var(--orange);padding:.15rem .45rem;border-radius:3px}
+.lab canvas{display:block;width:100%;height:auto;background:#05080d;border:1px solid var(--lab-rule);border-radius:8px;touch-action:none}
+.ctrl{display:flex;flex-wrap:wrap;gap:.7rem 1.2rem;align-items:center;margin-top:.8rem;font:500 .85rem var(--sans);color:var(--lab-muted)}
+.seg{display:inline-flex;border:1px solid var(--lab-rule);border-radius:999px;padding:3px;background:#05080d}
+.seg button{appearance:none;border:0;background:none;color:var(--lab-muted);font:600 .8rem var(--sans);padding:.38rem .8rem;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--orange);color:#1a0b04}
+.seg button:focus-visible,.b:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.b{appearance:none;border:1px solid var(--blue);background:var(--blue);color:#04121c;font:600 .82rem var(--sans);padding:.42rem .9rem;border-radius:6px;cursor:pointer}
+.b.ghost{background:transparent;color:var(--lab-ink)}
+.read{margin:.8rem 0 0;font:500 .86rem/1.5 var(--mono);color:var(--lab-ink)}
+.read b{color:var(--orange)}
+.fine{margin:.6rem 0 0;font-size:.78rem;color:var(--lab-muted);line-height:1.5}
+input[type=range]{accent-color:#f09a6e}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:.9rem}
+@media (max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}}
+.card{background:#0f1f36;border:1px solid var(--lab-rule);border-radius:8px;padding:.7rem .8rem}
+.card small{display:block;font:500 .68rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--lab-muted)}
+.card b{display:block;font:600 1.35rem/1.2 var(--display);font-variant-numeric:tabular-nums}
+.card i{font-style:normal;font-size:.78rem;color:var(--lab-muted)}
+.quiz{margin-top:1.2rem;border:1px dashed var(--rule);border-radius:10px;padding:1rem;background:var(--surface)}
+.quiz p{margin:0 0 .6rem;font-weight:600}
+.quiz .opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.quiz button{appearance:none;border:1px solid var(--accent);background:transparent;color:var(--accent);font:600 .85rem var(--sans);padding:.4rem .8rem;border-radius:6px;cursor:pointer}
+.quiz button.right{background:#2e7d4f;border-color:#2e7d4f;color:#fff}.quiz button.wrong{background:#b3261e;border-color:#b3261e;color:#fff}
+.quiz .ans{margin:.6rem 0 0;font-size:.9rem;color:var(--muted);min-height:1.4em}
+footer{padding-block:2.5rem 3rem;color:var(--muted);font-size:.88rem}
+.concl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
+@media (max-width:800px){.concl{grid-template-columns:minmax(0,1fr)}}
+.concl div{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem}
+.concl b{display:block;font:600 1.05rem var(--display);margin-bottom:.3rem}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head><body>
+<header class="top"><div class="wrap"><a class="home" href="index.html">Farzad S. Dizaji</a><nav><a href="#material">1 · Material</a><a href="#braces">2 · SMA braces</a><a href="#smard">3 · SMARD</a><a href="index.html#research">Research</a></nav></div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">M.S. thesis · University of Virginia · 2019</p>
+    <h1>High Performance Superelastic Materials for Seismic Applications</h1>
+    <p class="lead">Buildings that survive an earthquake can still be lost if they are left leaning. My thesis asks whether an ultra-strong shape memory alloy, NiTiHfPd, can pull steel buildings back to plumb after shaking, and turns the answer into a new device: the SMA re-centering damper (SMARD).</p>
+    <ul class="meta"><li>Author <b>Farzad Shafiei Dizaji</b></li><li>Advisor <b>Prof. Osman E. Ozbulut</b></li><li>Degree <b>M.S., Civil Engineering</b></li></ul>
+    <div class="btns"><a class="btn p" href="#material">Start the tour</a><a class="btn g" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener">Read the full thesis (PDF)</a></div>
+  </div>
+  <canvas id="heroCv" width="640" height="440" aria-label="Animated flag-shaped hysteresis loop of a superelastic alloy"></canvas>
+  <div class="stats" style="grid-column:1/-1">
+    <div class="stat"><b>−35 to 25 °C</b><span>test temperatures for the NiTiHfPd alloy</span></div>
+    <div class="stat"><b>4.31% → 0.69%</b><span>median residual drift, 4-story frame, 2%-in-50-years shaking</span></div>
+    <div class="stat"><b>17 → 1</b><span>collapses in 44 records, 6-story frame at MCE, without vs with SMARDs</span></div>
+    <div class="stat"><b>44</b><span>far-field ground motions (FEMA P695) per analysis</span></div>
+  </div>
+</div></section>
+
+<main class="wrap">
+<!-- ===== Chapter 1 ===== -->
+<section class="chapter" id="material">
+  <div class="ch-head"><span class="ch-num">Chapter 1</span><h2>An alloy that remembers its shape</h2></div>
+  <div class="grid2">
+    <div class="text">
+      <p class="k">Superelastic shape memory alloys can be squeezed several percent and spring back with almost no permanent deformation. Their stress–strain curve is a <em>flag</em>: a plateau on loading, a lower plateau on unloading, and a return to zero.</p>
+      <p>Ordinary NiTi is limited in strength and changes behavior with temperature. I tested a new alloy, Ni<sub>45.3</sub>Ti<sub>29.7</sub>Hf<sub>20</sub>Pd<sub>5</sub>, in compression at −35, 5 and 25 °C and at 0.05, 0.5 and 1 Hz, then built a numerical model of its response for structural analysis.</p>
+      <ul class="facts">
+        <li><span>Specimen</span><span>4 × 4 × 8 mm, heat treated at 400 °C for 3 h</span></li>
+        <li><span>Test machine</span><span>100 kN MTS servo-hydraulic frame, 12 mm high-temperature extensometer</span></li>
+        <li><span>Model</span><span>two flag-shaped elements in parallel, fitted to the 1 Hz tests (Table 3 of the paper)</span></li>
+      </ul>
+      <div class="quiz" data-q="1"><p>Quick check: when the alloy gets colder (25 °C → −35 °C), what happens to its energy dissipation at 1 Hz?</p>
+        <div class="opts"><button data-a="0">It drops by half</button><button data-a="1">It roughly doubles</button><button data-a="0">It stays the same</button></div><p class="ans" aria-live="polite"></p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><b>Load the specimen</b><span class="tag">Interactive</span></div>
+      <canvas id="matCv" width="720" height="440" aria-label="Specimen and stress-strain loop of NiTiHfPd"></canvas>
+      <div class="ctrl">
+        <span class="seg" role="group" aria-label="Temperature"><button data-t="-35" aria-pressed="false">−35 °C</button><button data-t="5" aria-pressed="false">5 °C</button><button data-t="25" aria-pressed="true">25 °C</button></span>
+        <span class="seg" role="group" aria-label="Loading frequency"><button data-f="0.05" aria-pressed="false">0.05 Hz</button><button data-f="0.5" aria-pressed="false">0.5 Hz</button><button data-f="1" aria-pressed="true">1 Hz</button></span>
+        <label>Strain amplitude <input id="matAmp" type="range" min="1" max="4" step="0.1" value="3"> <span id="matAmpV">3.0%</span></label>
+      </div>
+      <div class="cards">
+        <div class="card"><small>Equivalent damping</small><b id="cDamp">1.98%</b><i id="cDampN">measured at 25 °C, 1 Hz</i></div>
+        <div class="card"><small>Energy dissipated vs −35 °C</small><b id="cEn">−50%</b><i id="cEnN">25 °C vs −35 °C, 1 Hz</i></div>
+        <div class="card"><small>Stiffness vs −35 °C</small><b id="cSt">+35%</b><i id="cStN">25 °C vs −35 °C, 1 Hz</i></div>
+      </div>
+      <p class="fine">The loop is drawn from the fitted model at the chosen temperature (1 Hz parameters). The cards show the measured changes reported in the paper; between 5 °C and 25 °C dissipated energy and damping differ by less than 10%.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Chapter 2 ===== -->
+<section class="chapter" id="braces">
+  <div class="ch-head"><span class="ch-num">Chapter 2</span><h2>SMA braces bring a 4-story frame back to plumb</h2></div>
+  <div class="grid2">
+    <div class="text">
+      <p class="k">A steel moment frame can survive a strong earthquake but stay permanently tilted, and a building left leaning more than about 0.5% is often demolished.</p>
+      <p>I designed a 4-story frame with NiTiHfPd braces in a chevron layout in every bay and story, with a lighter frame so that strength and stiffness match the original. Both frames were analyzed under 20 SAC ground motions for Los Angeles at three hazard levels: 50%, 10% and 2% probability of exceedance in 50 years.</p>
+      <p>The braced frame matched the original in peak drift and floor acceleration but cut the drift left behind dramatically, and its performance held up from −35 to 25 °C.</p>
+      <div class="quiz" data-q="2"><p>Quick check: under the rarest shaking (2% in 50 years), what was the median residual drift of the frame <em>without</em> SMA braces?</p>
+        <div class="opts"><button data-a="0">0.69%</button><button data-a="1">4.31%</button><button data-a="0">0.09%</button></div><p class="ans" aria-live="polite"></p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><b>Shake both frames</b><span class="tag">Interactive</span></div>
+      <canvas id="frCv" width="720" height="420" aria-label="Moment frame and SMA-braced frame side by side under an earthquake"></canvas>
+      <div class="ctrl">
+        <span class="seg" role="group" aria-label="Hazard level"><button data-h="0" aria-pressed="false">50% in 50 yr</button><button data-h="1" aria-pressed="false">10% in 50 yr</button><button data-h="2" aria-pressed="true">2% in 50 yr</button></span>
+        <button class="b" id="frGo">Start earthquake</button>
+      </div>
+      <div class="cards">
+        <div class="card"><small>Median peak drift</small><b id="fIDR">5.88 / 5.23%</b><i>moment frame / SMA-braced</i></div>
+        <div class="card"><small>Median floor accel.</small><b id="fFAA">14.03 / 13.14</b><i>m/s², moment frame / SMA-braced</i></div>
+        <div class="card"><small>Median residual drift</small><b id="fRIDR">4.31 / 0.69%</b><i>moment frame / SMA-braced</i></div>
+      </div>
+      <p class="fine">Numbers are the medians of 20 records from Table 3 of Shi, Shafiei Dizaji et al. (11NCEE, 2018). The animation is illustrative: each frame's final lean is scaled from its median residual drift.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Chapter 3 ===== -->
+<section class="chapter" id="smard">
+  <div class="ch-head"><span class="ch-num">Chapter 3</span><h2>The SMA re-centering damper (SMARD)</h2></div>
+  <div class="grid2">
+    <div class="text">
+      <p class="k">The SMARD combines two jobs in one compact device: NiTiHfPd bars that re-center the structure, and friction springs that dissipate energy and add stroke.</p>
+      <p>A piston runs through a housing with baffles. Whichever way it moves, it pushes one plate while the baffle holds the other, so the bars and springs are always compressed. The result is a flag-shaped force–displacement loop.</p>
+      <ul class="facts">
+        <li><span>Capacity</span><span>3600 kN from four 900 kN friction-spring groups; 150 mm stroke; loss factor over 0.30</span></li>
+        <li><span>SMA bars</span><span>25 mm diameter, 200 mm long, design stress 1800 MPa</span></li>
+        <li><span>Buildings</span><span>6-story and 9-story steel moment frames in Seattle, two SMARDs per story in chevron braces</span></li>
+        <li><span>Analysis</span><span>OpenSees, 44 far-field records, design (DBE) and maximum (MCE) earthquakes</span></li>
+      </ul>
+      <div class="quiz" data-q="3"><p>Quick check: in the 6-story frame at MCE, how many of the 44 records collapsed the frame <em>with</em> SMARDs?</p>
+        <div class="opts"><button data-a="1">1</button><button data-a="0">9</button><button data-a="0">17</button></div><p class="ans" aria-live="polite"></p></div>
+    </div>
+    <div class="lab">
+      <div class="lab-title"><b>Drive the piston</b><span class="tag">Drag or play</span></div>
+      <canvas id="smCv" width="720" height="300" aria-label="Cutaway of the SMARD; drag the piston"></canvas>
+      <canvas id="smLoop" width="720" height="240" style="margin-top:.6rem" aria-label="Force-displacement loop of the SMARD"></canvas>
+      <div class="ctrl"><button class="b" id="smPlay">Play cycles</button><span>or drag the piston rod left and right</span></div>
+      <div class="lab-title" style="margin-top:1.1rem"><b>6-story frame, 44 records</b></div>
+      <canvas id="barCv" width="720" height="260" aria-label="Bar chart comparing the frame with and without SMARDs"></canvas>
+      <div class="ctrl"><span class="seg" role="group" aria-label="Result"><button data-r="drift" aria-pressed="true">Median peak drift</button><button data-r="col" aria-pressed="false">Collapses</button><button data-r="res" aria-pressed="false">Residual drift &gt; 1%</button></span></div>
+      <p class="fine" id="barNote">Median peak inter-story drift at the design earthquake (DBE): 4.21% without and 0.87% with SMARDs. Smart Materials and Structures 31 (2022) 065004.</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" style="border-bottom:0">
+  <div class="ch-head"><span class="ch-num">Conclusions</span><h2>What the thesis shows</h2></div>
+  <div class="concl">
+    <div><b>A strong, damping alloy</b>NiTiHfPd keeps its superelastic flag from −35 to 25 °C; colder means more damping, and from 5 to 25 °C the change is under 10%.</div>
+    <div><b>Braces that re-center</b>In a 4-story frame, SMA braces cut the median residual drift at the rarest shaking from 4.31% to 0.69%, with similar peak drifts and accelerations.</div>
+    <div><b>A practical device</b>The SMARD sharply reduced drifts, residual drifts and collapses in 6- and 9-story frames, with only a small increase in floor acceleration.</div>
+  </div>
+  <p style="margin-top:1.5rem"><a class="btn p" style="color:#14213d" href="https://libraetd.lib.virginia.edu/public_view/qr46r138d" target="_blank" rel="noopener">Read the full thesis</a> &nbsp; <a href="index.html#smard">See the SMARD research on the main site</a></p>
+</section>
+</main>
+<footer><div class="wrap">© 2026 Farzad Shafiei Dizaji · M.S. thesis, Department of Civil and Environmental Engineering, University of Virginia, 2019 · Numbers from the thesis, the 11NCEE (2018) paper and Smart Materials and Structures 31 (2022) 065004; animations are illustrative.</div></footer>
+
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const C={ink:'#e6ecf2',muted:'#9aa8b6',rule:'#27436b',blue:'#6bb7e3',orange:'#f09a6e',yel:'#e8c547',green:'#7bd389',red:'#e0605a'};
+function prep(cv){cv._w0=cv.width;cv._h0=cv.height;const g=cv.getContext('2d');const res=()=>{const r=window.devicePixelRatio||1,w=cv.clientWidth||cv._w0;cv.width=Math.round(w*r);cv.height=Math.round(w*r*cv._h0/cv._w0);g.setTransform(cv.width/cv._w0,0,0,cv.height/cv._h0,0,0);};res();addEventListener('resize',()=>{res();cv._draw&&cv._draw();});return g;}
+const vis=new WeakMap();const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>vis.set(e.target,e.isIntersecting)),{threshold:0.05}):null;
+function watch(el){vis.set(el,true);if(io)io.observe(el);}
+// ---- NiTiHfPd model (Table 3, 1 Hz): two flags in parallel; strain in %
+const P={25:[[370,87,570,.50],[410,87,738,.20]],5:[[234.4,67.4,410.2,.70],[377,67.4,829.4,.29]],'-35':[[370,50,629,.80],[230,50,505,.40]]};
+function flagBranch(e,load,p){const [k1,k2,sf,b]=p;const ey=sf/k1;const sr=sf*(1-b);const s=Math.abs(e),sg=Math.sign(e);
+  if(load){return sg*(s<=ey?k1*s:sf+k2*(s-ey));}
+  // unloading from the post-transformation branch: elastic until reverse plateau
+  const ery=sr/k1; return sg*(s<=ery?k1*s:sr+k2*(s-ery));}
+function loopPts(T,amp){const pts=[];const N=120;for(let i=0;i<=N;i++){const e=amp*i/N;pts.push([e,P[T].reduce((a,p)=>a+flagBranch(e,true,p),0)]);}
+  const down=[];for(let i=N;i>=0;i--){const e=amp*i/N;let s=P[T].reduce((a,p)=>{const lo=flagBranch(e,false,p),hi=flagBranch(e,true,p);const top=flagBranch(amp,true,p);const el=top-p[0]*(amp-e);return a+Math.max(lo,Math.min(hi,el));},0);down.push([e,s]);}return pts.concat(down);}
+// ---- hero loop animation
+(function(){const cv=document.getElementById('heroCv'),g=prep(cv);watch(cv);let t0=performance.now();
+  function draw(now){const W=640,H=440;g.clearRect(0,0,W,H);g.fillStyle='#08111f';g.fillRect(0,0,W,H);
+    const ox=70,oy=380,sx=135,sy=0.19;g.strokeStyle=C.rule;g.lineWidth=1;for(let i=0;i<=4;i++){g.beginPath();g.moveTo(ox+i*sx,oy);g.lineTo(ox+i*sx,40);g.stroke();}
+    for(let s=0;s<=1800;s+=400){g.beginPath();g.moveTo(ox,oy-s*sy);g.lineTo(ox+4*sx,oy-s*sy);g.stroke();}
+    g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';g.fillText('strain (%)',W-110,oy+28);g.save();g.translate(22,230);g.rotate(-Math.PI/2);g.fillText('stress (MPa)',0,0);g.restore();
+    for(let i=0;i<=4;i++)g.fillText(String(i),ox+i*sx-4,oy+16);for(let s=0;s<=1600;s+=400)g.fillText(String(s),ox-42,oy-s*sy+4);
+    const temps=['-35','5','25'],cols=[C.blue,C.green,C.orange];const ph=reduce?1:((Math.max(0,now-t0))/4200)%1;
+    temps.forEach((T,k)=>{const pts=loopPts(T,3.6);const n=Math.max(2,Math.floor(pts.length*Math.min(1,ph*1.15+k*0.0)));g.strokeStyle=cols[k];g.lineWidth=2.4;g.beginPath();pts.slice(0,n).forEach((p,i)=>{const x=ox+p[0]*sx,y=oy-p[1]*sy;i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();
+      const q=pts[n-1];g.fillStyle=cols[k];g.beginPath();g.arc(ox+q[0]*sx,oy-q[1]*sy,4.5,0,7);g.fill();g.font='600 13px IBM Plex Sans,sans-serif';g.fillText((T==='-35'?'−35':T)+' °C',ox+4*sx-70,70+k*20);});
+    g.fillStyle=C.ink;g.font='600 15px Fraunces,serif';g.fillText('NiTiHfPd superelastic loops (model, 1 Hz)',ox,26);
+    if(!reduce&&vis.get(cv)!==false)requestAnimationFrame(draw);else if(!reduce)setTimeout(()=>requestAnimationFrame(draw),400);}
+  cv._draw=()=>draw(performance.now());requestAnimationFrame(draw);})();
+// ---- chapter 1: specimen + loop
+(function(){const cv=document.getElementById('matCv'),g=prep(cv);watch(cv);let T='25',F='1',amp=3,t0=performance.now();
+  const data={damp:{'-35':{0.05:'4.96%',0.5:'4.04%',1:'4.07%'},25:{0.05:'3.34%',0.5:'2.29%',1:'1.98%'}},en:{0.05:'−32%',0.5:'−42%',1:'−50%'},st:{0.05:'+29%',0.5:'+34%',1:'+35%'}};
+  function cards(){const d=document.getElementById('cDamp'),dn=document.getElementById('cDampN'),en=document.getElementById('cEn'),enn=document.getElementById('cEnN'),st=document.getElementById('cSt'),stn=document.getElementById('cStN');
+    if(T==='5'){d.textContent='≈ 25 °C value';dn.textContent='within 10% of 25 °C (measured)';en.textContent='< 10%';enn.textContent='difference from 25 °C';st.textContent='—';stn.textContent='not reported separately';}
+    else{d.textContent=data.damp[T][F];dn.textContent=`measured at ${T==='-35'?'−35':T} °C, ${F} Hz`;
+      if(T==='25'){en.textContent=data.en[F];enn.textContent=`25 °C vs −35 °C, ${F} Hz`;st.textContent=data.st[F];stn.textContent=`25 °C vs −35 °C, ${F} Hz`;}
+      else{en.textContent='baseline';enn.textContent='−35 °C has the widest loops';st.textContent='baseline';stn.textContent='softest of the three';}}}
+  document.querySelectorAll('#material .seg button').forEach(b=>b.onclick=()=>{const grp=b.parentElement;grp.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(b.dataset.t)T=b.dataset.t;if(b.dataset.f)F=b.dataset.f;cards();});
+  const sl=document.getElementById('matAmp');sl.oninput=()=>{amp=+sl.value;document.getElementById('matAmpV').textContent=amp.toFixed(1)+'%';};
+  function draw(now){const W=720,H=440;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);
+    const pts=loopPts(T,amp);const per=reduce?1e9:3600;const ph=reduce?0.25:((Math.max(0,now-t0))%per)/per;const idx=Math.floor(ph*(pts.length-1));const cur=pts[idx];
+    // specimen (left)
+    const e=cur[0],cx=110,base=360,h0=180,h=h0*(1-e/100*6),w=90*(1+e/100*2.2);
+    g.fillStyle='#2a3a52';g.fillRect(cx-80,base,160,14);g.fillRect(cx-80,base-h-14,160,14);
+    const glow=Math.min(1,cur[1]/1900);g.fillStyle=`rgba(240,154,110,${0.25+0.65*glow})`;g.fillRect(cx-w/2,base-h,w,h);g.strokeStyle=C.orange;g.lineWidth=1.5;g.strokeRect(cx-w/2,base-h,w,h);
+    g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';g.fillText('4 × 4 × 8 mm',cx-44,base+34);g.fillText('compression',cx-40,base-h-26);
+    g.strokeStyle=C.blue;g.lineWidth=2;g.beginPath();g.moveTo(cx,base-h-60);g.lineTo(cx,base-h-18);g.stroke();g.beginPath();g.moveTo(cx-7,base-h-26);g.lineTo(cx,base-h-16);g.lineTo(cx+7,base-h-26);g.stroke();
+    // loop (right)
+    const ox=270,oy=380,sx=105,sy=0.17;g.strokeStyle=C.rule;g.lineWidth=1;g.beginPath();g.moveTo(ox,oy);g.lineTo(ox+4.3*sx,oy);g.moveTo(ox,oy);g.lineTo(ox,40);g.stroke();
+    g.fillStyle=C.muted;for(let i=0;i<=4;i++)g.fillText(String(i),ox+i*sx-4,oy+16);for(let s=0;s<=2000;s+=500)g.fillText(String(s),ox-38,oy-s*sy+4);
+    g.fillText('strain (%)',ox+4.3*sx-70,oy+32);g.fillText('stress (MPa)',ox+6,46);
+    g.strokeStyle='rgba(240,154,110,.25)';g.lineWidth=2;g.beginPath();pts.forEach((p,i)=>{const x=ox+p[0]*sx,y=oy-p[1]*sy;i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();
+    g.strokeStyle=C.orange;g.lineWidth=2.6;g.beginPath();pts.slice(0,idx+1).forEach((p,i)=>{const x=ox+p[0]*sx,y=oy-p[1]*sy;i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();
+    g.fillStyle=C.yel;g.beginPath();g.arc(ox+cur[0]*sx,oy-cur[1]*sy,5,0,7);g.fill();
+    g.fillStyle=C.ink;g.font='600 14px IBM Plex Sans,sans-serif';g.fillText(`${T==='-35'?'−35':T} °C · ε = ${cur[0].toFixed(2)}% · σ = ${Math.round(cur[1])} MPa`,ox,24);
+    if(!reduce)requestAnimationFrame(draw);}
+  cv._draw=()=>draw(performance.now());cards();requestAnimationFrame(draw);})();
+// ---- chapter 2: two 4-story frames
+(function(){const cv=document.getElementById('frCv'),g=prep(cv);let hz=2,run=false,t=0,last=0;
+  const D=[{i:['1.13','1.07'],a:['6.72','6.68'],r:['0.09','0.06'],R:[0.09,0.06],A:0.35},{i:['2.34','2.23'],a:['9.12','9.35'],r:['0.79','0.33'],R:[0.79,0.33],A:0.6},{i:['5.88','5.23'],a:['14.03','13.14'],r:['4.31','0.69'],R:[4.31,0.69],A:1}];
+  function setH(h){hz=h;const d=D[h];document.getElementById('fIDR').textContent=`${d.i[0]} / ${d.i[1]}%`;document.getElementById('fFAA').textContent=`${d.a[0]} / ${d.a[1]}`;document.getElementById('fRIDR').textContent=`${d.r[0]} / ${d.r[1]}%`;t=0;run=false;document.getElementById('frGo').textContent='Start earthquake';draw();}
+  document.querySelectorAll('#braces .seg button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));setH(+b.dataset.h);});
+  const TD=9;
+  function gm(tt){if(tt>TD)return 0;const e=Math.sin(Math.PI*tt/TD)**2;return e*(Math.sin(2*Math.PI*0.9*tt)+0.6*Math.sin(2*Math.PI*1.7*tt+1)+0.4*Math.sin(2*Math.PI*2.6*tt+2));}
+  function lean(k,tt){const d=D[hz];const settle=Math.min(1,Math.max(0,(tt-1.5)/(TD-1.5)));const res=d.R[k]*6*settle;return res+gm(tt)*16*d.A;}
+  function frame(x0,label,col,k,tt){const B=70,Hs=58,ns=4,base=350;const top=lean(k,tt);const u=j=>top*(j/ns);
+    g.strokeStyle='#8794a3';g.lineWidth=3;for(let j=1;j<=ns;j++){g.beginPath();g.moveTo(x0+u(j),base-j*Hs);g.lineTo(x0+3*B+u(j),base-j*Hs);g.stroke();}
+    for(let c=0;c<=3;c++){g.beginPath();for(let j=0;j<=ns;j++){const x=x0+c*B+u(j),y=base-j*Hs;j?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();}
+    if(k===1){g.strokeStyle=C.orange;g.lineWidth=2;for(let j=0;j<ns;j++)for(let c=0;c<3;c++){const xl=x0+c*B+u(j),xr=x0+(c+1)*B+u(j),xm=x0+(c+.5)*B+u(j+1);g.beginPath();g.moveTo(xl,base-j*Hs);g.lineTo(xm,base-(j+1)*Hs+3);g.lineTo(xr,base-j*Hs);g.stroke();}}
+    g.strokeStyle=C.muted;g.setLineDash([4,4]);g.lineWidth=1;g.beginPath();g.moveTo(x0+3*B,base);g.lineTo(x0+3*B,base-ns*Hs-12);g.stroke();g.setLineDash([]);
+    g.fillStyle=col;g.font='600 14px IBM Plex Sans,sans-serif';g.fillText(label,x0,base-ns*Hs-26);
+    if(tt>TD+0.5){const r=D[hz].R[k];g.fillStyle=k?C.green:C.red;g.font='600 13px IBM Plex Mono,monospace';g.fillText(`residual drift ${r.toFixed(2)}%`,x0,base+36);}}
+  function draw(){const W=720,H=420;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);
+    const sh=gm(t)*6*D[hz].A;g.strokeStyle=C.rule;g.lineWidth=2;g.beginPath();g.moveTo(20+sh,350);g.lineTo(700+sh,350);g.stroke();
+    frame(60+sh,'Moment frame',C.ink,0,t);frame(420+sh,'SMA-braced frame',C.orange,1,t);
+    g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';g.fillText(run?`t = ${t.toFixed(1)} s`:(t>0?'shaking over':'press Start'),20,30);g.fillText('lean exaggerated for visibility',520,30);}
+  function tick(now){if(!run)return;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;draw();if(t<TD+1.5)requestAnimationFrame(tick);else{run=false;document.getElementById('frGo').textContent='Run again';draw();}}
+  document.getElementById('frGo').onclick=()=>{t=0;run=true;last=performance.now();document.getElementById('frGo').textContent='Shaking…';if(reduce){t=TD+1;run=false;draw();return;}requestAnimationFrame(tick);};
+  cv._draw=draw;setH(2);})();
+// ---- chapter 3: SMARD cutaway + loop + results
+(function(){const cv=document.getElementById('smCv'),g=prep(cv),lc=document.getElementById('smLoop'),gl=prep(lc);let p=0,play=false,t=0,last=0,trail=[];
+  const STROKE=1;function force(x,dir){const ax=Math.abs(x),s=Math.sign(x);const xa=.25;const el=ax<xa?ax*3.2:0.8+1.0*(ax-xa);const fr=0.45*(dir===Math.sign(x)||x===0?1:-1);return s*Math.max(0,el+(ax>0.02?fr*Math.min(1,ax/0.1):0));}
+  let lastP=0;
+  function draw(){const W=720,H=300;g.clearRect(0,0,W,H);g.fillStyle='#05080d';g.fillRect(0,0,W,H);
+    const cy=150,HX0=150,HX1=590,DH=120,BX0=210,BX1=530;const sc=110;const px=p*sc;
+    g.strokeStyle='#c9d6e4';g.lineWidth=2.5;g.strokeRect(HX0,cy-DH/2,HX1-HX0,DH);
+    g.fillStyle='#7d8a99';[[HX0-4,1],[HX1-4,1],[BX0-14,1],[BX1+6,1]].forEach(([x])=>{g.fillRect(x,cy-DH/2,8,DH/2-18);g.fillRect(x,cy+18,8,DH/2-18);});
+    const pl=BX0+Math.max(px,0),pr=BX1+Math.min(px,0);const L0=BX1-BX0,L=pr-pl,strain=(L0-L)/L0;
+    g.fillStyle=C.yel;[pl,pr].forEach(x=>{g.fillRect(x-5,cy-DH/2+8,10,DH/2-26);g.fillRect(x-5,cy+18,10,DH/2-26);});
+    const fb=L*0.27;[cy-30,cy+30].forEach(y=>{g.fillStyle=`rgba(240,154,110,${0.6+1.2*strain})`;g.fillRect(pl+6,y-7,fb,14);g.fillRect(pr-6-fb,y-7,fb,14);
+      g.strokeStyle='#dfe6ee';g.lineWidth=1.6;g.beginPath();const a=pl+6+fb,b=pr-6-fb,n=12;for(let i=0;i<=2*n;i++){const x=a+(b-a)*i/(2*n),yy=y+(i===0||i===2*n?0:(i%2?9:-9));i?g.lineTo(x,yy):g.moveTo(x,yy);}g.stroke();});
+    g.fillStyle='#b9c3cf';g.fillRect(BX0-50+px,cy-6,HX1+70-BX0+50,12);g.fillRect(BX0-22+px,cy-13,8,26);g.fillRect(BX1+14+px,cy-13,8,26);
+    g.strokeStyle='#b9c3cf';g.lineWidth=3;g.beginPath();g.arc(HX0-28,cy,12,0,7);g.stroke();g.beginPath();g.moveTo(HX0-16,cy);g.lineTo(HX0,cy);g.stroke();g.beginPath();g.arc(HX1+82+px,cy,12,0,7);g.stroke();
+    g.fillStyle=C.muted;g.font='12px IBM Plex Mono,monospace';
+    [['housing with baffles',HX0+8,cy-DH/2-10],['plates',pl-20,cy+DH/2+18],['NiTiHfPd bars',pl+8,cy-48],['friction springs',(pl+pr)/2-50,cy+56],['drag the piston rod',HX1-120,cy+DH/2+18]].forEach(([s,x,y])=>g.fillText(s,x,y));
+    g.fillStyle=C.ink;g.font='600 13px IBM Plex Mono,monospace';g.fillText(`piston ${(p*150).toFixed(0)} mm · core strain ${(strain*100).toFixed(1)}%`,20,26);
+    // loop
+    const W2=720,H2=240;gl.clearRect(0,0,W2,H2);gl.fillStyle='#05080d';gl.fillRect(0,0,W2,H2);const ox=360,oy=120,sx=290,sy=48;
+    gl.strokeStyle=C.rule;gl.lineWidth=1;gl.beginPath();gl.moveTo(40,oy);gl.lineTo(690,oy);gl.moveTo(ox,14);gl.lineTo(ox,226);gl.stroke();
+    gl.fillStyle=C.muted;gl.font='12px IBM Plex Mono,monospace';gl.fillText('displacement',600,oy-8);gl.fillText('force',ox+8,26);gl.fillText('−150 mm',40,oy+18);gl.fillText('+150 mm',630,oy+18);
+    gl.strokeStyle=C.orange;gl.lineWidth=2.2;gl.beginPath();trail.forEach((q,i)=>{const x=ox+q[0]*sx,y=oy-q[1]*sy;i?gl.lineTo(x,y):gl.moveTo(x,y);});gl.stroke();
+    if(trail.length){const q=trail[trail.length-1];gl.fillStyle=C.yel;gl.beginPath();gl.arc(ox+q[0]*sx,oy-q[1]*sy,5,0,7);gl.fill();}
+    gl.fillStyle=C.ink;gl.font='600 13px IBM Plex Sans,sans-serif';gl.fillText('Flag-shaped loop: energy dissipated, and the force returns the device to zero',40,26);}
+  function setP(v){const dir=Math.sign(v-lastP)||1;lastP=v;p=Math.max(-STROKE,Math.min(STROKE,v));trail.push([p,force(p,dir)]);if(trail.length>900)trail.shift();draw();}
+  function tick(now){if(!play)return;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;const a=Math.min(1,0.25+t*0.09);setP(a*Math.sin(2*Math.PI*0.45*t));if(t<14)requestAnimationFrame(tick);else{play=false;setP(0);document.getElementById('smPlay').textContent='Play again';}}
+  document.getElementById('smPlay').onclick=()=>{trail=[];t=0;play=true;last=performance.now();document.getElementById('smPlay').textContent='Playing…';requestAnimationFrame(tick);};
+  let drag=false;const xOf=e=>{const r=cv.getBoundingClientRect();return (e.clientX-r.left)/r.width*720;};
+  cv.addEventListener('pointerdown',e=>{drag=true;play=false;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;setP((xOf(e)-640)/110);});
+  cv.addEventListener('pointerup',()=>{drag=false;const back=()=>{if(drag)return;if(Math.abs(p)<.01){setP(0);return;}setP(p*0.86);requestAnimationFrame(back);};requestAnimationFrame(back);});
+  cv._draw=draw;lc._draw=draw;draw();
+  // results bars
+  const bc=document.getElementById('barCv'),gb=prep(bc);let mode='drift';
+  const R={drift:{u:'%',rows:[['DBE median',4.21,0.87],['DBE 84th pct.',6.25,1.92],['MCE 84th pct.',9.42,3.11]],note:'Median and 84th-percentile peak inter-story drift of the 6-story frame over 44 records, without and with SMARDs. Smart Materials and Structures 31 (2022) 065004.'},
+    col:{u:'',rows:[['DBE',9,0],['MCE',17,1]],note:'Number of the 44 records that collapsed the 6-story frame (peak drift above 10%). At the DBE the controlled frame stayed below 3.25% drift except one record at 5.25%.'},
+    res:{u:'',rows:[['DBE',18,1]],note:'Records leaving more than 1% residual drift in the 6-story frame at the DBE: 18 without SMARDs; with SMARDs only one record, at 1.24%.'}};
+  function drawB(){const W=720,H=260;gb.clearRect(0,0,W,H);gb.fillStyle='#05080d';gb.fillRect(0,0,W,H);const d=R[mode];const max=Math.max(...d.rows.flatMap(r=>[r[1],r[2]]))*1.5;
+    const x0=150,x1=690,rowH=(H-60)/d.rows.length;gb.font='12px IBM Plex Mono,monospace';
+    d.rows.forEach((r,i)=>{const y=30+i*rowH;gb.fillStyle=C.muted;gb.fillText(r[0],16,y+rowH*0.45);
+      [[r[1],'#8794a3','without'],[r[2],C.orange,'with SMARDs']].forEach(([v,col,lab],j)=>{const yy=y+j*(rowH*0.38)+4,bw=(x1-x0)*v/max;gb.fillStyle=col;gb.fillRect(x0,yy,Math.max(2,bw),rowH*0.3);gb.fillStyle=C.ink;gb.fillText(`${v}${d.u}  ${lab}`,x0+Math.max(2,bw)+8,yy+rowH*0.22);});});
+    document.getElementById('barNote').textContent=d.note;}
+  document.querySelectorAll('#smard .seg button').forEach(b=>b.onclick=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));mode=b.dataset.r;drawB();});
+  bc._draw=drawB;drawB();})();
+// ---- quizzes
+document.querySelectorAll('.quiz').forEach(q=>{const ans=q.querySelector('.ans');const exp={1:'Correct: colder alloy dissipates more energy. From −35 °C to 25 °C, dissipated energy at 1 Hz drops by 50%, so at −35 °C it is about twice the 25 °C value.',2:'Correct: 4.31% without braces versus 0.69% with SMA braces.',3:'Correct: only 1 of 44 records, versus 17 without SMARDs.'};
+  q.querySelectorAll('button').forEach(b=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.classList.remove('right','wrong'));if(b.dataset.a==='1'){b.classList.add('right');ans.textContent=exp[q.dataset.q];}else{b.classList.add('wrong');ans.textContent='Not quite. Try another answer.';}});});
+})();
+</script>
+<script>
+(function(){if(location.hostname!=='farzadshafiei.github.io')return;
+  var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter','https://farzadshafiei.goatcounter.com/count');document.head.appendChild(s);
+  // also count opens of CVs, resumes, statements, papers and teaching PDFs, and clicks to outside profiles
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||!window.goatcounter||!window.goatcounter.count)return;var h=a.getAttribute('href');
+    if(/\.pdf($|\?)/i.test(h))window.goatcounter.count({path:'pdf: '+h.replace(/^.*\//,''),title:a.textContent.trim().slice(0,80),event:true});
+    else if(/^https?:/i.test(h)&&a.host!==location.host)window.goatcounter.count({path:'link: '+a.host,title:a.textContent.trim().slice(0,80),event:true});},true);})();
+</script>
+</body></html>
