@@ -337,6 +337,9 @@ header.hero{padding-top:2.5rem}
 .intro-card{position:relative;text-align:center;padding:0 1rem;animation:introIn 1.2s cubic-bezier(.2,.8,.2,1) both}
 .intro-photo{display:block;width:clamp(150px,20vw,260px);height:auto;margin:0 auto 1.2rem;border-radius:10px;border:2px solid var(--accent);box-shadow:0 0 0 5px rgba(107,183,227,.12),0 10px 40px rgba(0,0,0,.7)}
 .intro-name{margin:0;font:600 clamp(2.2rem,6vw,4.7rem)/1.05 'Fraunces',var(--serif);letter-spacing:-.02em;color:var(--ink);text-shadow:0 0 2px #000,0 4px 30px #000}
+.intro-name{animation:nameBrighten 4s cubic-bezier(.25,.1,.25,1) .3s both}
+@keyframes nameBrighten{0%{opacity:.08;filter:brightness(.35)}45%{opacity:.85;filter:brightness(.8)}100%{opacity:1;filter:brightness(1.12) drop-shadow(0 0 16px rgba(255,236,200,.38))}}
+@media (prefers-reduced-motion:reduce){.intro-name{animation:none}}
 .intro-role{margin:.9rem 0 1.6rem;font:500 clamp(.78rem,1.6vw,1.05rem) var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);text-shadow:0 0 12px #000}
 .intro-btns{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:0}
 @media (max-width:760px){.intro::before{inset:22% -15%;background:radial-gradient(closest-side,rgba(0,0,0,.92),rgba(0,0,0,.7) 60%,transparent)}.intro-role{letter-spacing:.08em}}
