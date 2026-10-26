@@ -505,6 +505,10 @@ details.lab-wrap[open] .lw-close{display:inline}
 .tbtn{min-width:220px;text-align:center;padding:.8rem 1.4rem;border-radius:6px;font:600 .95rem var(--sans);text-decoration:none;transition:background .2s}
 .tbtn.light{background:rgba(244,244,244,.95);color:#171a20}.tbtn.light:hover{background:#fff}
 .tbtn.dark{background:rgba(23,26,32,.72);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.tbtn.dark:hover{background:rgba(23,26,32,.9)}
+.dcall{position:absolute;bottom:100%;left:50%;transform:translate(-50%,8px);margin:0 0 1.5rem;width:max-content;max-width:calc(100% - 2rem);display:flex;align-items:center;gap:.55rem;padding:.5rem 1rem;border-radius:999px;background:rgba(8,14,24,.72);border:1px solid rgba(232,197,71,.65);color:#f4f1e8;font:500 .86rem/1.3 var(--sans);text-align:left;box-shadow:0 6px 24px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .7s ease,transform .7s ease}
+.dcall svg{flex:none;width:16px;height:16px;color:#e8c547}
+.dcall.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.dcall{font-size:.78rem;margin-bottom:1rem;padding:.45rem .8rem}}
 .intro-cap{margin:0;font:500 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);text-align:center}
 .intro-cue{bottom:.8rem!important}
 @media (max-width:560px){.tbtn{min-width:0;flex:1 1 100%}.intro{padding-block:7vh 4rem}}
@@ -572,6 +576,7 @@ html:not([data-theme="dark"]) .sheet .wordlit.on .w{animation-name:wglowL}
     <p class="intro-sub">Former Lecturer Professor, University of Virginia · 2019 – 2026</p>
   </div>
   <div class="intro-bottom">
+    <p class="dcall" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></svg>This is the SMA re-centering damper I designed and created in my research</p>
     <p class="intro-btns"><a class="tbtn light" href="cv/Farzad_Shafiei_Dizaji_CV.pdf" target="_blank" rel="noopener">View CV</a><a class="tbtn dark" href="#hero">Explore my work</a></p>
     <p class="intro-cap">28-story steel building with SMA re-centering dampers · from my research</p>
   </div>
@@ -1936,6 +1941,11 @@ G.DamNN={DT,whiteNoise,shaped,simulate,Net,pairs};
 <script>
 document.querySelectorAll('details.lab-wrap').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)setTimeout(function(){window.dispatchEvent(new Event('resize'));},30);});});
 if(location.hash){var t=document.querySelector(location.hash);var w=t&&t.closest&&t.closest('details.lab-wrap');if(w)w.open=true;}
+</script>
+<script>
+(function(){var v=document.querySelector('.bgvid'),c=document.querySelector('.dcall');if(!v||!c)return;
+  function t(){var x=v.currentTime;c.classList.toggle('on',x>=11.2&&x<=16.3);}
+  v.addEventListener('timeupdate',t);v.addEventListener('seeked',t);})();
 </script>
 <script>
 (function(){var vs=[].slice.call(document.querySelectorAll('video[data-autoplay]'));if(!vs.length)return;
